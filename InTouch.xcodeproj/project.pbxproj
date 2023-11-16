@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C552B05F77800AE7AEE /* AppDelegate.swift */; };
+		9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */; };
+		9DE69C5A2B05F77800AE7AEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C592B05F77800AE7AEE /* ViewController.swift */; };
+		9DE69C5D2B05F77800AE7AEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DE69C5B2B05F77800AE7AEE /* Main.storyboard */; };
+		9DE69C5F2B05F77900AE7AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DE69C5E2B05F77900AE7AEE /* Assets.xcassets */; };
+		9DE69C622B05F77900AE7AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DE69C602B05F77900AE7AEE /* LaunchScreen.storyboard */; };
+		9DE69C6D2B05F77900AE7AEE /* InTouchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C6C2B05F77900AE7AEE /* InTouchTests.swift */; };
+		9DE69C772B05F77900AE7AEE /* InTouchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C762B05F77900AE7AEE /* InTouchUITests.swift */; };
+		9DE69C792B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C782B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9DE69C692B05F77900AE7AEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9DE69C4A2B05F77800AE7AEE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9DE69C512B05F77800AE7AEE;
+			remoteInfo = InTouch;
+		};
+		9DE69C732B05F77900AE7AEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9DE69C4A2B05F77800AE7AEE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9DE69C512B05F77800AE7AEE;
+			remoteInfo = InTouch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9DE69C522B05F77800AE7AEE /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DE69C552B05F77800AE7AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9DE69C592B05F77800AE7AEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9DE69C5C2B05F77800AE7AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9DE69C5E2B05F77900AE7AEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9DE69C612B05F77900AE7AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9DE69C632B05F77900AE7AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9DE69C682B05F77900AE7AEE /* InTouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InTouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DE69C6C2B05F77900AE7AEE /* InTouchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTouchTests.swift; sourceTree = "<group>"; };
+		9DE69C722B05F77900AE7AEE /* InTouchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InTouchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DE69C762B05F77900AE7AEE /* InTouchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTouchUITests.swift; sourceTree = "<group>"; };
+		9DE69C782B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTouchUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9DE69C4F2B05F77800AE7AEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DE69C652B05F77900AE7AEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DE69C6F2B05F77900AE7AEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9DE69C492B05F77800AE7AEE = {
+			isa = PBXGroup;
+			children = (
+				9DE69C542B05F77800AE7AEE /* InTouch */,
+				9DE69C6B2B05F77900AE7AEE /* InTouchTests */,
+				9DE69C752B05F77900AE7AEE /* InTouchUITests */,
+				9DE69C532B05F77800AE7AEE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9DE69C532B05F77800AE7AEE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DE69C522B05F77800AE7AEE /* InTouch.app */,
+				9DE69C682B05F77900AE7AEE /* InTouchTests.xctest */,
+				9DE69C722B05F77900AE7AEE /* InTouchUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9DE69C542B05F77800AE7AEE /* InTouch */ = {
+			isa = PBXGroup;
+			children = (
+				9DE69C552B05F77800AE7AEE /* AppDelegate.swift */,
+				9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */,
+				9DE69C592B05F77800AE7AEE /* ViewController.swift */,
+				9DE69C5B2B05F77800AE7AEE /* Main.storyboard */,
+				9DE69C5E2B05F77900AE7AEE /* Assets.xcassets */,
+				9DE69C602B05F77900AE7AEE /* LaunchScreen.storyboard */,
+				9DE69C632B05F77900AE7AEE /* Info.plist */,
+			);
+			path = InTouch;
+			sourceTree = "<group>";
+		};
+		9DE69C6B2B05F77900AE7AEE /* InTouchTests */ = {
+			isa = PBXGroup;
+			children = (
+				9DE69C6C2B05F77900AE7AEE /* InTouchTests.swift */,
+			);
+			path = InTouchTests;
+			sourceTree = "<group>";
+		};
+		9DE69C752B05F77900AE7AEE /* InTouchUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9DE69C762B05F77900AE7AEE /* InTouchUITests.swift */,
+				9DE69C782B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift */,
+			);
+			path = InTouchUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9DE69C512B05F77800AE7AEE /* InTouch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DE69C7C2B05F77900AE7AEE /* Build configuration list for PBXNativeTarget "InTouch" */;
+			buildPhases = (
+				9DE69C4E2B05F77800AE7AEE /* Sources */,
+				9DE69C4F2B05F77800AE7AEE /* Frameworks */,
+				9DE69C502B05F77800AE7AEE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InTouch;
+			productName = InTouch;
+			productReference = 9DE69C522B05F77800AE7AEE /* InTouch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9DE69C672B05F77900AE7AEE /* InTouchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DE69C7F2B05F77900AE7AEE /* Build configuration list for PBXNativeTarget "InTouchTests" */;
+			buildPhases = (
+				9DE69C642B05F77900AE7AEE /* Sources */,
+				9DE69C652B05F77900AE7AEE /* Frameworks */,
+				9DE69C662B05F77900AE7AEE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9DE69C6A2B05F77900AE7AEE /* PBXTargetDependency */,
+			);
+			name = InTouchTests;
+			productName = InTouchTests;
+			productReference = 9DE69C682B05F77900AE7AEE /* InTouchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9DE69C712B05F77900AE7AEE /* InTouchUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DE69C822B05F77900AE7AEE /* Build configuration list for PBXNativeTarget "InTouchUITests" */;
+			buildPhases = (
+				9DE69C6E2B05F77900AE7AEE /* Sources */,
+				9DE69C6F2B05F77900AE7AEE /* Frameworks */,
+				9DE69C702B05F77900AE7AEE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9DE69C742B05F77900AE7AEE /* PBXTargetDependency */,
+			);
+			name = InTouchUITests;
+			productName = InTouchUITests;
+			productReference = 9DE69C722B05F77900AE7AEE /* InTouchUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9DE69C4A2B05F77800AE7AEE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					9DE69C512B05F77800AE7AEE = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					9DE69C672B05F77900AE7AEE = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 9DE69C512B05F77800AE7AEE;
+					};
+					9DE69C712B05F77900AE7AEE = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 9DE69C512B05F77800AE7AEE;
+					};
+				};
+			};
+			buildConfigurationList = 9DE69C4D2B05F77800AE7AEE /* Build configuration list for PBXProject "InTouch" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9DE69C492B05F77800AE7AEE;
+			productRefGroup = 9DE69C532B05F77800AE7AEE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9DE69C512B05F77800AE7AEE /* InTouch */,
+				9DE69C672B05F77900AE7AEE /* InTouchTests */,
+				9DE69C712B05F77900AE7AEE /* InTouchUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9DE69C502B05F77800AE7AEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DE69C622B05F77900AE7AEE /* LaunchScreen.storyboard in Resources */,
+				9DE69C5F2B05F77900AE7AEE /* Assets.xcassets in Resources */,
+				9DE69C5D2B05F77800AE7AEE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DE69C662B05F77900AE7AEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DE69C702B05F77900AE7AEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9DE69C4E2B05F77800AE7AEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DE69C5A2B05F77800AE7AEE /* ViewController.swift in Sources */,
+				9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */,
+				9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DE69C642B05F77900AE7AEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DE69C6D2B05F77900AE7AEE /* InTouchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DE69C6E2B05F77900AE7AEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DE69C772B05F77900AE7AEE /* InTouchUITests.swift in Sources */,
+				9DE69C792B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9DE69C6A2B05F77900AE7AEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9DE69C512B05F77800AE7AEE /* InTouch */;
+			targetProxy = 9DE69C692B05F77900AE7AEE /* PBXContainerItemProxy */;
+		};
+		9DE69C742B05F77900AE7AEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9DE69C512B05F77800AE7AEE /* InTouch */;
+			targetProxy = 9DE69C732B05F77900AE7AEE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9DE69C5B2B05F77800AE7AEE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DE69C5C2B05F77800AE7AEE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9DE69C602B05F77900AE7AEE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DE69C612B05F77900AE7AEE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9DE69C7A2B05F77900AE7AEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9DE69C7B2B05F77900AE7AEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9DE69C7D2B05F77900AE7AEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2B5AM4DDW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InTouch/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9DE69C7E2B05F77900AE7AEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2B5AM4DDW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InTouch/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9DE69C802B05F77900AE7AEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2B5AM4DDW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InTouch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InTouch";
+			};
+			name = Debug;
+		};
+		9DE69C812B05F77900AE7AEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2B5AM4DDW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InTouch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InTouch";
+			};
+			name = Release;
+		};
+		9DE69C832B05F77900AE7AEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2B5AM4DDW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = InTouch;
+			};
+			name = Debug;
+		};
+		9DE69C842B05F77900AE7AEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2B5AM4DDW5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = InTouch;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9DE69C4D2B05F77800AE7AEE /* Build configuration list for PBXProject "InTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DE69C7A2B05F77900AE7AEE /* Debug */,
+				9DE69C7B2B05F77900AE7AEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DE69C7C2B05F77900AE7AEE /* Build configuration list for PBXNativeTarget "InTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DE69C7D2B05F77900AE7AEE /* Debug */,
+				9DE69C7E2B05F77900AE7AEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DE69C7F2B05F77900AE7AEE /* Build configuration list for PBXNativeTarget "InTouchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DE69C802B05F77900AE7AEE /* Debug */,
+				9DE69C812B05F77900AE7AEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DE69C822B05F77900AE7AEE /* Build configuration list for PBXNativeTarget "InTouchUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DE69C832B05F77900AE7AEE /* Debug */,
+				9DE69C842B05F77900AE7AEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9DE69C4A2B05F77800AE7AEE /* Project object */;
+}
