@@ -21,11 +21,18 @@ class ITBaseViewController: UIViewController {
         return true
     }
 
-
+    
+    var isHideTabBar: Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if isHideNavigationBar {
             navigationItem.hidesBackButton = true
+        }
+        if isHideTabBar {
+            tabBarController?.tabBar.isHidden = true
         }
     }
     
@@ -35,10 +42,9 @@ class ITBaseViewController: UIViewController {
         if isHideNavigationBar {
             navigationController?.setNavigationBarHidden(true, animated: true)
         }
-        
-        IQKeyboardManager.shared.enable = isEnableIQKeyboard
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = isEnableResignOnTouchOutside
-        
+        if isHideTabBar {
+            tabBarController?.tabBar.isHidden = true
+        }
         setNeedsStatusBarAppearanceUpdate()
     }
 
@@ -48,10 +54,15 @@ class ITBaseViewController: UIViewController {
         if isHideNavigationBar {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
-
-        IQKeyboardManager.shared.enable = !isEnableIQKeyboard
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = !isEnableResignOnTouchOutside
+        if isHideTabBar {
+            tabBarController?.tabBar.isHidden = false
+        }
     }
-
+    
+    func popBack(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
 }
 
