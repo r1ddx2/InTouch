@@ -4,5 +4,80 @@
 //
 //  Created by Red Wang on 2023/11/17.
 //
+import UIKit
 
-import Foundation
+class ITTabBarViewController: UITabBarController {
+
+    private let tabs: [Tab] = [.home, .map, .draft, .activity, .profile]
+    
+    private var trolleyTabBarItem: UITabBarItem?
+    
+    private var orderObserver: NSKeyValueObservation?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tabBar.backgroundColor = .white
+     
+        viewControllers = tabs.map { $0.makeViewController() }
+    }
+}
+
+// MARK: - Tabs
+extension ITTabBarViewController {
+    private enum Tab {
+        case home
+        case map
+        case draft
+        case activity
+        case profile
+        
+        func makeViewController() -> UIViewController {
+            let controller: UIViewController
+            switch self {
+            case .home: controller = HomeViewController()
+            case .map: controller = MapViewController()
+            case .draft: controller = DraftViewController()
+            case .activity: controller = ActivityViewController()
+            case .profile: controller = ProfileViewController()
+            }
+            let navController = ITBaseNavigationController(rootViewController: controller)
+            navController.tabBarItem = makeTabBarItem()
+            navController.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: -6.0, right: 0.0)
+            return navController
+        }
+        
+        private func makeTabBarItem() -> UITabBarItem {
+            return UITabBarItem(title: nil, image: image, selectedImage: selectedImage)
+        }
+        
+        private var image: UIImage? {
+            switch self {
+            case .home:
+                return UIImage(resource: .iconHome)
+            case .map:
+                return UIImage(resource: .iconMap)
+            case .activity:
+                return UIImage(resource: .iconActivity)
+            case .draft:
+                return UIImage(resource: .iconDraft)
+            case .profile:
+                return UIImage(resource: .iconProfile)
+            }
+        }
+        
+        private var selectedImage: UIImage? {
+            switch self {
+            case .home:
+                return UIImage(resource: .iconHomeSelected)
+            case .map:
+                return UIImage(resource: .iconMapSelected)
+            case .activity:
+                return UIImage(resource: .iconActivitySelected)
+            case .draft:
+                return UIImage(resource: .iconDraft)
+            case .profile:
+                return UIImage(resource: .iconProfileSelected)
+            }
+        }
+    }
+}
