@@ -6,19 +6,17 @@
 //
 import UIKit
 
-class ITTabBarViewController: UITabBarController {
+class ITTabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     private let tabs: [Tab] = [.home, .map, .draft, .activity, .profile]
-    
-    private var trolleyTabBarItem: UITabBarItem?
-    
-    private var orderObserver: NSKeyValueObservation?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = .white
-     
+        
         viewControllers = tabs.map { $0.makeViewController() }
+    
+        delegate = self
     }
 }
 
@@ -43,6 +41,8 @@ extension ITTabBarViewController {
             let navController = ITBaseNavigationController(rootViewController: controller)
             navController.tabBarItem = makeTabBarItem()
             navController.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: -6.0, right: 0.0)
+
+           
             return navController
         }
         
@@ -68,16 +68,30 @@ extension ITTabBarViewController {
         private var selectedImage: UIImage? {
             switch self {
             case .home:
-                return UIImage(resource: .iconHomeSelected)
+                return UIImage(resource: .iconHomeSelected).withRenderingMode(.alwaysOriginal)
             case .map:
-                return UIImage(resource: .iconMapSelected)
+                return UIImage(resource: .iconMapSelected).withRenderingMode(.alwaysOriginal)
             case .activity:
-                return UIImage(resource: .iconActivitySelected)
+                return UIImage(resource: .iconActivitySelected).withRenderingMode(.alwaysOriginal)
             case .draft:
-                return UIImage(resource: .iconDraft)
+                return UIImage(resource: .iconDraft).withRenderingMode(.alwaysOriginal)
             case .profile:
-                return UIImage(resource: .iconProfileSelected)
+                return UIImage(resource: .iconProfileSelected).withRenderingMode(.alwaysOriginal)
             }
         }
     }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+            if let index = tabBarController.viewControllers?.firstIndex(of: viewController),
+               tabs[index] == .draft {
+            
+                let draftViewController = DraftViewController()
+                let navController = ITBaseNavigationController(rootViewController: draftViewController)
+                navController.modalPresentationStyle = .fullScreen
+                present(navController, animated: true, completion: nil)
+                return false
+            }
+            return true
+        }
+        
 }
