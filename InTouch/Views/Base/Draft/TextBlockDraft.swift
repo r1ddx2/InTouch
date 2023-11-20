@@ -7,7 +7,8 @@
 
 import UIKit
 
-class TextBlockDraft: UIView {
+class TextBlockDraftCell: UITableViewCell {
+    static let identifier = "TextBlockDraftCell"
     
     // MARK: - Subviews
     let titleLabel: UITextField = {
@@ -25,35 +26,34 @@ class TextBlockDraft: UIView {
         return textView
     }()
  
-    // MARK: - View Load
+    //MARK: - View Load
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .white
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayouts()
     }
     private func setUpLayouts() {
-        addSubview(titleLabel)
-        addSubview(textView)
-        
-        self.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(150)
-        }
-
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(textView)
         titleLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top).offset(12)
-            make.left.equalTo(self).offset(16)
-            make.right.equalTo(self).offset(-16)
+            make.top.equalTo(contentView).offset(12)
+            make.left.equalTo(contentView).offset(16)
+            make.right.equalTo(contentView).offset(-16)
         }
     
         textView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
-            make.left.equalTo(self).offset(16)
-            make.bottom.equalTo(self)
-            make.right.equalTo(self).offset(-16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.left.equalTo(contentView).offset(16)
+            make.bottom.equalTo(contentView)
+            make.right.equalTo(contentView).offset(-16)
         }
+        
+    }
+    // MARK: - Methods
+    func layoutCell() {
+        
         
     }
 
