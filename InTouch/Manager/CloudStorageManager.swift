@@ -60,20 +60,5 @@ class CloudStorageManager {
         
     }
                 
-                
-                // MARK: - Download Image URL
-
-    func getImageURL(userName: String, completion: @escaping (Result<URL, Error>) -> Void) {
-        let photoPath = "\(userName)/photo.jpg"
-        let storageRef = storage.reference().child(photoPath)
-
-        storageRef.downloadURL { (url, error) in
-            if let downloadURL = url {
-                completion(.success(downloadURL))
-            } else {
-                completion(.failure(error ?? NSError(domain: "YourApp", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch download URL"])))
-            }
-        }
-    }
 }
 

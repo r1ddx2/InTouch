@@ -56,6 +56,7 @@ class DraftTableHeaderView: UIView {
         self.init()
         setUpLayouts()
         setUpPickerView()
+        setUpToolBar()
         buttonsView.setUpButtons(buttonsCount: buttonCount, buttonTitles: buttonTitles)
         self.pickerData = pickerData
     }
@@ -94,9 +95,23 @@ class DraftTableHeaderView: UIView {
             make.right.equalTo(self)
             make.bottom.equalTo(self)
         }
-    
     }
+    private func setUpToolBar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexibleSpace, doneButton], animated: false)
+
+        groupTextField.inputAccessoryView = toolbar
+    }
+    
     //MARK: - Methods
+    @objc func doneButtonTapped() {
+        // Perform any actions needed when the "Done" button is tapped
+        // For example, dismiss the picker view
+        groupTextField.endEditing(true)
+    }
     func layoutCell() {
         
     }
