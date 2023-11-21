@@ -5,6 +5,9 @@
 //  Created by Red Wang on 2023/11/17.
 //
 import UIKit
+import FirebaseFirestore
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 enum DraftType: String, CaseIterable {
     case image = "Images"
@@ -13,15 +16,25 @@ enum DraftType: String, CaseIterable {
 
 class DraftViewController: ITBaseViewController {
     
+    private let firestoreManager = FirestoreManager.shared
+    private let cloudManager = CloudStorageManager.shared
+    
+    var currentGroup: String?
+    var imageBlockCount: Int = 0
+    var imageCells: [ImageBlockDraftCell] = []
+    var textBlockCount: Int = 0
+    var textCells: [TextBlockDraftCell] = []
     var addedImageCell: ImageBlockDraftCell?
-   
+    
     // MARK: - Subviews
     let tableView = UITableView()
+    let headerView = DraftTableHeaderView(pickerData: ["iOS Group", "Group 2", "Group 3"], buttonCount: 2, buttonTitles: ["Add image block", "Add text block"])
+    
     let submitButton: UIButton = {
         let button = UIButton()
         button.setTitle("Submit Newsletter", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .bold(size: 1)
+        button.titleLabel?.font = .bold(size: 16)
         button.backgroundColor = .ITBlack
         button.layer.cornerRadius = 8
         return button
@@ -38,10 +51,12 @@ class DraftViewController: ITBaseViewController {
         view.backgroundColor = .white
         let dismissButton = UIBarButtonItem(image: UIImage(resource: .iconClose).withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(dismissTapped))
         navigationItem.rightBarButtonItem = dismissButton
+        navigationItem.leftBarButtonItem = editButtonItem
         
         setUpTableView()
         setUpLayouts()
         setUpActions()
+        setUpHeaderView()
     }
     private func setUpLayouts() {
         view.addSubview(tableView)
@@ -71,50 +86,132 @@ class DraftViewController: ITBaseViewController {
         tableView.sectionHeaderHeight = 45
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.cellLayoutMarginsFollowReadableWidth = false
+        tableView.tableHeaderView = headerView
+        tableView.tableHeaderView?.frame.size.height = 170
+        tableView.tableFooterView = UIView()
+   
+    }
+    private func setUpHeaderView() {
+        headerView.buttonsView.buttonsArray[0].addTarget(self, action: #selector(addImageBlockTapped), for: .touchUpInside)
+        headerView.buttonsView.buttonsArray[1].addTarget(self, action: #selector(addTextBlockTapped), for: .touchUpInside)
     }
     private func setUpActions() {
-        
+        submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
-    
     
     // MARK: - Methods
-    @objc private func dismissTapped(sender: UIBarButtonItem) {
-        dismiss(animated: true)
+    private func reload() {
+        imageCells.removeAll()
+        textCells.removeAll()
+        tableView.reloadData()
     }
-    
+    @objc private func submitButtonTapped(sender: UIButton) {
+        
+        // Get picker data
+        guard let selectedGroup = headerView.selectedGroup else {
+            return
+        }
+
+        let documentId = "FuDCJmgF7P3HMaI8n5vS"
+        let postID = "adskjfks"
+        let userID = "r1ddx"
+        let userName = "Red"
+        
+        let imageBlocks = imageCells.map { $0.imageBlock }
+        let textBlocks = textCells.map { $0.textBlock }
+        
+        let updates = Post(
+            date: Timestamp(date: Date()),
+            postID: postID,
+            userID: userID,
+            userName: userName,
+            imageBlocks: imageBlocks,
+            textBlocks: textBlocks
+        )
+        
+        firestoreManager.updateSubDocument(
+            parentRef: firestoreManager.usersRef,
+            parentDocId: documentId,
+            subCollection: FFSubCollection.weeklyPost.rawValue,
+            subDocId: selectedGroup,
+            updateData: updates){ result in
+                switch result {
+                case .success(let documentId):
+                    print("Updated: \(documentId)")
+                    
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                }
+                
+            }
 }
-extension DraftViewController: UITableViewDataSource, UITableViewDelegate {
+
+@objc private func dismissTapped(sender: UIBarButtonItem) {
+    dismiss(animated: true)
+    }
+    @objc private func addImageBlockTapped() {
+        guard imageBlockCount <= 3 else {
+            print("Too many blocks")
+            return
+        }
+        imageBlockCount += 1
+        reload()
+    }
+    @objc private func addTextBlockTapped() {
+        guard imageBlockCount + textBlockCount <= 5 else {
+            print("Too many blocks")
+            return
+        }
+        textBlockCount += 1
+        reload()
+    }
+    private func updateButtonUI(active: Bool, for buttonIndex: Int) {
+        if active {
+            headerView.buttonsView.buttonsArray[buttonIndex].setTitleColor(.ITDarkGrey, for: .normal)
+            headerView.buttonsView.buttonsArray[buttonIndex].isUserInteractionEnabled = false
+        } else {
+            headerView.buttonsView.buttonsArray[buttonIndex].setTitleColor(.ITBlack, for: .normal)
+            headerView.buttonsView.buttonsArray[buttonIndex].isUserInteractionEnabled = true
+        }
+    }
+}
+extension DraftViewController: UITableViewDataSource {
     // MARK: - UITableView Data Source
     func numberOfSections(in tableView: UITableView) -> Int {
         return DraftType.allCases.count
-        //return datas.count
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-        // return datas[section].count
+        switch section{
+        case 0: return imageBlockCount
+        case 1: return textBlockCount
+        default: return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ImageBlockDraftCell.identifier, for: indexPath) as? ImageBlockDraftCell else {
                 fatalError("Cannot create image cell") }
-           
+            
+            imageCells.append(cell)
+            
             cell.addImageHandler = { [weak self] in
                 self?.addedImageCell = cell
                 self?.showImagePicker()
                 cell.addImageButton.isEnabled = false
                 cell.addImageButton.isHidden = true
             }
-            
+           
+           
             return cell
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextBlockDraftCell.identifier, for: indexPath) as? TextBlockDraftCell else { fatalError("Cannot create text cell") }
+        
+            textCells.append(cell)
             
-          
             return cell
             
         default:
@@ -122,12 +219,13 @@ extension DraftViewController: UITableViewDataSource, UITableViewDelegate {
         }
     
     }
-    
+  
+
+}
+// MARK: - UITable View Delegate
+extension DraftViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return nil
-        }
-        
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: String(describing: DraftTableSectionHeaderView.self)) as? DraftTableSectionHeaderView else {
                 fatalError("Cannot create section header")
@@ -141,19 +239,74 @@ extension DraftViewController: UITableViewDataSource, UITableViewDelegate {
         return false
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+       true
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.isEditing = true
+        tableView.allowsSelectionDuringEditing = editing
+        if !editing {
+            tableView.isEditing = false
+          }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if indexPath.section == 0 {
+                imageBlockCount -= 1
+                imageCells.remove(at: indexPath.row)
+            } else if indexPath.section == 1 {
+                textBlockCount -= 1
+                textCells.remove(at: indexPath.row)
+            }
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            reload()
+        }
+    }
 
 }
-
 // MARK: - UIImagePickerControllerDelegate
 
 extension DraftViewController {
-    func imagePickerController(_ picker: UIImagePickerController, 
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
- 
-        if let imageCell = addedImageCell {
-            imageCell.userImageView.image = selectedImage
+        
+        if let indexPath = tableView.indexPath(for: addedImageCell!) {
+            addedImageCell?.userImageView.image = selectedImage
+        
+
+        let mediaType = info[.mediaType] as! CFString
+            if mediaType as String == UTType.image.identifier {
+                if let imageURL = info[.imageURL] as? URL {
+                    
+                    cloudManager.uploadImages(
+                        fileUrl: imageURL,
+                        userName: "r1ddx") { [weak self] result in
+                            switch result {
+                            case .success(let urlString):
+                                self?.imageCells[indexPath.row].imageBlock.image = urlString
+                                
+                            case .failure(let error):
+                                print("Error: \(error.localizedDescription)")
+                            }
+                            
+                        }
+                }
+                
+            }
+            
+            dismiss(animated: true)
         }
-        dismiss(animated: true)
+        
     }
 }

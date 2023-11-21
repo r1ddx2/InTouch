@@ -5,4 +5,12 @@
 //  Created by Red Wang on 2023/11/17.
 //
 
-import Foundation
+import UIKit
+
+class HomeViewController: ITBaseViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .red
+    }
+}

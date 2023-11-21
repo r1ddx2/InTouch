@@ -7,10 +7,11 @@
 
 import UIKit
 
-class DraftTableViewHeaderView: UIView {
+class DraftTableHeaderView: UIView {
     
     static let identifier = "DraftHeaderCell"
     
+    var selectedGroup: String?
     var pickerData: [String] = [] {
         didSet {
             groupPickerView.reloadAllComponents()
@@ -102,7 +103,7 @@ class DraftTableViewHeaderView: UIView {
 }
 
 // MARK: - UIPickerView Data Source & Delegate
-extension DraftTableViewHeaderView: UIPickerViewDelegate, UIPickerViewDataSource {
+extension DraftTableHeaderView: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -118,5 +119,8 @@ extension DraftTableViewHeaderView: UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         groupTextField.text = pickerData[row]
+        selectedGroup = pickerData[row]
     }
+
+
 }
