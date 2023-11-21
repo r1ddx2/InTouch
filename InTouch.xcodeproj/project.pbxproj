@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D5F7BD02B0B631800FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BCF2B0B631800FAB24D /* GoogleService-Info.plist */; };
 		9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */; };
+		9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */; };
 		9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C552B05F77800AE7AEE /* AppDelegate.swift */; };
 		9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */; };
 		9DE69C5A2B05F77800AE7AEE /* ITBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C592B05F77800AE7AEE /* ITBaseViewController.swift */; };
@@ -73,8 +73,8 @@
 		73B439C99D88FFBC84CACDD7 /* Pods-InTouch-InTouchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch-InTouchUITests.debug.xcconfig"; path = "Target Support Files/Pods-InTouch-InTouchUITests/Pods-InTouch-InTouchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82D8F9EBFF6935A6B98CBAD2 /* Pods-InTouchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouchTests.release.xcconfig"; path = "Target Support Files/Pods-InTouchTests/Pods-InTouchTests.release.xcconfig"; sourceTree = "<group>"; };
 		8BAF04407494FA72B72D204C /* Pods_InTouch_InTouchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouch_InTouchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D5F7BCF2B0B631800FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
+		9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DE69C522B05F77800AE7AEE /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE69C552B05F77800AE7AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 				9DE69C5E2B05F77900AE7AEE /* Assets.xcassets */,
 				9DE69C602B05F77900AE7AEE /* LaunchScreen.storyboard */,
 				9DE69C632B05F77900AE7AEE /* Info.plist */,
-				9D5F7BCF2B0B631800FAB24D /* GoogleService-Info.plist */,
+				9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */,
 			);
 			path = InTouch;
 			sourceTree = "<group>";
@@ -421,8 +421,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D5F7BD02B0B631800FAB24D /* GoogleService-Info.plist in Resources */,
 				9DE69C622B05F77900AE7AEE /* LaunchScreen.storyboard in Resources */,
+				9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */,
 				9DE69C5F2B05F77900AE7AEE /* Assets.xcassets in Resources */,
 				9DE69C5D2B05F77800AE7AEE /* Main.storyboard in Resources */,
 			);
