@@ -14,7 +14,7 @@ class DraftTableSectionHeaderView: UITableViewHeaderFooterView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
-        label.font = .regular(size: 16)
+        label.font = .regular(size: 14)
         label.textColor = .ITBlack
         return label
     }()
