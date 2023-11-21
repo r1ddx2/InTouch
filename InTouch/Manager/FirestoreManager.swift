@@ -184,15 +184,49 @@ class FirestoreManager {
         }
 
     }
-
+    func getDocument<T: Decodable>(
+        asType: T.Type,
+        documentId: String,
+        reference: CollectionReference,
+        completion: @escaping CompletionHandler<T>
+        
+    ) {
+        reference.document(documentId).getDocument(completion: { snapshot, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let snapshot else {
+                completion(.failure(FFError.unknownError))
+                return
+            }
+            guard snapshot.exists else {
+                completion(.failure(FFError.emptyDocument))
+                return
+            }
+            
+            do {
+                let documentData = try snapshot.data(as: T.self)
+                completion(.success(documentData))
+            } catch {
+                completion(.failure(error))
+            }
+            
+            
+            
+        })
+        
+    }
     func addDocument(
         data: Codable,
         reference: CollectionReference,
+        documentId: String,
         completion: @escaping CompletionHandler<String>
     ) {
         do {
-            let documentReference = try reference.addDocument(from: data)
-            completion(.success(documentReference.documentID))
+           try reference.document(documentId).setData(from: data)
+            
+            completion(.success(documentId))
         } catch {
             completion(.failure(error))
         }
