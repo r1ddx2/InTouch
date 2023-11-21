@@ -11,6 +11,8 @@ class ImageBlockDraftCell: UITableViewCell {
     
     static let identifier = "ImageBlockDraftCell"
     var addImageHandler: (() -> Void)?
+    var imageBlock: ImageBlock = ImageBlock(caption: "", image: "")
+    
     // MARK: - Subview
     // Location
     let locationView: UIView = {
@@ -68,7 +70,9 @@ class ImageBlockDraftCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayouts()
         addImageButton.addTarget(self, action: #selector(addImageTapped), for: .touchUpInside)
+        captionTextView.delegate = self
         
+   
     }
     private func setUpLayouts() {
         locationView.addSubview(locationLabel)
@@ -131,4 +135,13 @@ class ImageBlockDraftCell: UITableViewCell {
     func layoutCell() {
         
     }
+}
+// MARK: - UITextView Delegate
+
+extension ImageBlockDraftCell: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+           if let text = textView.text {
+               imageBlock.caption = text
+           }
+       }
 }

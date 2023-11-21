@@ -9,16 +9,17 @@ import UIKit
 
 class TextBlockDraftCell: UITableViewCell {
     static let identifier = "TextBlockDraftCell"
-    
+    var textBlock: TextBlock = TextBlock(title: "", content: "")
+
     // MARK: - Subviews
-    let titleLabel: UITextField = {
-        let titleLabel = UITextField()
-        titleLabel.font = .medium(size: 18)
-        titleLabel.textColor = .ITBlack
-        titleLabel.placeholder = "Title..."
-        return titleLabel
+    let titleTextField: UITextField = {
+        let titleTextField = UITextField()
+        titleTextField.font = .medium(size: 18)
+        titleTextField.textColor = .ITBlack
+        titleTextField.placeholder = "Title..."
+        return titleTextField
     }()
-    let textView: UITextView = {
+    let contentTextView: UITextView = {
         let textView = UITextView()
         textView.font = .regular(size: 16)
         textView.textColor = .ITBlack
@@ -33,18 +34,22 @@ class TextBlockDraftCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayouts()
+        titleTextField.delegate = self
+        contentTextView.delegate = self
+        
+    
     }
     private func setUpLayouts() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(textView)
-        titleLabel.snp.makeConstraints { (make) -> Void in
+        contentView.addSubview(titleTextField)
+        contentView.addSubview(contentTextView)
+        titleTextField.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(contentView).offset(12)
             make.left.equalTo(contentView).offset(16)
             make.right.equalTo(contentView).offset(-16)
         }
     
-        textView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+        contentTextView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(titleTextField.snp.bottom).offset(8)
             make.left.equalTo(contentView).offset(16)
             make.bottom.equalTo(contentView)
             make.right.equalTo(contentView).offset(-16)
@@ -57,4 +62,18 @@ class TextBlockDraftCell: UITableViewCell {
         
     }
 
+}
+
+// MARK: - UITextField, UITextView Delegate
+extension TextBlockDraftCell: UITextViewDelegate, UITextFieldDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+           if let text = textView.text {
+               textBlock.title = text
+           }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+          if let text = textField.text {
+              textBlock.content = text
+          }
+    }
 }
