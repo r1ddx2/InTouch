@@ -26,9 +26,15 @@ class DraftViewController: ITBaseViewController {
     var textCells: [TextBlockDraftCell] = []
     var addedImageCell: ImageBlockDraftCell?
     
+    // MARK: - Fake data
+    let documentId = "FuDCJmgF7P3HMaI8n5vS"
+    let postID = "adskjfks"
+    let userID = "r1ddx"
+    let userName = "Red"
+
     // MARK: - Subviews
     let tableView = UITableView()
-    let headerView = DraftTableHeaderView(pickerData: ["iOS Group", "Group 2", "Group 3"], buttonCount: 2, buttonTitles: ["Add image block", "Add text block"])
+    let headerView = DraftTableHeaderView(pickerData: [], buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"])
     
     let submitButton: UIButton = {
         let button = UIButton()
@@ -57,6 +63,8 @@ class DraftViewController: ITBaseViewController {
         setUpLayouts()
         setUpActions()
         setUpHeaderView()
+        
+        fetchGroups()
     }
     private func setUpLayouts() {
         view.addSubview(tableView)
@@ -100,26 +108,33 @@ class DraftViewController: ITBaseViewController {
     }
     
     // MARK: - Methods
-    private func reload() {
-        imageCells.removeAll()
-        textCells.removeAll()
-        tableView.reloadData()
-    }
+
     @objc private func submitButtonTapped(sender: UIButton) {
         
         // Get picker data
         guard let selectedGroup = headerView.selectedGroup else {
             return
         }
-
-        let documentId = "FuDCJmgF7P3HMaI8n5vS"
-        let postID = "adskjfks"
-        let userID = "r1ddx"
-        let userName = "Red"
         
+        let user = User(userID: userID, userName: userName, userIcon: "lskdjflsdf", userCover: "sldkfjsldkfj")
+        
+/// Add user document to users collection
+//        firestoreManager.addDocument(
+//            data: user,
+//            reference: firestoreManager.usersRef,
+//            documentId: userID) { result in
+//                switch result {
+//                case .success(let documentId):
+//                    print("Updated: \(documentId)")
+//                    
+//                case .failure(let error):
+//                    print("Error: \(error.localizedDescription)")
+//                }
+//            }
+        
+      // Set up update data
         let imageBlocks = imageCells.map { $0.imageBlock }
         let textBlocks = textCells.map { $0.textBlock }
-        
         let updates = Post(
             date: Timestamp(date: Date()),
             postID: postID,
@@ -131,7 +146,7 @@ class DraftViewController: ITBaseViewController {
         
         firestoreManager.updateSubDocument(
             parentRef: firestoreManager.usersRef,
-            parentDocId: documentId,
+            parentDocId: userID,
             subCollection: FFSubCollection.weeklyPost.rawValue,
             subDocId: selectedGroup,
             updateData: updates){ result in
@@ -144,6 +159,7 @@ class DraftViewController: ITBaseViewController {
                 }
                 
             }
+        
 }
 
 @objc private func dismissTapped(sender: UIBarButtonItem) {
@@ -164,6 +180,30 @@ class DraftViewController: ITBaseViewController {
         }
         textBlockCount += 1
         reload()
+    }
+    private func fetchGroups() {
+        
+        firestoreManager.getDocument(
+            asType: User.self,
+            documentId: userID,
+            reference: firestoreManager.usersRef) { result in
+                switch result {
+                case .success(let data):
+                    guard let groups = data.groups else { return }
+                    self.headerView.pickerData = groups
+                    print("Updated: \(data)")
+                    
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                }
+                
+            }
+        
+    }
+    private func reload() {
+        imageCells.removeAll()
+        textCells.removeAll()
+        tableView.reloadData()
     }
     private func updateButtonUI(active: Bool, for buttonIndex: Int) {
         if active {
@@ -200,8 +240,6 @@ extension DraftViewController: UITableViewDataSource {
             cell.addImageHandler = { [weak self] in
                 self?.addedImageCell = cell
                 self?.showImagePicker()
-                cell.addImageButton.isEnabled = false
-                cell.addImageButton.isHidden = true
             }
            
            
@@ -295,7 +333,8 @@ extension DraftViewController {
                             switch result {
                             case .success(let urlString):
                                 self?.imageCells[indexPath.row].imageBlock.image = urlString
-                                
+                                self?.addedImageCell!.addImageButton.isEnabled = false
+                                self?.addedImageCell!.addImageButton.isHidden = true
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
                             }
