@@ -4,5 +4,12 @@
 //
 //  Created by Red Wang on 2023/11/17.
 //
+import UIKit
 
-import Foundation
+class ProfileViewController: ITBaseViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .orange
+    }
+}
