@@ -1,0 +1,36 @@
+PODS:
+  - CRRefresh (1.1.3)
+  - KeychainAccess (4.2.2)
+  - Kingfisher (7.10.0)
+  - ProgressHUD (2.70)
+  - SnapKit (5.6.0)
+  - SwiftLint (0.54.0)
+
+DEPENDENCIES:
+  - CRRefresh
+  - KeychainAccess
+  - Kingfisher (~> 7.0)
+  - ProgressHUD
+  - SnapKit (~> 5.6.0)
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - CRRefresh
+    - KeychainAccess
+    - Kingfisher
+    - ProgressHUD
+    - SnapKit
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  CRRefresh: 1415d4ae06837fa7bb064c44f2e102f3ef517044
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  Kingfisher: a18f05d3b6d37d8650ee4a3e61d57a28fc6207f6
+  ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+
+PODFILE CHECKSUM: 4cafb6c150d8ab93980d741c275a7fb02f46f9ab
+
+COCOAPODS: 1.12.1
