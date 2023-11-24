@@ -27,11 +27,10 @@ class DraftViewController: ITBaseViewController {
     var addedImageCell: ImageBlockDraftCell?
     
     // MARK: - Fake data
-    let documentId = "FuDCJmgF7P3HMaI8n5vS"
     let postID = "adskjfks"
-    let userID = "r1ddx"
-    let userName = "Red"
-
+    let userID = "panda666"
+    let userName = "Panda"
+    
     // MARK: - Subviews
     let tableView = UITableView()
     let headerView = DraftTableHeaderView(pickerData: [], buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"])
@@ -63,7 +62,6 @@ class DraftViewController: ITBaseViewController {
         setUpLayouts()
         setUpActions()
         setUpHeaderView()
-        
         fetchGroups()
     }
     private func setUpLayouts() {
@@ -96,7 +94,7 @@ class DraftViewController: ITBaseViewController {
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame.size.height = 170
         tableView.tableFooterView = UIView()
-   
+        
     }
     private func setUpHeaderView() {
         headerView.buttonsView.buttonsArray[0].addTarget(self, action: #selector(addImageBlockTapped), for: .touchUpInside)
@@ -112,64 +110,102 @@ class DraftViewController: ITBaseViewController {
         guard let selectedGroup = headerView.selectedGroup else {
             return
         }
-        
-        let user = User(
-            userId: userID,
-            userName: userName,
-            userIcon: "lskdjflsdf",
-            userCover: "sldkfjsldkfj"
-        )
-        
-/// Add user document to users collection
-//        firestoreManager.addDocument(
-//            data: user,
-//            reference: firestoreManager.usersRef,
-//            documentId: userID) { result in
-//                switch result {
-//                case .success(let documentId):
-//                    print("Updated: \(documentId)")
-//                    
-//                case .failure(let error):
-//                    print("Error: \(error.localizedDescription)")
-//                }
-//            }
-        
-      // Set up update data
+        // Set up upload data
         let imageBlocks = imageCells.map { $0.imageBlock }
         let textBlocks = textCells.map { $0.textBlock }
-        let updates = Post(
+        
+        let post = Post(
             date: Date(),
             postId: postID,
             userId: userID,
+            userIcon: userID,
             userName: userName,
             imageBlocks: imageBlocks,
             textBlocks: textBlocks
         )
+        let newsletter = NewsLetter(
+            date: Date(),
+            newsId: postID,
+            newsCover: postID,
+            posts: [post],
+            title: "\(selectedGroup) Weekly Newsletter"
+        )
         
-        firestoreManager.updateSubDocument(
-            parentRef: firestoreManager.usersRef,
-            parentDocId: userID,
-            subCollection: FFSubCollection.weeklyPost.rawValue,
-            subDocId: selectedGroup,
-            updateData: updates){ result in
+        submitPost(
+            group: selectedGroup,
+            post: post,
+            newsletter: newsletter
+        )
+        
+    }
+    private func submitPost(group: String, post: Post, newsletter: NewsLetter) {
+        
+        let reference = firestoreManager.getNewslettersRef(from: group)
+        let documentId = Date().getDateRange()
+        
+        isNewsletterExist(
+            reference: reference,
+            documentId: documentId) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
-                case .success(let documentId):
-                    print("Updated: \(documentId)")
                     
-                    self.dismiss(animated: true)
+                    /// Update newsletter
+                case true:
+                    self.firestoreManager.updateNewsletter(
+                        documentId: documentId,
+                        reference: reference,
+                        updatePost: post,
+                        updateNews: newsletter) { result in
+                            switch result {
+                            case .success(let documentId):
+                                print("Updated newsletter: \(documentId)")
+                            case .failure(let error):
+                                print("Error: \(error.localizedDescription)")
+                            }
+                        }
                     
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    /// Create newsletter
+                case false:
+                    self.firestoreManager.addDocument(
+                        data: newsletter,
+                        reference: reference,
+                        documentId: documentId){ result in
+                            switch result {
+                            case .success(let documentId):
+                                print("Updated newsletter: \(documentId)")
+                            case .failure(let error):
+                                print("Error: \(error.localizedDescription)")
+                            }
+                        }
+                    
                 }
-                
             }
         
     }
-    
+    private func isNewsletterExist(reference: CollectionReference, documentId: String, completion: @escaping (Bool) -> Void) {
+        
+        // Check if the document already exists
+        firestoreManager.isDocumentExist(
+            documentId: documentId,
+            reference: reference) { result in
+                switch result {
+                    // Already exists
+                case .success:
+                    completion(true)
+                    // Don't exist
+                case .failure(let error):
+                    if error as? FFError == FFError.invalidDocument {
+                        completion(false)
+                    } else {
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+            }
+        
+    }
     @objc private func dismissTapped(sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    
     @objc private func addImageBlockTapped() {
         guard imageBlockCount <= 3 else {
             print("Too many blocks")
@@ -178,7 +214,6 @@ class DraftViewController: ITBaseViewController {
         imageBlockCount += 1
         reload()
     }
-    
     @objc private func addTextBlockTapped() {
         guard imageBlockCount + textBlockCount <= 5 else {
             print("Too many blocks")
@@ -227,7 +262,6 @@ class DraftViewController: ITBaseViewController {
 
 // MARK: - UITableView Data Source
 extension DraftViewController: UITableViewDataSource {
- 
     func numberOfSections(in tableView: UITableView) -> Int {
         return DraftType.allCases.count
     }
@@ -252,13 +286,13 @@ extension DraftViewController: UITableViewDataSource {
                 self?.addedImageCell = cell
                 self?.showImagePicker()
             }
-           
-           
+            
+            
             return cell
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextBlockDraftCell.identifier, for: indexPath) as? TextBlockDraftCell else { fatalError("Cannot create text cell") }
-        
+            
             textCells.append(cell)
             
             return cell
@@ -266,17 +300,17 @@ extension DraftViewController: UITableViewDataSource {
         default:
             return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))
         }
-    
+        
     }
-
+    
 }
 // MARK: - UITable View Delegate
 extension DraftViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: String(describing: DraftTableSectionHeaderView.self)) as? DraftTableSectionHeaderView else {
-                fatalError("Cannot create section header")
+            withIdentifier: String(describing: DraftTableSectionHeaderView.self)) as? DraftTableSectionHeaderView else {
+            fatalError("Cannot create section header")
         }
         headerView.titleLabel.text = DraftType.allCases[section].rawValue
         return headerView
@@ -286,13 +320,13 @@ extension DraftViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
     }
     
-   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-       true
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -301,9 +335,9 @@ extension DraftViewController: UITableViewDelegate {
         tableView.allowsSelectionDuringEditing = editing
         if !editing {
             tableView.isEditing = false
-          }
+        }
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if indexPath.section == 0 {
@@ -318,7 +352,7 @@ extension DraftViewController: UITableViewDelegate {
             reload()
         }
     }
-
+    
 }
 // MARK: - UIImagePickerControllerDelegate
 extension DraftViewController {
@@ -332,8 +366,8 @@ extension DraftViewController {
             addedImageCell?.userImageView.image = selectedImage
             addedImageCell!.addImageButton.isEnabled = false
             addedImageCell!.addImageButton.isHidden = true
-
-        let mediaType = info[.mediaType] as! CFString
+            
+            let mediaType = info[.mediaType] as! CFString
             if mediaType as String == UTType.image.identifier {
                 if let imageURL = info[.imageURL] as? URL {
                     
@@ -343,7 +377,7 @@ extension DraftViewController {
                             switch result {
                             case .success(let urlString):
                                 self?.imageCells[indexPath.row].imageBlock.image = urlString
-                               
+                                
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
                                 self?.addedImageCell!.addImageButton.isEnabled = true
