@@ -13,6 +13,7 @@ enum FFError: Error {
     case unknownError
     case emptyCollection
     case emptyDocument
+    case invalidDocument
     case updateFail
     case decodingFail
     case encodingFail
@@ -25,23 +26,29 @@ enum FFCollection: String {
 
 enum FFSubCollection: String {
     case archived
-    case weeklyPost = "weekly_post"
+    case newsletters
 }
 
 class FirestoreManager {
-    
     typealias CompletionHandler<T> = (_ result: Result<T, Error>) -> Void
     
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
-
+    // MARK: - Collection Reference
     var groupsRef: CollectionReference {
         db.collection(FFCollection.groups.rawValue)
     }
     var usersRef: CollectionReference {
         db.collection(FFCollection.users.rawValue)
     }
-  
+    func getArchivedRef(from group: String) -> CollectionReference {
+        db.collection(FFCollection.groups.rawValue).document(group).collection(FFSubCollection.archived.rawValue)
+    }
+    func getNewslettersRef(from group: String) -> CollectionReference {
+        db.collection(FFCollection.groups.rawValue).document(group).collection(FFSubCollection.newsletters.rawValue)
+    }
+    
+    // MARK: - Methods
     func listenCollection<T: Decodable>(
         asType: T.Type,
         reference: CollectionReference,
@@ -57,7 +64,6 @@ class FirestoreManager {
                 completion(.failure(FFError.unknownError))
                 return
             }
-            
             
             let documentDecodeResult: [Result<T, Error>] = querySnapshot.documents
                 .map { document in
@@ -99,7 +105,7 @@ class FirestoreManager {
                 return
             }
             guard snapshot.exists else {
-                completion(.failure(FFError.emptyDocument))
+                completion(.failure(FFError.invalidDocument))
                 return
             }
             
@@ -109,8 +115,6 @@ class FirestoreManager {
             } catch {
                 completion(.failure(error))
             }
-            
-            
             
         }
         
@@ -137,7 +141,6 @@ class FirestoreManager {
             }
             
             do {
-                
                 try reference.document(documentId).setData(from: updateData, merge: true) { error in
                     if let error = error {
                         completion(.failure(error))
@@ -152,37 +155,54 @@ class FirestoreManager {
             
         }
     }
-    
-    func updateSubDocument(
-        parentRef: CollectionReference,
-        parentDocId: String,
-        subCollection: String,
-        subDocId: String,
-        updateData: Codable,
+    func updateNewsletter(
+        documentId: String,
+        reference: CollectionReference,
+        updatePost: Post,
+        updateNews: NewsLetter,
         completion: @escaping CompletionHandler<String>
     ) {
-        let parentDocRef = parentRef.document(parentDocId)
-        let subDocRef = parentDocRef.collection(subCollection)
-        let documentToUpdateRef = subDocRef.document(subDocId)
-        do {
-            let encoder = JSONEncoder()
-            
-            let jsonData = try encoder.encode(updateData)
-            
-            let data = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
-            
-            documentToUpdateRef.updateData(data) { error in
-                if let error = error {
-                    completion(.failure(FFError.updateFail))
+        reference.document(documentId).getDocument { (document, error) in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let document else {
+                completion(.failure(FFError.unknownError))
+                return
+            }
+            guard document.exists else {
+                completion(.failure(FFError.emptyDocument))
+                return
+            }
+           
+            do {
+                var documentData = try document.data(as: NewsLetter.self)
+             
+                // Check if post already exists in the array
+                if let existingIndex = documentData.posts.firstIndex(
+                    where: { $0.userId == updatePost.userId }) {
+                    // Exist, update post
+                    documentData.posts[existingIndex] = updatePost
                 } else {
-                    completion(.success(subDocId))
+                    // Don't exist, add to posts
+                    documentData.posts.append(updatePost)
                 }
+            
+                // Upload new data
+                try reference.document(documentId).setData(from: documentData, merge: true) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    completion(.success(reference.document(documentId).documentID))
+                }
+                
+            } catch {
+                completion(.failure(FFError.decodingFail))
             }
             
-        } catch {
-            completion(.failure(FFError.encodingFail))
         }
-
     }
     func getDocument<T: Decodable>(
         asType: T.Type,
@@ -201,7 +221,7 @@ class FirestoreManager {
                 return
             }
             guard snapshot.exists else {
-                completion(.failure(FFError.emptyDocument))
+                completion(.failure(FFError.invalidDocument))
                 return
             }
             
@@ -212,6 +232,32 @@ class FirestoreManager {
                 completion(.failure(error))
             }
             
+            
+            
+        })
+        
+    }
+    func isDocumentExist(
+        documentId: String,
+        reference: CollectionReference,
+        completion: @escaping CompletionHandler<String>
+    ) {
+        reference.getDocuments(completion: { snapshot, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let snapshot else {
+                completion(.failure(FFError.unknownError))
+                return
+            }
+            let documentExists = snapshot.documents.contains { $0.documentID == documentId }
+            
+            if documentExists {
+                completion(.success(documentId))
+            } else {
+                completion(.failure(FFError.invalidDocument))
+            }
             
             
         })
