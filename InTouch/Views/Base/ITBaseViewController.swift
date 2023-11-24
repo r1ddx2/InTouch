@@ -6,6 +6,7 @@
 //
 //MARK: - Init
 import UIKit
+import IQKeyboardManagerSwift
 
 class ITBaseViewController: UIViewController {
 
@@ -20,6 +21,9 @@ class ITBaseViewController: UIViewController {
     }
     var isHideTabBar: Bool {
         return false
+    }
+    var isEnableIQKeyboard: Bool {
+        return true
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +42,10 @@ class ITBaseViewController: UIViewController {
         if isHideTabBar {
             tabBarController?.tabBar.isHidden = true
         }
+        
+        IQKeyboardManager.shared.enable = isEnableIQKeyboard
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = isEnableResignOnTouchOutside
+        
         setNeedsStatusBarAppearanceUpdate()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -48,10 +56,13 @@ class ITBaseViewController: UIViewController {
         if isHideTabBar {
             tabBarController?.tabBar.isHidden = false
         }
+        IQKeyboardManager.shared.enable = !isEnableIQKeyboard
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = !isEnableResignOnTouchOutside
     }
     func popBack(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+
  
 }
 
