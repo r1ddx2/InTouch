@@ -82,7 +82,6 @@ class DraftViewController: ITBaseViewController {
             make.height.equalTo(45)
         }
         
-        
     }
     private func setUpTableView() {
         tableView.dataSource = self
@@ -108,15 +107,18 @@ class DraftViewController: ITBaseViewController {
     }
     
     // MARK: - Methods
-
     @objc private func submitButtonTapped(sender: UIButton) {
-        
         // Get picker data
         guard let selectedGroup = headerView.selectedGroup else {
             return
         }
         
-        let user = User(userID: userID, userName: userName, userIcon: "lskdjflsdf", userCover: "sldkfjsldkfj")
+        let user = User(
+            userId: userID,
+            userName: userName,
+            userIcon: "lskdjflsdf",
+            userCover: "sldkfjsldkfj"
+        )
         
 /// Add user document to users collection
 //        firestoreManager.addDocument(
@@ -136,9 +138,9 @@ class DraftViewController: ITBaseViewController {
         let imageBlocks = imageCells.map { $0.imageBlock }
         let textBlocks = textCells.map { $0.textBlock }
         let updates = Post(
-            date: Timestamp(date: Date()),
-            postID: postID,
-            userID: userID,
+            date: Date(),
+            postId: postID,
+            userId: userID,
             userName: userName,
             imageBlocks: imageBlocks,
             textBlocks: textBlocks
@@ -154,17 +156,20 @@ class DraftViewController: ITBaseViewController {
                 case .success(let documentId):
                     print("Updated: \(documentId)")
                     
+                    self.dismiss(animated: true)
+                    
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                 }
                 
             }
         
-}
-
-@objc private func dismissTapped(sender: UIBarButtonItem) {
-    dismiss(animated: true)
     }
+    
+    @objc private func dismissTapped(sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
     @objc private func addImageBlockTapped() {
         guard imageBlockCount <= 3 else {
             print("Too many blocks")
@@ -173,6 +178,7 @@ class DraftViewController: ITBaseViewController {
         imageBlockCount += 1
         reload()
     }
+    
     @objc private func addTextBlockTapped() {
         guard imageBlockCount + textBlockCount <= 5 else {
             print("Too many blocks")
@@ -181,6 +187,7 @@ class DraftViewController: ITBaseViewController {
         textBlockCount += 1
         reload()
     }
+    
     private func fetchGroups() {
         
         firestoreManager.getDocument(
@@ -200,11 +207,13 @@ class DraftViewController: ITBaseViewController {
             }
         
     }
+    
     private func reload() {
         imageCells.removeAll()
         textCells.removeAll()
         tableView.reloadData()
     }
+    
     private func updateButtonUI(active: Bool, for buttonIndex: Int) {
         if active {
             headerView.buttonsView.buttonsArray[buttonIndex].setTitleColor(.ITDarkGrey, for: .normal)
@@ -215,8 +224,10 @@ class DraftViewController: ITBaseViewController {
         }
     }
 }
+
+// MARK: - UITableView Data Source
 extension DraftViewController: UITableViewDataSource {
-    // MARK: - UITableView Data Source
+ 
     func numberOfSections(in tableView: UITableView) -> Int {
         return DraftType.allCases.count
     }
@@ -257,7 +268,6 @@ extension DraftViewController: UITableViewDataSource {
         }
     
     }
-  
 
 }
 // MARK: - UITable View Delegate
@@ -311,7 +321,6 @@ extension DraftViewController: UITableViewDelegate {
 
 }
 // MARK: - UIImagePickerControllerDelegate
-
 extension DraftViewController {
     
     func imagePickerController(_ picker: UIImagePickerController,
@@ -321,7 +330,8 @@ extension DraftViewController {
         
         if let indexPath = tableView.indexPath(for: addedImageCell!) {
             addedImageCell?.userImageView.image = selectedImage
-        
+            addedImageCell!.addImageButton.isEnabled = false
+            addedImageCell!.addImageButton.isHidden = true
 
         let mediaType = info[.mediaType] as! CFString
             if mediaType as String == UTType.image.identifier {
@@ -333,13 +343,15 @@ extension DraftViewController {
                             switch result {
                             case .success(let urlString):
                                 self?.imageCells[indexPath.row].imageBlock.image = urlString
-                                self?.addedImageCell!.addImageButton.isEnabled = false
-                                self?.addedImageCell!.addImageButton.isHidden = true
+                               
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
+                                self?.addedImageCell!.addImageButton.isEnabled = true
+                                self?.addedImageCell!.addImageButton.isHidden = false
                             }
                             
                         }
+                    
                 }
                 
             }
