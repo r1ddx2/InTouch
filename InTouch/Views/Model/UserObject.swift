@@ -12,7 +12,7 @@ struct User: Codable {
     var userId: String
     var userName: String
     var userIcon: String
-    var userCover: String
+    var userCover: String?
     var groups: [String]?
     
     enum CodingKeys: String, CodingKey {
