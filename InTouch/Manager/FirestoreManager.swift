@@ -231,12 +231,11 @@ class FirestoreManager {
             } catch {
                 completion(.failure(error))
             }
-            
-            
-            
+    
         })
         
     }
+   
     func isDocumentExist(
         documentId: String,
         reference: CollectionReference,

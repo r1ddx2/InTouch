@@ -16,7 +16,7 @@ extension Date {
     }
 
     // For each newsletter
-    func getDateRange() -> String {
+    func getThisWeekDateRange() -> String {
         let (startDate, endDate) = calculateDateRange(for: self)
         return "\(formatDate(startDate)) - \(formatDate(endDate))"
     }
