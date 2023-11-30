@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseFirestore
 
-class HomeViewController: ITBaseViewController {
+class HomeViewController: ITBaseTableViewController {
     let currentGroup = "iOS Group"
     private let firestoreManager = FirestoreManager.shared
     
@@ -19,8 +19,7 @@ class HomeViewController: ITBaseViewController {
     }
     
     // MARK: - Subviews
-    let tableView = UITableView()
-    let headerView = HomeTableHeaderView(image: UIImage(resource: .apple), title: "iOS Group Weekly Newsletter", date: "\(Date().getLastWeekDateRange())")
+    let headerView = HomeTableHeaderView(image: UIImage(resource: .apple), title: "iOS Group Weekly Newsletter", date: "\(Date().getThisWeekDateRange())")
     
     // MARK: - View Load
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +48,6 @@ class HomeViewController: ITBaseViewController {
      
     }
     private func setUpTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         tableView.register(HomeTableViewTextCell.self, forCellReuseIdentifier: HomeTableViewTextCell.identifier)
         tableView.register(HomeTableViewImageCell.self, forCellReuseIdentifier: HomeTableViewImageCell.identifier)
@@ -68,8 +65,12 @@ class HomeViewController: ITBaseViewController {
     
     
     // MARK: - Methods}
+    override func headerLoader() {
+        fetchNewsletter()
+        endHeaderRefreshing()
+    }
     func fetchNewsletter() {
-        let lastWeek = Date().getLastWeekDateRange()
+        let lastWeek = Date().getThisWeekDateRange()
         let documentId = "\(lastWeek)"
         let reference = firestoreManager.getNewslettersRef(from: currentGroup)
         
@@ -80,7 +81,7 @@ class HomeViewController: ITBaseViewController {
                 switch result {
                 case .success(let newsletter):
                     self.newsletter = newsletter
-                    
+                    print(newsletter)
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                     
@@ -90,14 +91,12 @@ class HomeViewController: ITBaseViewController {
             }
         
     }
-}
-
-extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // MARK: - UITableView DataSource
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsletter?.posts.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
             fatalError("Cannot create cell")
         }
@@ -115,7 +114,7 @@ extension HomeViewController: UITableViewDataSource {
         }
         guard post?.textBlocks.isEmpty == false else {
             imageCell.layoutCell(imageBlocks: post!.imageBlocks, user: user)
-            return textCell
+            return imageCell
         }
       
         cell.layoutCell(imageBlocks: post!.imageBlocks, textBlock: post!.textBlocks[0], user: user)
@@ -123,14 +122,12 @@ extension HomeViewController: UITableViewDataSource {
         
     }
     
-    
+    // MARK: - UITableView Delegate
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        false
+    }
     
     
     
 }
 
-extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        false
-    }
-}
