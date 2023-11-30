@@ -59,12 +59,10 @@ class HomeTableHeaderView: UIView {
         titleLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(coverImageView.snp.bottom).offset(12)
             make.left.equalTo(self).offset(16)
-            make.right.equalTo(self).offset(-16)
         }
         dateLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.equalTo(self).offset(16)
-            make.right.equalTo(self).offset(-16)
         }
 
     }
