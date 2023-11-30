@@ -6,14 +6,21 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class HomeViewController: ITBaseViewController {
+    let currentGroup = "iOS Group"
+    private let firestoreManager = FirestoreManager.shared
+    
+    var newsletter: NewsLetter? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     // MARK: - Subviews
     let tableView = UITableView()
-    let headerView = HomeTableHeaderView(image: UIImage(resource: .apple), title: "iOS Group Weekly Newsletter", date: "2023.11.20 ~ 2023.11.26")
-    
-    // MARK: - Lifecycle
+    let headerView = HomeTableHeaderView(image: UIImage(resource: .apple), title: "iOS Group Weekly Newsletter", date: "\(Date().getLastWeekDateRange())")
     
     // MARK: - View Load
     override func viewWillAppear(_ animated: Bool) {
@@ -27,6 +34,8 @@ class HomeViewController: ITBaseViewController {
         setUpLayouts()
         setUpTableView()
         setUpActions()
+        
+        fetchNewsletter()
     }
     private func setUpLayouts() {
         view.addSubview(tableView)
@@ -37,17 +46,20 @@ class HomeViewController: ITBaseViewController {
             make.bottom.equalTo(view)
         }
    
-        
+     
     }
     private func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-
+        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
+        tableView.register(HomeTableViewTextCell.self, forCellReuseIdentifier: HomeTableViewTextCell.identifier)
+        tableView.register(HomeTableViewImageCell.self, forCellReuseIdentifier: HomeTableViewImageCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1000
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame.size.height = 170
-        
     }
  
     private func setUpActions() {
@@ -56,17 +68,59 @@ class HomeViewController: ITBaseViewController {
     
     
     // MARK: - Methods}
-    
-    
+    func fetchNewsletter() {
+        let lastWeek = Date().getLastWeekDateRange()
+        let documentId = "\(lastWeek)"
+        let reference = firestoreManager.getNewslettersRef(from: currentGroup)
+        
+        firestoreManager.getDocument(
+            asType: NewsLetter.self,
+            documentId: documentId,
+            reference: reference) { result in
+                switch result {
+                case .success(let newsletter):
+                    self.newsletter = newsletter
+                    
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    
+                    
+                }
+                
+            }
+        
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return newsletter?.posts.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
+            fatalError("Cannot create cell")
+        }
+        guard let textCell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewTextCell.identifier, for: indexPath) as? HomeTableViewTextCell else {
+            fatalError("Cannot create cell")
+        }
+        guard let imageCell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewImageCell.identifier, for: indexPath) as? HomeTableViewImageCell else {
+            fatalError("Cannot create cell")
+        }
+        let post = newsletter?.posts[indexPath.row]
+        let user = User(userId: post!.userId, userName: post!.userName, userIcon: post!.userIcon)
+        guard post?.imageBlocks.isEmpty == false else {
+            textCell.layoutCell(textBlock: post!.textBlocks[0], user: user)
+            return textCell
+        }
+        guard post?.textBlocks.isEmpty == false else {
+            imageCell.layoutCell(imageBlocks: post!.imageBlocks, user: user)
+            return textCell
+        }
+      
+        cell.layoutCell(imageBlocks: post!.imageBlocks, textBlock: post!.textBlocks[0], user: user)
+        return cell
+        
     }
     
     
@@ -76,5 +130,7 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        false
+    }
 }
