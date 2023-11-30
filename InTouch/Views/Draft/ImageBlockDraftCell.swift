@@ -11,7 +11,8 @@ class ImageBlockDraftCell: UITableViewCell {
     
     static let identifier = "ImageBlockDraftCell"
     var addImageHandler: (() -> Void)?
-    var imageBlock: ImageBlock = ImageBlock(caption: "", image: "")
+    var editCaptionHandler: ((String) -> Void)?
+   
     
     // MARK: - Subview
     // Location
@@ -132,8 +133,21 @@ class ImageBlockDraftCell: UITableViewCell {
     @objc private func addImageTapped() {
         addImageHandler?()
     }
-    func layoutCell() {
-        
+    func layoutCell(imageBlock: ImageBlock) {
+        captionTextView.text = imageBlock.caption
+        locationLabel.text = imageBlock.place
+        userImageView.loadImage(imageBlock.image)
+        print("currentimage: \(imageBlock)")
+        if imageBlock.place == nil {
+            locationLabel.text = "Add a location"
+        }
+        if imageBlock.image == "" {
+            addImageButton.isHidden = false
+            addImageButton.isUserInteractionEnabled = true
+        } else {
+            addImageButton.isHidden = true
+            addImageButton.isUserInteractionEnabled = false
+        }
     }
 }
 // MARK: - UITextView Delegate
@@ -141,7 +155,7 @@ class ImageBlockDraftCell: UITableViewCell {
 extension ImageBlockDraftCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
            if let text = textView.text {
-               imageBlock.caption = text
+               editCaptionHandler?(text)
            }
        }
 }

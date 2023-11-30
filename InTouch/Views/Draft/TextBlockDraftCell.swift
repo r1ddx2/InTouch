@@ -9,8 +9,9 @@ import UIKit
 
 class TextBlockDraftCell: UITableViewCell {
     static let identifier = "TextBlockDraftCell"
-    var textBlock: TextBlock = TextBlock(title: "", content: "")
-
+ 
+    var editTitleHandler: ((String) -> Void)?
+    var editContentHandler: ((String) -> Void)?
     // MARK: - Subviews
     let titleTextField: UITextField = {
         let titleTextField = UITextField()
@@ -57,9 +58,9 @@ class TextBlockDraftCell: UITableViewCell {
         
     }
     // MARK: - Methods
-    func layoutCell() {
-        
-        
+    func layoutCell(textBlock: TextBlock) {
+        titleTextField.text = textBlock.title
+        contentTextView.text = textBlock.content
     }
 
 }
@@ -68,12 +69,12 @@ class TextBlockDraftCell: UITableViewCell {
 extension TextBlockDraftCell: UITextViewDelegate, UITextFieldDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
            if let text = textView.text {
-               textBlock.title = text
+            editContentHandler?(text)
            }
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
           if let text = textField.text {
-              textBlock.content = text
+              editTitleHandler?(text)
           }
     }
 }

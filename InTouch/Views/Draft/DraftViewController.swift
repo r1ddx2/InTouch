@@ -28,8 +28,8 @@ class DraftViewController: ITBaseViewController {
     
     // MARK: - Fake data
     let postID = "adskjfks"
-    let userID = "panda666"
-    let userName = "Panda"
+    let userID = "waterfall"
+    let userName = "waterfall"
     
     // MARK: - Subviews
     let tableView = UITableView()
@@ -141,7 +141,7 @@ class DraftViewController: ITBaseViewController {
     private func submitPost(group: String, post: Post, newsletter: NewsLetter) {
         
         let reference = firestoreManager.getNewslettersRef(from: group)
-        let documentId = Date().getDateRange()
+        let documentId = Date().getLastWeekDateRange()
         
         isNewsletterExist(
             reference: reference,
@@ -159,6 +159,7 @@ class DraftViewController: ITBaseViewController {
                             switch result {
                             case .success(let documentId):
                                 print("Updated newsletter: \(documentId)")
+                                self.dismiss(animated: true)
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
                             }
