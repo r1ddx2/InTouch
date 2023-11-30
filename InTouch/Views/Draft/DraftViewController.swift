@@ -14,26 +14,38 @@ enum DraftType: String, CaseIterable {
     case text = "Articles"
 }
 
+
 class DraftViewController: ITBaseViewController {
     
     private let firestoreManager = FirestoreManager.shared
     private let cloudManager = CloudStorageManager.shared
-    
-    var currentGroup: String?
-    var imageBlockCount: Int = 0
-    var imageCells: [ImageBlockDraftCell] = []
-    var textBlockCount: Int = 0
-    var textCells: [TextBlockDraftCell] = []
+
     var addedImageCell: ImageBlockDraftCell?
     
-    // MARK: - Fake data
-    let postID = "adskjfks"
-    let userID = "waterfall"
-    let userName = "waterfall"
+    var draft: Post? = Post(
+        date: Date(),
+        postId: "",
+        userId: FakeData.userRed.userId,
+        userIcon: FakeData.userRed.userIcon,
+        userName: FakeData.userRed.userName,
+        imageBlocks: [],
+        textBlocks: []){
+        didSet {
+            reload()
+        }
+    }
+    var pickerData: [String] = [] {
+        didSet {
+            headerView.groupPickerView.reloadAllComponents()
+        }
+    }
+
+    // MARK: - Fake Data
+    let user = FakeData.userRed
     
     // MARK: - Subviews
     let tableView = UITableView()
-    let headerView = DraftTableHeaderView(pickerData: [], buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"])
+    let headerView = DraftTableHeaderView(user: FakeData.userRed, buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"])
     
     let submitButton: UIButton = {
         let button = UIButton()
@@ -97,6 +109,8 @@ class DraftViewController: ITBaseViewController {
         
     }
     private func setUpHeaderView() {
+        headerView.groupPickerView.dataSource = self
+        headerView.groupPickerView.delegate = self
         headerView.buttonsView.buttonsArray[0].addTarget(self, action: #selector(addImageBlockTapped), for: .touchUpInside)
         headerView.buttonsView.buttonsArray[1].addTarget(self, action: #selector(addTextBlockTapped), for: .touchUpInside)
     }
@@ -104,36 +118,23 @@ class DraftViewController: ITBaseViewController {
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - Methods
+    // MARK: - API Methods
     @objc private func submitButtonTapped(sender: UIButton) {
         // Get picker data
-        guard let selectedGroup = headerView.selectedGroup else {
-            return
-        }
+        let selectedGroup = pickerData[headerView.groupPickerView.selectedRow(inComponent: 0)]
+        guard let draft = draft else { return }
         // Set up upload data
-        let imageBlocks = imageCells.map { $0.imageBlock }
-        let textBlocks = textCells.map { $0.textBlock }
-        
-        let post = Post(
-            date: Date(),
-            postId: postID,
-            userId: userID,
-            userIcon: userID,
-            userName: userName,
-            imageBlocks: imageBlocks,
-            textBlocks: textBlocks
-        )
         let newsletter = NewsLetter(
             date: Date(),
-            newsId: postID,
-            newsCover: postID,
-            posts: [post],
+            newsId: FakeData.postId,
+            newsCover: FakeData.postId,
+            posts: [draft],
             title: "\(selectedGroup) Weekly Newsletter"
         )
         
         submitPost(
             group: selectedGroup,
-            post: post,
+            post: draft,
             newsletter: newsletter
         )
         
@@ -141,7 +142,7 @@ class DraftViewController: ITBaseViewController {
     private func submitPost(group: String, post: Post, newsletter: NewsLetter) {
         
         let reference = firestoreManager.getNewslettersRef(from: group)
-        let documentId = Date().getLastWeekDateRange()
+        let documentId = Date().getThisWeekDateRange()
         
         isNewsletterExist(
             reference: reference,
@@ -149,7 +150,7 @@ class DraftViewController: ITBaseViewController {
                 guard let self = self else { return }
                 switch result {
                     
-                    /// Update newsletter
+                /// Update newsletter
                 case true:
                     self.firestoreManager.updateNewsletter(
                         documentId: documentId,
@@ -165,7 +166,7 @@ class DraftViewController: ITBaseViewController {
                             }
                         }
                     
-                    /// Create newsletter
+                /// Create newsletter
                 case false:
                     self.firestoreManager.addDocument(
                         data: newsletter,
@@ -190,10 +191,10 @@ class DraftViewController: ITBaseViewController {
             documentId: documentId,
             reference: reference) { result in
                 switch result {
-                    // Already exists
+                // Already exists
                 case .success:
                     completion(true)
-                    // Don't exist
+                // Don't exist
                 case .failure(let error):
                     if error as? FFError == FFError.invalidDocument {
                         completion(false)
@@ -204,36 +205,16 @@ class DraftViewController: ITBaseViewController {
             }
         
     }
-    @objc private func dismissTapped(sender: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
-    @objc private func addImageBlockTapped() {
-        guard imageBlockCount <= 3 else {
-            print("Too many blocks")
-            return
-        }
-        imageBlockCount += 1
-        reload()
-    }
-    @objc private func addTextBlockTapped() {
-        guard imageBlockCount + textBlockCount <= 5 else {
-            print("Too many blocks")
-            return
-        }
-        textBlockCount += 1
-        reload()
-    }
-    
     private func fetchGroups() {
         
         firestoreManager.getDocument(
             asType: User.self,
-            documentId: userID,
+            documentId: user.userId,
             reference: firestoreManager.usersRef) { result in
                 switch result {
                 case .success(let data):
                     guard let groups = data.groups else { return }
-                    self.headerView.pickerData = groups
+                    self.pickerData = groups
                     print("Updated: \(data)")
                     
                 case .failure(let error):
@@ -244,9 +225,69 @@ class DraftViewController: ITBaseViewController {
         
     }
     
+    private func fetchDraft(selectedGroup: String) {
+    
+        firestoreManager.getDocument(
+            asType: NewsLetter.self,
+            documentId: Date().getThisWeekDateRange(),
+            reference: firestoreManager.getNewslettersRef(from: selectedGroup)) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let data):
+                    let draft = data.posts.first { $0.userId == self.user.userId }
+                    print(data)
+                    self.draft = draft
+                 print(draft)
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                }
+                
+            }
+    }
+    
+    // MARK: - Methods
+    @objc private func dismissTapped(sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    @objc private func addImageBlockTapped() {
+//        guard imageCells.count <= 3 else {
+//            print("Too many blocks")
+//            print(imageCells)
+//            return
+//        }
+    
+        draft?.imageBlocks.append(
+            ImageBlock(
+                caption: "Write something...",
+                image: "",
+                location: nil,
+                place: nil )
+        )
+        print(draft)
+        print("-------------------")
+        reload()
+    }
+    @objc private func addTextBlockTapped() {
+//        guard imageCells.count + textCells.count <= 5 else {
+//            print(imageCells)
+//            print(textCells)
+//            print("Too many blocks")
+//            return
+//        }
+    
+        draft?.textBlocks.append(
+           TextBlock(
+            title: "",
+            content: "Write something...")
+        )
+        print(draft)
+        print("-------------------")
+        reload()
+    }
+  
     private func reload() {
-        imageCells.removeAll()
-        textCells.removeAll()
         tableView.reloadData()
     }
     
@@ -268,21 +309,29 @@ extension DraftViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let draft = draft else{ return 0 }
         switch section{
-        case 0: return imageBlockCount
-        case 1: return textBlockCount
+        case 0: return draft.imageBlocks.count
+        case 1: return draft.textBlocks.count
         default: return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let draft = draft else { return UITableViewCell() }
+        
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ImageBlockDraftCell.identifier, for: indexPath) as? ImageBlockDraftCell else {
                 fatalError("Cannot create image cell") }
             
-            imageCells.append(cell)
-            
+            cell.layoutCell(imageBlock: draft.imageBlocks[indexPath.row])
+  
+            cell.editCaptionHandler = { [weak self] text in
+                if let indexPath = self?.tableView.indexPath(for: cell) {
+                    self?.draft?.imageBlocks[indexPath.row].caption = text
+                }
+            }
             cell.addImageHandler = { [weak self] in
                 self?.addedImageCell = cell
                 self?.showImagePicker()
@@ -293,16 +342,24 @@ extension DraftViewController: UITableViewDataSource {
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextBlockDraftCell.identifier, for: indexPath) as? TextBlockDraftCell else { fatalError("Cannot create text cell") }
+         
+            cell.layoutCell(textBlock: draft.textBlocks[indexPath.row])
+
             
-            textCells.append(cell)
-            
+            cell.editTitleHandler = { [weak self] text in
+                if let indexPath = self?.tableView.indexPath(for: cell) {
+                    self?.draft?.textBlocks[indexPath.row].title = text
+                }
+            }
+            cell.editContentHandler = { [weak self] text in
+                if let indexPath = self?.tableView.indexPath(for: cell) {
+                    self?.draft?.textBlocks[indexPath.row].content = text
+                }
+            }
             return cell
             
         default:
-            return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))
-        }
-        
-    }
+            return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))}}
     
 }
 // MARK: - UITable View Delegate
@@ -342,15 +399,10 @@ extension DraftViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if indexPath.section == 0 {
-                imageBlockCount -= 1
-                imageCells.remove(at: indexPath.row)
+                draft?.imageBlocks.remove(at: indexPath.row)
             } else if indexPath.section == 1 {
-                textBlockCount -= 1
-                textCells.remove(at: indexPath.row)
+                draft?.textBlocks.remove(at: indexPath.row)
             }
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            reload()
         }
     }
     
@@ -364,25 +416,21 @@ extension DraftViewController {
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         
         if let indexPath = tableView.indexPath(for: addedImageCell!) {
-            addedImageCell?.userImageView.image = selectedImage
-            addedImageCell!.addImageButton.isEnabled = false
-            addedImageCell!.addImageButton.isHidden = true
-            
+            print("indexPath: \(indexPath)")
             let mediaType = info[.mediaType] as! CFString
             if mediaType as String == UTType.image.identifier {
                 if let imageURL = info[.imageURL] as? URL {
                     
                     cloudManager.uploadImages(
                         fileUrl: imageURL,
-                        userName: "r1ddx") { [weak self] result in
+                        userName: user.userId) { [weak self] result in
                             switch result {
                             case .success(let urlString):
-                                self?.imageCells[indexPath.row].imageBlock.image = urlString
+                                self?.draft?.imageBlocks[indexPath.row].image = urlString
                                 
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
-                                self?.addedImageCell!.addImageButton.isEnabled = true
-                                self?.addedImageCell!.addImageButton.isHidden = false
+                        
                             }
                             
                         }
@@ -396,3 +444,28 @@ extension DraftViewController {
         
     }
 }
+
+// MARK: - UIPickerView Data Source & Delegate
+
+extension DraftViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        headerView.groupTextField.text = pickerData[row]
+        fetchDraft(selectedGroup: pickerData[row])
+    }
+
+
+}
+

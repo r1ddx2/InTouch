@@ -10,13 +10,7 @@ import UIKit
 class DraftTableHeaderView: UIView {
     
     static let identifier = "DraftHeaderCell"
-    
-    var selectedGroup: String?
-    var pickerData: [String] = [] {
-        didSet {
-            groupPickerView.reloadAllComponents()
-        }
-    }
+
     // MARK: - Subview
     let buttonsView = ButtonsScrollView()
     let addBlocksLabel: UILabel = {
@@ -52,17 +46,14 @@ class DraftTableHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    convenience init(pickerData: [String], buttonCount: Int, buttonTitles: [String]) {
+    convenience init(user: User, buttonCount: Int, buttonTitles: [String]) {
         self.init()
         setUpLayouts()
         setUpPickerView()
         buttonsView.setUpButtons(buttonsCount: buttonCount, buttonTitles: buttonTitles)
-        self.pickerData = pickerData
+        userIcon.loadImage(user.userIcon)
     }
     private func setUpPickerView() {
-        groupPickerView.delegate = self
-        groupPickerView.dataSource = self
-        
         groupTextField.inputView = groupPickerView
         groupTextField.placeholder = "Select a group"
     }
@@ -98,34 +89,6 @@ class DraftTableHeaderView: UIView {
     
     //MARK: - Methods
     @objc func doneButtonTapped() {
-        // Perform any actions needed when the "Done" button is tapped
-        // For example, dismiss the picker view
         groupTextField.endEditing(true)
     }
-    func layoutCell() {
-        
-    }
-}
-
-// MARK: - UIPickerView Data Source & Delegate
-extension DraftTableHeaderView: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        groupTextField.text = pickerData[row]
-        selectedGroup = pickerData[row]
-    }
-
-
 }
