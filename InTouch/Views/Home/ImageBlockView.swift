@@ -37,11 +37,11 @@ class ImageBlockView: UIView {
         setUpLayouts()
         setUpActions()
     }
-    convenience init(image: UIImage, caption: String) {
+    convenience init(image: String, caption: String) {
         self.init()
         setUpLayouts()
         setUpActions()
-        imageView.image = image
+        imageView.loadImage(image)
         captionLabel.text = caption
     }
     private func setUpLayouts() {
@@ -50,10 +50,10 @@ class ImageBlockView: UIView {
         
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.width.equalTo(325)
+            make.height.equalTo(imageView.snp.width)
         }
         captionLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(8)
+            make.top.equalTo(imageView.snp.bottom).offset(12)
             make.right.left.equalToSuperview()
         }
         
