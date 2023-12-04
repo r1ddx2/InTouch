@@ -7,8 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */; };
 		9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */; };
 		9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */; };
+		9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */; };
+		9DC6AFA22B19C2D5002D812C /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA12B19C2D5002D812C /* SearchResultsViewController.swift */; };
+		9DC6AFA42B1B436C002D812C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA32B1B436C002D812C /* Place.swift */; };
+		9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */; };
+		9DC6AFA82B1D6651002D812C /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */; };
+		9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */; };
 		9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C552B05F77800AE7AEE /* AppDelegate.swift */; };
 		9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */; };
 		9DE69C5A2B05F77800AE7AEE /* ITBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C592B05F77800AE7AEE /* ITBaseViewController.swift */; };
@@ -18,14 +25,17 @@
 		9DE69C6D2B05F77900AE7AEE /* InTouchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C6C2B05F77900AE7AEE /* InTouchTests.swift */; };
 		9DE69C772B05F77900AE7AEE /* InTouchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C762B05F77900AE7AEE /* InTouchUITests.swift */; };
 		9DE69C792B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C782B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift */; };
-		9DEEE8672B0DE836006B4496 /* ImageBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8662B0DE836006B4496 /* ImageBlockView.swift */; };
 		9DEEE8692B0DE841006B4496 /* TextBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8682B0DE841006B4496 /* TextBlockView.swift */; };
 		9DEEE86B2B0DE8CB006B4496 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE86A2B0DE8CB006B4496 /* HomeTableViewCell.swift */; };
-		9DEEE86D2B0DE90A006B4496 /* HomeTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE86C2B0DE90A006B4496 /* HomeTableHeaderView.swift */; };
 		9DEEE8702B0F23CA006B4496 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE86F2B0F23CA006B4496 /* Date + Extension.swift */; };
 		9DEEE8722B0F2E7A006B4496 /* GroupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8712B0F2E7A006B4496 /* GroupObject.swift */; };
 		9DEEE8742B0F2F32006B4496 /* NewsLetterObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8732B0F2F32006B4496 /* NewsLetterObject.swift */; };
 		9DEEE8782B105136006B4496 /* UserBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8772B105136006B4496 /* UserBlockView.swift */; };
+		9DEEE87A2B10A8DB006B4496 /* ImageBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8792B10A8DB006B4496 /* ImageBlockView.swift */; };
+		9DEEE87C2B130EA0006B4496 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */; };
+		9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */; };
+		9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */; };
+		9DEEE8822B15F689006B4496 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8812B15F689006B4496 /* AddLocationViewController.swift */; };
 		9DF8AAA12B07483300F5D3D3 /* ITBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */; };
 		9DF8AAA32B07485300F5D3D3 /* ITTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */; };
 		9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */; };
@@ -81,8 +91,15 @@
 		73B439C99D88FFBC84CACDD7 /* Pods-InTouch-InTouchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch-InTouchUITests.debug.xcconfig"; path = "Target Support Files/Pods-InTouch-InTouchUITests/Pods-InTouch-InTouchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82D8F9EBFF6935A6B98CBAD2 /* Pods-InTouchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouchTests.release.xcconfig"; path = "Target Support Files/Pods-InTouchTests/Pods-InTouchTests.release.xcconfig"; sourceTree = "<group>"; };
 		8BAF04407494FA72B72D204C /* Pods_InTouch_InTouchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouch_InTouchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
 		9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
 		9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
+		9DC6AFA12B19C2D5002D812C /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		9DC6AFA32B1B436C002D812C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D + Extension.swift"; sourceTree = "<group>"; };
+		9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterHeaderViewCell.swift; sourceTree = "<group>"; };
 		9DE69C522B05F77800AE7AEE /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE69C552B05F77800AE7AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,14 +113,17 @@
 		9DE69C722B05F77900AE7AEE /* InTouchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InTouchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE69C762B05F77900AE7AEE /* InTouchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTouchUITests.swift; sourceTree = "<group>"; };
 		9DE69C782B05F77900AE7AEE /* InTouchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTouchUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		9DEEE8662B0DE836006B4496 /* ImageBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBlockView.swift; sourceTree = "<group>"; };
 		9DEEE8682B0DE841006B4496 /* TextBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockView.swift; sourceTree = "<group>"; };
 		9DEEE86A2B0DE8CB006B4496 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
-		9DEEE86C2B0DE90A006B4496 /* HomeTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableHeaderView.swift; sourceTree = "<group>"; };
 		9DEEE86F2B0F23CA006B4496 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		9DEEE8712B0F2E7A006B4496 /* GroupObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupObject.swift; sourceTree = "<group>"; };
 		9DEEE8732B0F2F32006B4496 /* NewsLetterObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLetterObject.swift; sourceTree = "<group>"; };
 		9DEEE8772B105136006B4496 /* UserBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBlockView.swift; sourceTree = "<group>"; };
+		9DEEE8792B10A8DB006B4496 /* ImageBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBlockView.swift; sourceTree = "<group>"; };
+		9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
+		9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewTextCell.swift; sourceTree = "<group>"; };
+		9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewImageCell.swift; sourceTree = "<group>"; };
+		9DEEE8812B15F689006B4496 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITBaseNavigationController.swift; sourceTree = "<group>"; };
 		9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITTabBarViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -201,7 +221,6 @@
 		9DE69C542B05F77800AE7AEE /* InTouch */ = {
 			isa = PBXGroup;
 			children = (
-				9DF8AADD2B0B421300F5D3D3 /* Manager */,
 				9DF8AACD2B07DFF000F5D3D3 /* ThirdPartyWrappers */,
 				9DF8AAA42B074C6500F5D3D3 /* Extensions */,
 				9DF8AA282B07411D00F5D3D3 /* Views */,
@@ -237,11 +256,14 @@
 			isa = PBXGroup;
 			children = (
 				9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */,
-				9DEEE8662B0DE836006B4496 /* ImageBlockView.swift */,
-				9DEEE8682B0DE841006B4496 /* TextBlockView.swift */,
 				9DEEE86A2B0DE8CB006B4496 /* HomeTableViewCell.swift */,
-				9DEEE86C2B0DE90A006B4496 /* HomeTableHeaderView.swift */,
+				9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */,
+				9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */,
+				9DEEE8682B0DE841006B4496 /* TextBlockView.swift */,
 				9DEEE8772B105136006B4496 /* UserBlockView.swift */,
+				9DEEE8792B10A8DB006B4496 /* ImageBlockView.swift */,
+				9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */,
+				9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -253,8 +275,10 @@
 				9DF8AA292B07412600F5D3D3 /* Base */,
 				9DF8AAC02B07601700F5D3D3 /* Draft */,
 				9DF8AAAB2B074EC500F5D3D3 /* MapViewController.swift */,
+				9DF8AAD62B0AFD0100F5D3D3 /* ButtonsScrollView.swift */,
 				9DF8AAAD2B074ED700F5D3D3 /* ActivityViewController.swift */,
 				9DF8AAAF2B074EE000F5D3D3 /* ProfileViewController.swift */,
+				9DF8AADD2B0B421300F5D3D3 /* Manager */,
 				9DF8AADA2B0B3A0C00F5D3D3 /* Model */,
 			);
 			path = Views;
@@ -278,6 +302,7 @@
 				9DF8AAC72B07633400F5D3D3 /* UIColor + Extension.swift */,
 				9DF8AAC92B07634400F5D3D3 /* UIFont + Extension.swift */,
 				9DEEE86F2B0F23CA006B4496 /* Date + Extension.swift */,
+				9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,8 +314,9 @@
 				9DF8AAC12B07603200F5D3D3 /* TextBlockDraftCell.swift */,
 				9DF8AAC32B07604B00F5D3D3 /* ImageBlockDraftCell.swift */,
 				9DF8AAD22B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift */,
-				9DF8AAD62B0AFD0100F5D3D3 /* ButtonsScrollView.swift */,
 				9DF8AAD82B0B1F2100F5D3D3 /* DraftTableHeaderView.swift */,
+				9DEEE8812B15F689006B4496 /* AddLocationViewController.swift */,
+				9DC6AFA12B19C2D5002D812C /* SearchResultsViewController.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -299,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				9DF8AACE2B07E00400F5D3D3 /* CRRefreshWrapper.swift */,
+				9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */,
 			);
 			path = ThirdPartyWrappers;
 			sourceTree = "<group>";
@@ -309,6 +336,8 @@
 				9DF8AADB2B0B3EEA00F5D3D3 /* UserObject.swift */,
 				9DEEE8712B0F2E7A006B4496 /* GroupObject.swift */,
 				9DEEE8732B0F2F32006B4496 /* NewsLetterObject.swift */,
+				9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */,
+				9DC6AFA32B1B436C002D812C /* Place.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,6 +347,7 @@
 			children = (
 				9DF8AADE2B0B422200F5D3D3 /* FirestoreManager.swift */,
 				9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */,
+				9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -345,6 +375,7 @@
 				9DE69C502B05F77800AE7AEE /* Resources */,
 				9022D9C4D65CA18C856875E7 /* [CP] Embed Pods Frameworks */,
 				9DEEE86E2B0EE230006B4496 /* ShellScript */,
+				AC4B4160417E95A673C41527 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -392,6 +423,7 @@
 				9DE69C6F2B05F77900AE7AEE /* Frameworks */,
 				9DE69C702B05F77900AE7AEE /* Resources */,
 				6CAA99692AEBBAD9960F8186 /* [CP] Embed Pods Frameworks */,
+				0255A8CD39CC10F1DBE12DE8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -478,6 +510,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0255A8CD39CC10F1DBE12DE8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InTouch-InTouchUITests/Pods-InTouch-InTouchUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InTouch-InTouchUITests/Pods-InTouch-InTouchUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InTouch-InTouchUITests/Pods-InTouch-InTouchUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5C57B346AC3CA82FEC1ACEA4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -552,6 +601,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		AC4B4160417E95A673C41527 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InTouch/Pods-InTouch-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InTouch/Pods-InTouch-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InTouch/Pods-InTouch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EA5DF96B5ABF0C27DC4A4FB3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -612,26 +678,36 @@
 				9DF8AAA12B07483300F5D3D3 /* ITBaseNavigationController.swift in Sources */,
 				9DEEE8692B0DE841006B4496 /* TextBlockView.swift in Sources */,
 				9DF8AACF2B07E00400F5D3D3 /* CRRefreshWrapper.swift in Sources */,
+				9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */,
+				9DC6AFA22B19C2D5002D812C /* SearchResultsViewController.swift in Sources */,
 				9DF8AAD72B0AFD0100F5D3D3 /* ButtonsScrollView.swift in Sources */,
 				9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */,
+				9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */,
+				9DC6AFA82B1D6651002D812C /* ImageScrollView.swift in Sources */,
 				9DF8AADF2B0B422200F5D3D3 /* FirestoreManager.swift in Sources */,
 				9DF8AAAE2B074ED700F5D3D3 /* ActivityViewController.swift in Sources */,
 				9DEEE8742B0F2F32006B4496 /* NewsLetterObject.swift in Sources */,
 				9DEEE8722B0F2E7A006B4496 /* GroupObject.swift in Sources */,
+				9DEEE8822B15F689006B4496 /* AddLocationViewController.swift in Sources */,
+				9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */,
 				9DEEE8782B105136006B4496 /* UserBlockView.swift in Sources */,
+				9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */,
 				9DF8AAC82B07633400F5D3D3 /* UIColor + Extension.swift in Sources */,
-				9DEEE86D2B0DE90A006B4496 /* HomeTableHeaderView.swift in Sources */,
 				9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */,
 				9DF8AAD12B07E11000F5D3D3 /* ITBaseTableViewController.swift in Sources */,
+				9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */,
 				9DF8AAAA2B074EB800F5D3D3 /* DraftViewController.swift in Sources */,
 				9DF8AAA32B07485300F5D3D3 /* ITTabBarViewController.swift in Sources */,
-				9DEEE8672B0DE836006B4496 /* ImageBlockView.swift in Sources */,
+				9DC6AFA42B1B436C002D812C /* Place.swift in Sources */,
 				9DF8AAC62B07632A00F5D3D3 /* UIView + Extension.swift in Sources */,
 				9DF8AAD32B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift in Sources */,
 				9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */,
+				9DEEE87A2B10A8DB006B4496 /* ImageBlockView.swift in Sources */,
 				9DF8AAAC2B074EC500F5D3D3 /* MapViewController.swift in Sources */,
+				9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */,
 				9DF8AAD92B0B1F2100F5D3D3 /* DraftTableHeaderView.swift in Sources */,
 				9DF8AAC42B07604B00F5D3D3 /* ImageBlockDraftCell.swift in Sources */,
+				9DEEE87C2B130EA0006B4496 /* KingFisherWrapper.swift in Sources */,
 				9DF8AADC2B0B3EEA00F5D3D3 /* UserObject.swift in Sources */,
 				9DEEE8702B0F23CA006B4496 /* Date + Extension.swift in Sources */,
 			);

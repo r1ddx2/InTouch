@@ -8,16 +8,21 @@
 import UIKit
 import FirebaseCore
 import SnapKit
+import GoogleMaps
+import GooglePlaces
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let googleApiKey = "AIzaSyB8ezR8JUYGFifcgnj85z-7rYseauobBVU"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-
+        GMSServices.provideAPIKey(googleApiKey)
+        GMSPlacesClient.provideAPIKey(googleApiKey)
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

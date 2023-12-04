@@ -49,45 +49,6 @@ class FirestoreManager {
     }
     
     // MARK: - Methods
-    func listenCollection<T: Decodable>(
-        asType: T.Type,
-        reference: CollectionReference,
-        completion: @escaping CompletionHandler<[T]>
-    ) {
-        reference.addSnapshotListener { querySnapshot, error in
-            if let error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let querySnapshot else {
-                completion(.failure(FFError.unknownError))
-                return
-            }
-            
-            let documentDecodeResult: [Result<T, Error>] = querySnapshot.documents
-                .map { document in
-                    do {
-                        let documentData = try document.data(as: T.self)
-                        return .success(documentData)
-                    } catch {
-                        return .failure(error)
-                    }
-                }
-//            
-//            let documetFailures = documentDecodeResult
-//            let documentData = documentDecodeResult.successfulResults()
-//            if documetFailures.isEmpty {
-//                completion(.success(documentData))
-//            } else {
-//                documetFailures.forEach { completion(.failure($0)) }
-//            }
-//            
-        }
-        
-        
-    }
-    
     func listenToDocument<T: Decodable>(
         asType: T.Type,
         documentId: String,
