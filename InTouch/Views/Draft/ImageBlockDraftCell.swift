@@ -11,6 +11,7 @@ class ImageBlockDraftCell: UITableViewCell {
     
     static let identifier = "ImageBlockDraftCell"
     var addImageHandler: (() -> Void)?
+    var addLocationHandler: (() -> Void)?
     var editCaptionHandler: ((String) -> Void)?
    
     
@@ -24,8 +25,10 @@ class ImageBlockDraftCell: UITableViewCell {
     let locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.textColor = .ITDarkGrey
-        locationLabel.font = .regular(size: 14)
+        locationLabel.font = .regular(size: 13)
         locationLabel.text = "Add a location"
+        locationLabel.numberOfLines = 0
+        locationLabel.lineBreakMode = .byTruncatingTail
         return locationLabel
     }()
     let indicatorImageView: UIImageView = {
@@ -42,7 +45,6 @@ class ImageBlockDraftCell: UITableViewCell {
         seperatorView.backgroundColor = .ITLightGrey
         return seperatorView
     }()
-    // Image and Text
     let userImageView: UIImageView = {
         let userImageView = UIImageView()
         userImageView.borderColor = .ITLightGrey
@@ -72,7 +74,7 @@ class ImageBlockDraftCell: UITableViewCell {
         setUpLayouts()
         addImageButton.addTarget(self, action: #selector(addImageTapped), for: .touchUpInside)
         captionTextView.delegate = self
-        
+        addLocationButton.addTarget(self, action: #selector(addLocationTapped), for: .touchUpInside)
    
     }
     private func setUpLayouts() {
@@ -93,6 +95,7 @@ class ImageBlockDraftCell: UITableViewCell {
         locationLabel.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(locationView.snp.centerY)
             make.left.equalTo(locationView).offset(16)
+            make.right.equalTo(locationView).offset(-32)
         }
         indicatorImageView.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(locationView.snp.centerY)
@@ -132,6 +135,9 @@ class ImageBlockDraftCell: UITableViewCell {
     //MARK: - Methods
     @objc private func addImageTapped() {
         addImageHandler?()
+    }
+    @objc private func addLocationTapped() {
+        addLocationHandler?()
     }
     func layoutCell(imageBlock: ImageBlock) {
         captionTextView.text = imageBlock.caption
