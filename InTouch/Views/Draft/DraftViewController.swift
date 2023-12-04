@@ -45,7 +45,7 @@ class DraftViewController: ITBaseViewController {
     
     // MARK: - Subviews
     let tableView = UITableView()
-    let headerView = DraftTableHeaderView(user: FakeData.userRed, buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"])
+    let headerView = DraftTableHeaderView(user: FakeData.userRed, buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"], buttonStyle: .round)
     
     let submitButton: UIButton = {
         let button = UIButton()
@@ -57,24 +57,21 @@ class DraftViewController: ITBaseViewController {
         return button
     }()
     // MARK: - View Load
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let dismissButton = UIBarButtonItem(image: UIImage(resource: .iconClose).withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(dismissTapped))
-        navigationItem.rightBarButtonItem = dismissButton
-        navigationItem.leftBarButtonItem = editButtonItem
-        
+       
+        setUpNavigationBar()
         setUpTableView()
         setUpLayouts()
         setUpActions()
         setUpHeaderView()
         fetchGroups()
+    }
+    private func setUpNavigationBar() {
+        let dismissButton = UIBarButtonItem(image: UIImage(resource: .iconClose).withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(dismissTapped))
+        navigationItem.rightBarButtonItem = dismissButton
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     private func setUpLayouts() {
         view.addSubview(tableView)
@@ -142,8 +139,8 @@ class DraftViewController: ITBaseViewController {
     private func submitPost(group: String, post: Post, newsletter: NewsLetter) {
         
         let reference = firestoreManager.getNewslettersRef(from: group)
-        let documentId = Date().getThisWeekDateRange()
-        
+       // let documentId = Date().getThisWeekDateRange()
+        let documentId = Date().getLastWeekDateRange()
         isNewsletterExist(
             reference: reference,
             documentId: documentId) { [weak self] result in
@@ -252,11 +249,10 @@ class DraftViewController: ITBaseViewController {
     }
 
     @objc private func addImageBlockTapped() {
-//        guard imageCells.count <= 3 else {
-//            print("Too many blocks")
-//            print(imageCells)
-//            return
-//        }
+        guard draft?.imageBlocks.count ?? 0 <= 3 else {
+            print("Too many blocks")
+            return
+        }
     
         draft?.imageBlocks.append(
             ImageBlock(
@@ -265,25 +261,19 @@ class DraftViewController: ITBaseViewController {
                 location: nil,
                 place: nil )
         )
-        print(draft)
-        print("-------------------")
         reload()
     }
     @objc private func addTextBlockTapped() {
-//        guard imageCells.count + textCells.count <= 5 else {
-//            print(imageCells)
-//            print(textCells)
-//            print("Too many blocks")
-//            return
-//        }
+        guard draft?.textBlocks.count ?? 0 <= 3 else {
+            print("Too many blocks")
+            return
+        }
     
         draft?.textBlocks.append(
            TextBlock(
             title: "",
             content: "Write something...")
         )
-        print(draft)
-        print("-------------------")
         reload()
     }
   
@@ -298,6 +288,20 @@ class DraftViewController: ITBaseViewController {
         } else {
             headerView.buttonsView.buttonsArray[buttonIndex].setTitleColor(.ITBlack, for: .normal)
             headerView.buttonsView.buttonsArray[buttonIndex].isUserInteractionEnabled = true
+        }
+    }
+    private func presentAddLocationVC(from cell: ImageBlockDraftCell) {
+        let addLocationVC = AddLocationViewController()
+        self.navigationController?.pushViewController(addLocationVC, animated: true)
+        addLocationVC.didSelectLocation = { [weak self] location in
+            guard let self = self else { return }
+            
+            cell.locationLabel.text = location.name
+            if let indexPath = self.tableView.indexPath(for: cell) {
+                self.draft?.imageBlocks[indexPath.row].location = location.coordinate?.toGeoPoint()
+                self.draft?.imageBlocks[indexPath.row].place = location.address
+            }
+           
         }
     }
 }
@@ -335,6 +339,10 @@ extension DraftViewController: UITableViewDataSource {
             cell.addImageHandler = { [weak self] in
                 self?.addedImageCell = cell
                 self?.showImagePicker()
+            }
+            
+            cell.addLocationHandler = { [weak self] in
+                self?.presentAddLocationVC(from: cell)
             }
             
             

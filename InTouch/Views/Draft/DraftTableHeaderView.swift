@@ -24,6 +24,7 @@ class DraftTableHeaderView: UIView {
         let userIcon = UIImageView()
         userIcon.image = UIImage(resource: .iconProfile)
         userIcon.clipsToBounds = true
+        userIcon.contentMode = .scaleAspectFill
         userIcon.layer.cornerRadius = 25
         return userIcon
     }()
@@ -46,11 +47,12 @@ class DraftTableHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    convenience init(user: User, buttonCount: Int, buttonTitles: [String]) {
+    convenience init(user: User, buttonCount: Int, buttonTitles: [String], buttonStyle: ButtonStyle) {
         self.init()
         setUpLayouts()
         setUpPickerView()
-        buttonsView.setUpButtons(buttonsCount: buttonCount, buttonTitles: buttonTitles)
+        
+        buttonsView.setUpButtons(buttonsCount: buttonCount, buttonTitles: buttonTitles, buttonStyle: buttonStyle)
         userIcon.loadImage(user.userIcon)
     }
     private func setUpPickerView() {

@@ -16,7 +16,8 @@ pod 'IQKeyboardManagerSwift'
 pod 'ProgressHUD'
 use_frameworks!
 pod 'KeychainAccess'
-
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 
   target 'InTouchTests' do
     inherit! :search_paths
