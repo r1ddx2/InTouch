@@ -9,12 +9,12 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 
+
 class SearchResultsViewController: UITableViewController, UISearchResultsUpdating {
     
     private let googlePlaceManager = GooglePlacesManager.shared
     var searchResults: [Place] = []
-    
-    
+    var selectLocationHandler: ((Place) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +39,13 @@ class SearchResultsViewController: UITableViewController, UISearchResultsUpdatin
         var selectedLocation = searchResults[indexPath.row]
         
         googlePlaceManager.resolveLocation(
-            for: selectedLocation) { result in
+            for: selectedLocation) { [weak self] result in
+                guard let self = self else { return }
+                
                 switch result {
                 case .success(let coordinate):
                     selectedLocation.coordinate = coordinate
-                    print("Selected location: \(selectedLocation)")
-                    
+                    self.selectLocationHandler?(selectedLocation)
                     
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
