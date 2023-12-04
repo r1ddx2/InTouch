@@ -156,13 +156,15 @@ class HomeViewController: ITBaseTableViewController {
         let user = User(userId: post.userId, userName: post.userName, userIcon: post.userIcon)
         
         if post.imageBlocks.isEmpty == true {
-            textCell.layoutCell(textBlock: post.textBlocks[0], user: user)
+            textCell.layoutCell(textBlock: post.textBlocks, user: user)
             return textCell
+            
         } else if post.textBlocks.isEmpty == true {
             imageCell.layoutCell(imageBlocks: post.imageBlocks, user: user)
             return imageCell
+            
         } else {
-            cell.layoutCell(imageBlocks: post.imageBlocks, textBlock: post.textBlocks[0], user: user)
+            cell.layoutCell(imageBlocks: post.imageBlocks, textBlocks: post.textBlocks, user: user)
             return cell
         }
     }

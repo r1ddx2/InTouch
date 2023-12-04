@@ -31,7 +31,7 @@ class HomeTableViewImageCell: UITableViewCell {
 
         userBlockView.snp.makeConstraints { (make) -> Void in
             make.top.right.left.equalTo(contentView)
-            make.height.equalTo(62)
+            make.height.equalTo(UserBlockView.height)
         }
         imageBlocksScrollView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(userBlockView.snp.bottom).offset(8)

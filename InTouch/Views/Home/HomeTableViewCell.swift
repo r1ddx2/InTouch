@@ -10,31 +10,19 @@ import UIKit
 class HomeTableViewCell: UITableViewCell {
     static let identifier = "\(HomeTableViewCell.self)"
     
+    var textBlocksArray: [TextBlockView] = []
+    
     // MARK: - Subview
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .medium(size: 18)
-        label.textColor = .ITBlack
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        return label
-    }()
-    let contentLabel: UILabel = {
-        let label = UILabel()
-        label.font = .regular(size: 16)
-        label.textColor = .ITBlack
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        return label
-    }()
     let seperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .ITLightGrey
         return view
     }()
+    
     private var userBlockView = UserBlockView()
     var imageBlocksScrollView = ImageScrollView(frame: .zero)
-
+    var stackTextBlockView = StackTextBlockView(frame: .zero)
+    
     //MARK: - View Load
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,13 +34,12 @@ class HomeTableViewCell: UITableViewCell {
     private func setUpLayouts() {
         contentView.addSubview(userBlockView)
         contentView.addSubview(imageBlocksScrollView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(contentLabel)
+        contentView.addSubview(stackTextBlockView)
         contentView.addSubview(seperatorView)
         
         userBlockView.snp.makeConstraints { (make) -> Void in
             make.top.right.left.equalTo(contentView)
-            make.height.equalTo(62)
+            make.height.equalTo(UserBlockView.height)
         }
         imageBlocksScrollView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(userBlockView.snp.bottom).offset(8)
@@ -65,31 +52,20 @@ class HomeTableViewCell: UITableViewCell {
             make.right.equalTo(contentView).offset(-16)
             make.height.equalTo(0.5)
         }
-        titleLabel.snp.makeConstraints { (make) -> Void in
+        stackTextBlockView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(seperatorView.snp.bottom).offset(16)
-            make.left.equalTo(contentView).offset(16)
-            make.right.equalTo(contentView).offset(-16)
+            make.left.equalTo(contentView)
+            make.right.equalTo(contentView)
+            make.bottom.equalTo(contentView)
         }
-        contentLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
-            make.bottom.equalTo(contentView).offset(-21)
-            make.right.equalTo(contentView).offset(-16)
-        }
+
     }
  
     //MARK: - Methods
-    func layoutCell(imageBlocks: [ImageBlock], textBlock: TextBlock, user: User) {
-        setUpImageBlocks(imageBlocks: imageBlocks)
-        setUpTextBlock(textBlock: textBlock)
+    func layoutCell(imageBlocks: [ImageBlock], textBlocks: [TextBlock], user: User) {
+        imageBlocksScrollView.setUpImageBlocks(imageBlocks: imageBlocks)
+        stackTextBlockView.setUpTextBlocks(textBlocks: textBlocks)
         setUpUserBlock(userName: user.userName, userIcon: user.userIcon)
-    }
-    private func setUpImageBlocks(imageBlocks array: [ImageBlock]) {
-        imageBlocksScrollView.setUpImageBlocks(imageBlocks: array)
-    }
-    private func setUpTextBlock(textBlock: TextBlock) {
-        titleLabel.text = textBlock.title
-        contentLabel.text = textBlock.content
     }
     private func setUpUserBlock(userName: String, userIcon: String) {
         userBlockView.userNameLabel.text = userName

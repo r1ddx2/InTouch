@@ -10,24 +10,8 @@ import UIKit
 class HomeTableViewTextCell: UITableViewCell {
     static let identifier = "\(HomeTableViewTextCell.self)"
     
-    // MARK: - Subviews
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .medium(size: 18)
-        label.textColor = .ITBlack
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        return label
-    }()
-    let contentLabel: UILabel = {
-        let label = UILabel()
-        label.font = .regular(size: 16)
-        label.textColor = .ITBlack
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        return label
-    }()
- 
+    var stackTextBlocks = StackTextBlockView(frame: .zero)
+   
     private var userBlockView = UserBlockView()
     //MARK: - View Load
     required init?(coder aDecoder: NSCoder) {
@@ -37,30 +21,25 @@ class HomeTableViewTextCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayouts()
     }
+   
     private func setUpLayouts() {
         contentView.addSubview(userBlockView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(contentLabel)
+        contentView.addSubview(stackTextBlocks)
+
         userBlockView.snp.makeConstraints { (make) -> Void in
             make.top.right.left.equalTo(contentView)
-            make.height.equalTo(62)
+            make.height.equalTo(UserBlockView.height)
         }
-        titleLabel.snp.makeConstraints { (make) -> Void in
+        stackTextBlocks.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(userBlockView.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
-            make.right.equalTo(contentView).offset(-16)
+            make.left.right.equalTo(contentView)
+            make.bottom.equalTo(contentView)
         }
-        contentLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
-            make.bottom.equalTo(contentView).offset(-21)
-            make.right.equalTo(contentView).offset(-16)
-        }
+    
     }
     //MARK: - Methods
-    func layoutCell(textBlock: TextBlock, user: User) {
-        titleLabel.text = textBlock.title
-        contentLabel.text = textBlock.content
+    func layoutCell(textBlock: [TextBlock], user: User) {
+        stackTextBlocks.setUpTextBlocks(textBlocks: textBlock)
         setUpUserBlock(userName: user.userName, userIcon: user.userIcon)
     }
  

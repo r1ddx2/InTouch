@@ -48,14 +48,14 @@ class ImageScrollView: UIScrollView {
                 }
             } else {
                 view.snp.makeConstraints { (make) -> Void in
-                    make.left.equalTo(self.snp.left).offset(16)
+                    make.left.equalTo(self.snp.left).offset(21)
                 }
             }
             previousView = view
             
         }
         
-        let totalWidth = CGFloat(count) * CGFloat(viewWidth) + CGFloat(count - 1) * 16 + CGFloat(32)
+        let totalWidth = CGFloat(count) * CGFloat(viewWidth) + CGFloat(count - 1) * 16 + CGFloat(42)
         self.contentSize = CGSize(width: totalWidth, height: 50.0)
         
     }
