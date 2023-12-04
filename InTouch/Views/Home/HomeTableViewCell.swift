@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class HomeTableViewCell: UITableViewCell {
     static let identifier = "\(HomeTableViewCell.self)"
     
@@ -34,10 +33,8 @@ class HomeTableViewCell: UITableViewCell {
         return view
     }()
     private var userBlockView = UserBlockView()
-    private var imageBlocksScrollView = UIScrollView()
+    var imageBlocksScrollView = ImageScrollView(frame: .zero)
 
-    private var imageBlocksArray: [ImageBlockView] = []
-    
     //MARK: - View Load
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,7 +42,6 @@ class HomeTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayouts()
-        setupScrollView()
     }
     private func setUpLayouts() {
         contentView.addSubview(userBlockView)
@@ -54,7 +50,6 @@ class HomeTableViewCell: UITableViewCell {
         contentView.addSubview(contentLabel)
         contentView.addSubview(seperatorView)
         
-     
         userBlockView.snp.makeConstraints { (make) -> Void in
             make.top.right.left.equalTo(contentView)
             make.height.equalTo(62)
@@ -62,10 +57,10 @@ class HomeTableViewCell: UITableViewCell {
         imageBlocksScrollView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(userBlockView.snp.bottom).offset(8)
             make.left.right.equalTo(contentView)
-            make.height.equalTo(385)
+            make.height.equalTo(410)
         }
         seperatorView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(imageBlocksScrollView.snp.bottom)
+            make.top.equalTo(imageBlocksScrollView.snp.bottom).offset(16)
             make.left.equalTo(contentView).offset(16)
             make.right.equalTo(contentView).offset(-16)
             make.height.equalTo(0.5)
@@ -82,56 +77,23 @@ class HomeTableViewCell: UITableViewCell {
             make.right.equalTo(contentView).offset(-16)
         }
     }
-    
-    private func setupScrollView() {
-        imageBlocksScrollView.isScrollEnabled = true
-        imageBlocksScrollView.showsHorizontalScrollIndicator = false
-    }
+ 
     //MARK: - Methods
     func layoutCell(imageBlocks: [ImageBlock], textBlock: TextBlock, user: User) {
         setUpImageBlocks(imageBlocks: imageBlocks)
         setUpTextBlock(textBlock: textBlock)
-        setUpUserBlock(userName: user.userName, userIcon: user.userIcon, placeLabel: imageBlocks[0].place ?? "" )
+        setUpUserBlock(userName: user.userName, userIcon: user.userIcon)
     }
     private func setUpImageBlocks(imageBlocks array: [ImageBlock]) {
-        let count = array.count
-        let viewWidth = 325
-        var previousView: ImageBlockView?
-        
-        for i in 0..<count {
-            let view = ImageBlockView(image: array[i].image, caption: array[i].caption)
-            imageBlocksScrollView.addSubview(view)
-            imageBlocksArray.append(view)
-            
-            view.snp.makeConstraints { (make) -> Void in
-                make.top.equalTo(imageBlocksScrollView)
-                make.height.width.equalTo(viewWidth)
-            }
-            if let previousView = previousView {
-                view.snp.makeConstraints { (make) -> Void in
-                    make.left.equalTo(previousView.snp.right).offset(16)
-                }
-            } else {
-                view.snp.makeConstraints { (make) -> Void in
-                    make.left.equalTo(imageBlocksScrollView.snp.left).offset(16)
-                }
-            }
-            previousView = view
-            
-        }
-        
-        let totalWidth = CGFloat(count) * CGFloat(viewWidth) + CGFloat(count - 1) * 16 + CGFloat(32)
-        imageBlocksScrollView.contentSize = CGSize(width: totalWidth, height: 50.0)
-        
+        imageBlocksScrollView.setUpImageBlocks(imageBlocks: array)
     }
     private func setUpTextBlock(textBlock: TextBlock) {
         titleLabel.text = textBlock.title
         contentLabel.text = textBlock.content
     }
-    private func setUpUserBlock(userName: String, userIcon: String, placeLabel: String) {
+    private func setUpUserBlock(userName: String, userIcon: String) {
         userBlockView.userNameLabel.text = userName
         userBlockView.userIconImageView.loadImage(userIcon)
-      
     }
   
     

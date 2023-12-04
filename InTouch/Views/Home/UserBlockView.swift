@@ -13,6 +13,7 @@ class UserBlockView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .iconProfileSelected)
         imageView.layer.cornerRadius = 20
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
