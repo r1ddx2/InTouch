@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import GoogleMaps
+import GooglePlaces
+
+struct Place {
+    let name: String
+    let identifier: String
+    let address: String
+    var coordinate: CLLocationCoordinate2D?
+}
