@@ -15,7 +15,6 @@ class TextBlockView: UIView {
         label.textColor = .ITBlack
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
-       label.text = "標題"
         return label
     }()
     let contentLabel: UILabel = {
@@ -24,7 +23,6 @@ class TextBlockView: UIView {
         label.textColor = .ITBlack
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
-        label.text = "這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。這個星期最好玩的是我去騎了腳踏車，我的手有點痛。"
         return label
     }()
     // MARK: - View Load
@@ -49,14 +47,14 @@ class TextBlockView: UIView {
         
         titleLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self).offset(21)
-            make.left.equalTo(self).offset(16)
-            make.right.equalTo(self).offset(-16)
+            make.left.equalTo(self).offset(21)
+            make.right.equalTo(self).offset(-21)
         }
         contentLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.left.equalTo(self).offset(16)
+            make.left.equalTo(self).offset(21)
             make.bottom.equalTo(self).offset(-21)
-            make.right.equalTo(self).offset(-16)
+            make.right.equalTo(self).offset(-21)
         }
     
     }

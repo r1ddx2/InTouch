@@ -226,7 +226,7 @@ class DraftViewController: ITBaseViewController {
     
         firestoreManager.getDocument(
             asType: NewsLetter.self,
-            documentId: Date().getThisWeekDateRange(),
+            documentId: Date().getLastWeekDateRange(),
             reference: firestoreManager.getNewslettersRef(from: selectedGroup)) { [weak self] result in
                 guard let self = self else { return }
                 
