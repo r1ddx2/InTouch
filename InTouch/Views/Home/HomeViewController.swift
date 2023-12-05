@@ -8,20 +8,21 @@
 import UIKit
 import FirebaseFirestore
 
-class HomeViewController: ITBaseTableViewController {
-    let currentGroup = "iOS Group"
+class HomeViewController: ITBaseCollectionViewController {
+    
+    let currentGroup = FakeData.userRed.groups![0]
     private let firestoreManager = FirestoreManager.shared
-    
-    var user: User?
-    
-    var newsletter: NewsLetter? {
-        didSet {
-            reloadData()
-        }
+    override var isHideNavigationBarOnScroll: Bool {
+        return true
     }
     
-    // MARK: - Subviews
-    let headerView = ButtonsScrollView()
+    var user: User? {
+        didSet {
+            fetchNewsletters()
+        }
+    }
+    // MARK: - Subview
+    let tabButtonsView = ButtonsScrollView()
     
     // MARK: - View Load
     override func viewWillAppear(_ animated: Bool) {
@@ -34,145 +35,125 @@ class HomeViewController: ITBaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLayouts()
-        setUpTableView()
-        setUpActions()
-        fetchUserData()
+        setupCollectionView()
     }
     private func setUpLayouts() {
-    
-        view.addSubview(tableView)
+         view.addSubview(collectionView)
+        view.addSubview(tabButtonsView)
         
-       
-        tableView.snp.makeConstraints { (make) -> Void in
+        tabButtonsView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
-            make.bottom.equalTo(view)
+            make.left.right.equalTo(view)
+            make.height.equalTo(50)
         }
+         collectionView.snp.makeConstraints { (make) -> Void in
+             make.top.equalTo(tabButtonsView.snp.bottom)
+             make.left.right.equalTo(view)
+             make.bottom.equalTo(view.safeAreaLayoutGuide)
+         }
+     }
+    private func setupCollectionView() {
+        collectionView.collectionViewLayout = configureCollectionLayout()
+        collectionView.isPagingEnabled = true
+        collectionView.isUserInteractionEnabled = false
+        collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
+    }
+    private func configureCollectionLayout() -> UICollectionViewCompositionalLayout {
         
-    }
-    private func setUpTableView() {
-        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
-        tableView.register(HomeTableViewTextCell.self, forCellReuseIdentifier: HomeTableViewTextCell.identifier)
-        tableView.register(HomeTableViewImageCell.self, forCellReuseIdentifier: HomeTableViewImageCell.identifier)
-        tableView.register(NewsletterHeaderViewCell.self, forCellReuseIdentifier: NewsletterHeaderViewCell.identifier)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 1000
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.cellLayoutMarginsFollowReadableWidth = false
-        tableView.tableHeaderView = headerView
-        tableView.tableHeaderView?.frame.size.height = 50
-    }
- 
-    private func setUpActions() {
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 8
+            section.orthogonalScrollingBehavior = .groupPaging
+            
+            return section
+        }
+        return layout
         
     }
     private func setUpTab() {
         guard let groups = user?.groups else { return }
-        headerView.setUpButtons(buttonsCount: groups.count, buttonTitles: groups, buttonStyle: .tab)
+        tabButtonsView.setUpButtons(buttonsCount: groups.count, buttonTitles: groups, buttonStyle: .tab)
+        tabButtonsView.didSwitchTabs = { index in
+            self.scrollToNewsletter(at: index)
+            
+        }
     }
-    
     // MARK: - Methods}
     override func headerLoader() {
         fetchUserData()
-        fetchNewsletter()
         endHeaderRefreshing()
     }
     private func fetchUserData() {
-        self.user = nil
         firestoreManager.getDocument(
             asType: User.self,
             documentId: FakeData.userRed.userId,
-            reference: firestoreManager.usersRef) { result in
+            reference: firestoreManager.getRef(.users, group: nil)) { result in
                 switch result {
-                case .success(let data):
-                    self.user = data
+                case .success(let user):
+                    self.user = user
                     self.setUpTab()
+                    
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
+                 
                 }
                 
             }
         
     }
-    func fetchNewsletter() {
-        self.newsletter = nil
-        let lastWeek = Date().getLastWeekDateRange()
-        let documentId = "\(lastWeek)"
-        let reference = firestoreManager.getNewslettersRef(from: currentGroup)
+    private func fetchNewsletters() {
+        print("User:\(self.user)")
+        guard let user = user,
+        let groups = user.groups else { return }
+   
+        let documentId = "\(Date().getLastWeekDateRange())"
+        let references = firestoreManager.getRefs(subCollection: .newsletters, groups: groups).getReversed()
         
-        firestoreManager.getDocument(
+        firestoreManager.getDocuments(
             asType: NewsLetter.self,
             documentId: documentId,
-            reference: reference) { result in
+            references: references,
+            completion: { result in
                 switch result {
                 case .success(let newsletter):
-                    self.newsletter = newsletter
-                    print("-------------------")
-                    print("Newsletter: \(self.newsletter)")
-                    print("-------------------")
+                    self.datas = [newsletter]
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                     
-                    
                 }
                 
-            }
+            })
     }
-    // MARK: - UITableView DataSource
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let newsletter = newsletter else { return 0 }
-        return newsletter.posts.count + 1
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Header cell
-        guard let headerCell = tableView.dequeueReusableCell(withIdentifier: NewsletterHeaderViewCell.identifier, for: indexPath) as? NewsletterHeaderViewCell else { fatalError("Cannot create cell")
-        }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
-            fatalError("Cannot create cell")
-        }
-        guard let textCell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewTextCell.identifier, for: indexPath) as? HomeTableViewTextCell else {
-            fatalError("Cannot create text cell")
-        }
-        guard let imageCell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewImageCell.identifier, for: indexPath) as? HomeTableViewImageCell else {
-            fatalError("Cannot create image cell")
+ override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+     print(datas[0].count)
+     print(datas)
+            return datas[0].count
         }
         
-        guard let newsletter = newsletter else {
-            return UITableViewCell()
-        }
-     
-        guard indexPath.row != 0 else {
-            headerCell.layoutCell(
-                image: newsletter.newsCover,
-                title: newsletter.title,
-                date: newsletter.date.getThisWeekDateRange()
-            )
-            return headerCell
-        }
-       
-        let post = newsletter.posts[indexPath.row - 1]
-        let user = User(userId: post.userId, userName: post.userName, userIcon: post.userIcon)
-        
-        if post.imageBlocks.isEmpty == true {
-            textCell.layoutCell(textBlock: post.textBlocks, user: user)
-            return textCell
-            
-        } else if post.textBlocks.isEmpty == true {
-            imageCell.layoutCell(imageBlocks: post.imageBlocks, user: user)
-            return imageCell
-            
-        } else {
-            cell.layoutCell(imageBlocks: post.imageBlocks, textBlocks: post.textBlocks, user: user)
+        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { fatalError("Cannot create cell") }
+           
+            cell.user = self.user
+            cell.newsletter = datas[0][indexPath.item] as? NewsLetter
+           
             return cell
         }
-    }
-    
-    // MARK: - UITableView Delegate
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        false
-    }
+  
+        func scrollToNewsletter(at index: Int) {
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     
 }
-
+extension HomeViewController: HomeCollectionViewCellDelegate {
+    func didLoadHeader(_ cell: HomeCollectionViewCell, tableView: UITableView)  {
+      
+    }
+    
+    
+}
