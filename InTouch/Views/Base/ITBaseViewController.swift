@@ -13,6 +13,9 @@ class ITBaseViewController: UIViewController {
     static var identifier: String {
         return String(describing: self)
     }
+    var isHideNavigationBarOnScroll: Bool {
+        return false
+    }
     var isHideNavigationBar: Bool {
         return false
     }
@@ -29,6 +32,9 @@ class ITBaseViewController: UIViewController {
         super.viewDidLoad()
         if isHideNavigationBar {
             navigationItem.hidesBackButton = true
+        }
+        if isHideNavigationBarOnScroll {
+            navigationController?.hidesBarsOnSwipe = true
         }
         if isHideTabBar {
             tabBarController?.tabBar.isHidden = true

@@ -28,7 +28,10 @@ class ITBaseCollectionViewController: ITBaseViewController,
     // MARK: - Private Method
     private func collectionViewSetUp() {
         if collectionView == nil {
-            let collectionView = UICollectionView()
+            let collectionView = UICollectionView(
+                frame: CGRect.zero,
+                collectionViewLayout: UICollectionViewLayout()
+            )
             self.collectionView = collectionView
         }
     
