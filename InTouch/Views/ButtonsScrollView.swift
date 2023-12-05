@@ -18,6 +18,8 @@ class ButtonsScrollView: UIScrollView {
     var selectedIndex = 0
     let indicatorView = UIView()
     var buttonsArray: [UIButton] = []
+    
+    var didSwitchTabs: ((Int) -> Void)?
     // MARK: - Constraints
     private var centerXConstraint: ConstraintMakerEditable!
     private var widthConstraint: ConstraintMakerEditable!
@@ -123,6 +125,7 @@ class ButtonsScrollView: UIScrollView {
         sender.isSelected = true
         selectedIndex = buttonsArray.firstIndex(of: sender) ?? 0
         updateIndicator(to: sender)
+        didSwitchTabs?(selectedIndex)
     }
     @objc func addGroup(sender: UIButton) {
     }
