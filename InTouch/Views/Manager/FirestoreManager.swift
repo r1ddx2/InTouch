@@ -211,7 +211,55 @@ class FirestoreManager {
         })
         
     }
-   
+    func getDocuments<T: Decodable>(
+        asType: T.Type,
+        documentId: String,
+        references: [CollectionReference],
+        completion: @escaping CompletionHandler<[T]>
+    ) {
+        var data: [T] = []
+        let dispatchGroup = DispatchGroup()
+        
+        print("references: \(references)")
+        for reference in references {
+            dispatchGroup.enter()
+            
+            reference.document(documentId)
+                .getDocument(completion: { (snapshot, error) in
+                    
+                defer {
+                    dispatchGroup.leave()
+                }
+                if let error {
+                    completion(.failure(error))
+                    return
+                }
+                guard let snapshot else {
+                    completion(.failure(FFError.unknownError))
+                    return
+                }
+                guard snapshot.exists else {
+                    completion(.failure(FFError.invalidDocument))
+                    return
+                }
+                
+                do {
+                    let documentData = try snapshot.data(as: T.self)
+                    data.append(documentData)
+                    print(data)
+                } catch {
+                    completion(.failure(error))
+                }
+                
+            })
+        }
+        dispatchGroup.notify(queue: .main) {
+            completion(.success(data))
+        }
+        
+    }
+    
+    // MARK: -
     func isDocumentExist(
         documentId: String,
         reference: CollectionReference,
