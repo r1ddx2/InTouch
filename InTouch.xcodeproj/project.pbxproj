@@ -16,6 +16,10 @@
 		9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */; };
 		9DC6AFA82B1D6651002D812C /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */; };
 		9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */; };
+		9DC6AFB02B1DD7F0002D812C /* StackTextBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFAF2B1DD7F0002D812C /* StackTextBlockView.swift */; };
+		9DC6AFB22B1DDE37002D812C /* ITBaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB12B1DDE37002D812C /* ITBaseCollectionViewController.swift */; };
+		9DC6AFB42B1DE388002D812C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB32B1DE388002D812C /* HomeCollectionViewCell.swift */; };
+		9DC6AFB62B1F2C0F002D812C /* Array + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */; };
 		9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C552B05F77800AE7AEE /* AppDelegate.swift */; };
 		9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */; };
 		9DE69C5A2B05F77800AE7AEE /* ITBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C592B05F77800AE7AEE /* ITBaseViewController.swift */; };
@@ -100,6 +104,10 @@
 		9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D + Extension.swift"; sourceTree = "<group>"; };
 		9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterHeaderViewCell.swift; sourceTree = "<group>"; };
+		9DC6AFAF2B1DD7F0002D812C /* StackTextBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTextBlockView.swift; sourceTree = "<group>"; };
+		9DC6AFB12B1DDE37002D812C /* ITBaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITBaseCollectionViewController.swift; sourceTree = "<group>"; };
+		9DC6AFB32B1DE388002D812C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extension.swift"; sourceTree = "<group>"; };
 		9DE69C522B05F77800AE7AEE /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE69C552B05F77800AE7AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -256,14 +264,16 @@
 			isa = PBXGroup;
 			children = (
 				9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */,
+				9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */,
 				9DEEE86A2B0DE8CB006B4496 /* HomeTableViewCell.swift */,
 				9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */,
 				9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */,
-				9DEEE8682B0DE841006B4496 /* TextBlockView.swift */,
 				9DEEE8772B105136006B4496 /* UserBlockView.swift */,
+				9DEEE8682B0DE841006B4496 /* TextBlockView.swift */,
+				9DC6AFAF2B1DD7F0002D812C /* StackTextBlockView.swift */,
 				9DEEE8792B10A8DB006B4496 /* ImageBlockView.swift */,
 				9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */,
-				9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */,
+				9DC6AFB32B1DE388002D812C /* HomeCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -291,6 +301,7 @@
 				9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */,
 				9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */,
 				9DF8AAD02B07E11000F5D3D3 /* ITBaseTableViewController.swift */,
+				9DC6AFB12B1DDE37002D812C /* ITBaseCollectionViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -303,6 +314,7 @@
 				9DF8AAC92B07634400F5D3D3 /* UIFont + Extension.swift */,
 				9DEEE86F2B0F23CA006B4496 /* Date + Extension.swift */,
 				9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */,
+				9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -684,6 +696,7 @@
 				9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */,
 				9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */,
 				9DC6AFA82B1D6651002D812C /* ImageScrollView.swift in Sources */,
+				9DC6AFB62B1F2C0F002D812C /* Array + Extension.swift in Sources */,
 				9DF8AADF2B0B422200F5D3D3 /* FirestoreManager.swift in Sources */,
 				9DF8AAAE2B074ED700F5D3D3 /* ActivityViewController.swift in Sources */,
 				9DEEE8742B0F2F32006B4496 /* NewsLetterObject.swift in Sources */,
@@ -692,6 +705,7 @@
 				9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */,
 				9DEEE8782B105136006B4496 /* UserBlockView.swift in Sources */,
 				9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */,
+				9DC6AFB02B1DD7F0002D812C /* StackTextBlockView.swift in Sources */,
 				9DF8AAC82B07633400F5D3D3 /* UIColor + Extension.swift in Sources */,
 				9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */,
 				9DF8AAD12B07E11000F5D3D3 /* ITBaseTableViewController.swift in Sources */,
@@ -702,10 +716,12 @@
 				9DF8AAC62B07632A00F5D3D3 /* UIView + Extension.swift in Sources */,
 				9DF8AAD32B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift in Sources */,
 				9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */,
+				9DC6AFB22B1DDE37002D812C /* ITBaseCollectionViewController.swift in Sources */,
 				9DEEE87A2B10A8DB006B4496 /* ImageBlockView.swift in Sources */,
 				9DF8AAAC2B074EC500F5D3D3 /* MapViewController.swift in Sources */,
 				9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */,
 				9DF8AAD92B0B1F2100F5D3D3 /* DraftTableHeaderView.swift in Sources */,
+				9DC6AFB42B1DE388002D812C /* HomeCollectionViewCell.swift in Sources */,
 				9DF8AAC42B07604B00F5D3D3 /* ImageBlockDraftCell.swift in Sources */,
 				9DEEE87C2B130EA0006B4496 /* KingFisherWrapper.swift in Sources */,
 				9DF8AADC2B0B3EEA00F5D3D3 /* UserObject.swift in Sources */,

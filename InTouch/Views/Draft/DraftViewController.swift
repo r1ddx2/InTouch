@@ -138,8 +138,8 @@ class DraftViewController: ITBaseViewController {
     }
     private func submitPost(group: String, post: Post, newsletter: NewsLetter) {
         
-        let reference = firestoreManager.getNewslettersRef(from: group)
-       // let documentId = Date().getThisWeekDateRange()
+        let reference = firestoreManager.getRef(.newsletters, group: group)
+        // let documentId = Date().getThisWeekDateRange()
         let documentId = Date().getLastWeekDateRange()
         isNewsletterExist(
             reference: reference,
@@ -207,7 +207,7 @@ class DraftViewController: ITBaseViewController {
         firestoreManager.getDocument(
             asType: User.self,
             documentId: user.userId,
-            reference: firestoreManager.usersRef) { result in
+            reference: firestoreManager.getRef(.users, group: nil)) { result in
                 switch result {
                 case .success(let data):
                     guard let groups = data.groups else { return }
@@ -227,7 +227,7 @@ class DraftViewController: ITBaseViewController {
         firestoreManager.getDocument(
             asType: NewsLetter.self,
             documentId: Date().getLastWeekDateRange(),
-            reference: firestoreManager.getNewslettersRef(from: selectedGroup)) { [weak self] result in
+            reference: firestoreManager.getRef(.newsletters, group: selectedGroup)) { [weak self] result in
                 guard let self = self else { return }
                 
                 switch result {

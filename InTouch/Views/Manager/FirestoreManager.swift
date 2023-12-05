@@ -22,9 +22,6 @@ enum FFError: Error {
 enum FFCollection: String {
     case groups
     case users
-}
-
-enum FFSubCollection: String {
     case archived
     case newsletters
 }
@@ -35,19 +32,36 @@ class FirestoreManager {
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
     // MARK: - Collection Reference
-    var groupsRef: CollectionReference {
-        db.collection(FFCollection.groups.rawValue)
+    func getRef(_ reference: FFCollection, group: String?) -> CollectionReference {
+        switch reference {
+        case .groups, .users: return getRef(collection: reference)
+        case .newsletters, .archived: return getSubRef(subCollection: reference, from: group!)
+        }
     }
-    var usersRef: CollectionReference {
-        db.collection(FFCollection.users.rawValue)
-    }
-    func getArchivedRef(from group: String) -> CollectionReference {
-        db.collection(FFCollection.groups.rawValue).document(group).collection(FFSubCollection.archived.rawValue)
-    }
-    func getNewslettersRef(from group: String) -> CollectionReference {
-        db.collection(FFCollection.groups.rawValue).document(group).collection(FFSubCollection.newsletters.rawValue)
+    func getRefs(subCollection: FFCollection, groups: [String]) -> [CollectionReference] {
+        return getRefs(subCollection: subCollection, from: groups)
     }
     
+    private func getRef(collection: FFCollection) -> CollectionReference {
+        db.collection(collection.rawValue)
+    }
+    private func getSubRef(subCollection: FFCollection, from group: String) -> CollectionReference {
+        db.collection(FFCollection.groups.rawValue)
+            .document(group)
+            .collection(subCollection.rawValue)
+    }
+    private func getRefs(subCollection: FFCollection, from groups: [String]) -> [CollectionReference] {
+        var references: [CollectionReference] = []
+        for group in groups {
+            let newsRef = db.collection(FFCollection.groups.rawValue)
+                .document(group)
+                .collection(subCollection.rawValue)
+            print("------------")
+            print("Group: \(group)")
+            references.append(newsRef)
+        }
+        return references
+    }
     // MARK: - Methods
     func listenToDocument<T: Decodable>(
         asType: T.Type,
@@ -80,7 +94,7 @@ class FirestoreManager {
         }
         
     }
-    
+    // MARK: - Update Document
     func updateDocument(
         documentId: String,
         reference: CollectionReference,
@@ -165,6 +179,7 @@ class FirestoreManager {
             
         }
     }
+    // MARK: - Get Document
     func getDocument<T: Decodable>(
         asType: T.Type,
         documentId: String,
@@ -192,7 +207,7 @@ class FirestoreManager {
             } catch {
                 completion(.failure(error))
             }
-    
+            
         })
         
     }
