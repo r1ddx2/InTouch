@@ -11,7 +11,6 @@
 		9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */; };
 		9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */; };
 		9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */; };
-		9DC6AFA22B19C2D5002D812C /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA12B19C2D5002D812C /* SearchResultsViewController.swift */; };
 		9DC6AFA42B1B436C002D812C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA32B1B436C002D812C /* Place.swift */; };
 		9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */; };
 		9DC6AFA82B1D6651002D812C /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */; };
@@ -20,6 +19,9 @@
 		9DC6AFB22B1DDE37002D812C /* ITBaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB12B1DDE37002D812C /* ITBaseCollectionViewController.swift */; };
 		9DC6AFB42B1DE388002D812C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB32B1DE388002D812C /* HomeCollectionViewCell.swift */; };
 		9DC6AFB62B1F2C0F002D812C /* Array + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */; };
+		9DC6AFB92B1F8C62002D812C /* MKUserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFB82B1F8C62002D812C /* MKUserAnnotationView.swift */; };
+		9DC6AFBB2B2033AB002D812C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFBA2B2033AB002D812C /* KeychainManager.swift */; };
+		9DC6AFBE2B204125002D812C /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFBD2B204125002D812C /* AddGroupViewController.swift */; };
 		9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C552B05F77800AE7AEE /* AppDelegate.swift */; };
 		9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */; };
 		9DE69C5A2B05F77800AE7AEE /* ITBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE69C592B05F77800AE7AEE /* ITBaseViewController.swift */; };
@@ -39,7 +41,6 @@
 		9DEEE87C2B130EA0006B4496 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */; };
 		9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */; };
 		9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */; };
-		9DEEE8822B15F689006B4496 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE8812B15F689006B4496 /* AddLocationViewController.swift */; };
 		9DF8AAA12B07483300F5D3D3 /* ITBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */; };
 		9DF8AAA32B07485300F5D3D3 /* ITTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */; };
 		9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */; };
@@ -99,7 +100,6 @@
 		9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
 		9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
-		9DC6AFA12B19C2D5002D812C /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		9DC6AFA32B1B436C002D812C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D + Extension.swift"; sourceTree = "<group>"; };
 		9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -108,6 +108,9 @@
 		9DC6AFB12B1DDE37002D812C /* ITBaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITBaseCollectionViewController.swift; sourceTree = "<group>"; };
 		9DC6AFB32B1DE388002D812C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extension.swift"; sourceTree = "<group>"; };
+		9DC6AFB82B1F8C62002D812C /* MKUserAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKUserAnnotationView.swift; sourceTree = "<group>"; };
+		9DC6AFBA2B2033AB002D812C /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		9DC6AFBD2B204125002D812C /* AddGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
 		9DE69C522B05F77800AE7AEE /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE69C552B05F77800AE7AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE69C572B05F77800AE7AEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,7 +134,6 @@
 		9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewTextCell.swift; sourceTree = "<group>"; };
 		9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewImageCell.swift; sourceTree = "<group>"; };
-		9DEEE8812B15F689006B4496 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITBaseNavigationController.swift; sourceTree = "<group>"; };
 		9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITTabBarViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,23 @@
 				82D8F9EBFF6935A6B98CBAD2 /* Pods-InTouchTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9DC6AFB72B1F6FEB002D812C /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9DF8AAAB2B074EC500F5D3D3 /* MapViewController.swift */,
+				9DC6AFB82B1F8C62002D812C /* MKUserAnnotationView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		9DC6AFBC2B204117002D812C /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				9DC6AFBD2B204125002D812C /* AddGroupViewController.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		9DE69C492B05F77800AE7AEE = {
@@ -281,10 +300,11 @@
 		9DF8AA282B07411D00F5D3D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9DEEE8652B0DE808006B4496 /* Home */,
 				9DF8AA292B07412600F5D3D3 /* Base */,
+				9DEEE8652B0DE808006B4496 /* Home */,
+				9DC6AFBC2B204117002D812C /* Groups */,
+				9DC6AFB72B1F6FEB002D812C /* Map */,
 				9DF8AAC02B07601700F5D3D3 /* Draft */,
-				9DF8AAAB2B074EC500F5D3D3 /* MapViewController.swift */,
 				9DF8AAD62B0AFD0100F5D3D3 /* ButtonsScrollView.swift */,
 				9DF8AAAD2B074ED700F5D3D3 /* ActivityViewController.swift */,
 				9DF8AAAF2B074EE000F5D3D3 /* ProfileViewController.swift */,
@@ -327,8 +347,6 @@
 				9DF8AAC32B07604B00F5D3D3 /* ImageBlockDraftCell.swift */,
 				9DF8AAD22B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift */,
 				9DF8AAD82B0B1F2100F5D3D3 /* DraftTableHeaderView.swift */,
-				9DEEE8812B15F689006B4496 /* AddLocationViewController.swift */,
-				9DC6AFA12B19C2D5002D812C /* SearchResultsViewController.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -360,6 +378,7 @@
 				9DF8AADE2B0B422200F5D3D3 /* FirestoreManager.swift */,
 				9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */,
 				9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */,
+				9DC6AFBA2B2033AB002D812C /* KeychainManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -691,23 +710,23 @@
 				9DEEE8692B0DE841006B4496 /* TextBlockView.swift in Sources */,
 				9DF8AACF2B07E00400F5D3D3 /* CRRefreshWrapper.swift in Sources */,
 				9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */,
-				9DC6AFA22B19C2D5002D812C /* SearchResultsViewController.swift in Sources */,
 				9DF8AAD72B0AFD0100F5D3D3 /* ButtonsScrollView.swift in Sources */,
 				9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */,
 				9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */,
+				9DC6AFBB2B2033AB002D812C /* KeychainManager.swift in Sources */,
 				9DC6AFA82B1D6651002D812C /* ImageScrollView.swift in Sources */,
 				9DC6AFB62B1F2C0F002D812C /* Array + Extension.swift in Sources */,
 				9DF8AADF2B0B422200F5D3D3 /* FirestoreManager.swift in Sources */,
 				9DF8AAAE2B074ED700F5D3D3 /* ActivityViewController.swift in Sources */,
 				9DEEE8742B0F2F32006B4496 /* NewsLetterObject.swift in Sources */,
 				9DEEE8722B0F2E7A006B4496 /* GroupObject.swift in Sources */,
-				9DEEE8822B15F689006B4496 /* AddLocationViewController.swift in Sources */,
 				9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */,
 				9DEEE8782B105136006B4496 /* UserBlockView.swift in Sources */,
 				9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */,
 				9DC6AFB02B1DD7F0002D812C /* StackTextBlockView.swift in Sources */,
 				9DF8AAC82B07633400F5D3D3 /* UIColor + Extension.swift in Sources */,
 				9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */,
+				9DC6AFBE2B204125002D812C /* AddGroupViewController.swift in Sources */,
 				9DF8AAD12B07E11000F5D3D3 /* ITBaseTableViewController.swift in Sources */,
 				9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */,
 				9DF8AAAA2B074EB800F5D3D3 /* DraftViewController.swift in Sources */,
@@ -717,6 +736,7 @@
 				9DF8AAD32B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift in Sources */,
 				9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */,
 				9DC6AFB22B1DDE37002D812C /* ITBaseCollectionViewController.swift in Sources */,
+				9DC6AFB92B1F8C62002D812C /* MKUserAnnotationView.swift in Sources */,
 				9DEEE87A2B10A8DB006B4496 /* ImageBlockView.swift in Sources */,
 				9DF8AAAC2B074EC500F5D3D3 /* MapViewController.swift in Sources */,
 				9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */,
