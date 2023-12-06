@@ -10,12 +10,10 @@ import FirebaseFirestore
 
 class HomeViewController: ITBaseCollectionViewController {
     
-    let currentGroup = FakeData.userRed.groups![0]
+   
     private let firestoreManager = FirestoreManager.shared
-    override var isHideNavigationBarOnScroll: Bool {
-        return true
-    }
     
+    let userId: String = "r1ddx"
     var user: User? {
         didSet {
             fetchNewsletters()
@@ -34,8 +32,24 @@ class HomeViewController: ITBaseCollectionViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        setUpNavigationBar()
         setUpLayouts()
         setupCollectionView()
+        
+        tabButtonsView.addGroupHandler = {
+            self.showAddGroupPage()
+        }
+       
+    }
+    
+    
+    private func setUpNavigationBar() {
+        let navTitle = UILabel()
+        navTitle.textColor = .ITBlack
+        navTitle.text = "InTouch"
+        navTitle.font = .boldSystemFont(ofSize: 26)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: navTitle)
     }
     private func setUpLayouts() {
          view.addSubview(collectionView)
@@ -55,7 +69,7 @@ class HomeViewController: ITBaseCollectionViewController {
     private func setupCollectionView() {
         collectionView.collectionViewLayout = configureCollectionLayout()
         collectionView.isPagingEnabled = true
-        collectionView.isUserInteractionEnabled = false
+   
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
     }
     private func configureCollectionLayout() -> UICollectionViewCompositionalLayout {
@@ -76,7 +90,7 @@ class HomeViewController: ITBaseCollectionViewController {
         
     }
     private func setUpTab() {
-        guard let groups = user?.groups else { return }
+        guard let groups = KeyChainManager.shared.loggedInUser?.groups else { return }
         tabButtonsView.setUpButtons(buttonsCount: groups.count, buttonTitles: groups, buttonStyle: .tab)
         tabButtonsView.didSwitchTabs = { index in
             self.scrollToNewsletter(at: index)
@@ -91,11 +105,12 @@ class HomeViewController: ITBaseCollectionViewController {
     private func fetchUserData() {
         firestoreManager.getDocument(
             asType: User.self,
-            documentId: FakeData.userRed.userId,
+            documentId: userId,
             reference: firestoreManager.getRef(.users, group: nil)) { result in
                 switch result {
                 case .success(let user):
                     self.user = user
+                    KeyChainManager.shared.loggedInUser = user
                     self.setUpTab()
                     
                 case .failure(let error):
@@ -107,31 +122,42 @@ class HomeViewController: ITBaseCollectionViewController {
         
     }
     private func fetchNewsletters() {
-        print("User:\(self.user)")
         guard let user = user,
         let groups = user.groups else { return }
-   
         let documentId = "\(Date().getLastWeekDateRange())"
-        let references = firestoreManager.getRefs(subCollection: .newsletters, groups: groups).getReversed()
+        let references = firestoreManager.getRefs(subCollection: .newsletters, groups: groups)
         
-        firestoreManager.getDocuments(
-            asType: NewsLetter.self,
-            documentId: documentId,
-            references: references,
-            completion: { result in
-                switch result {
-                case .success(let newsletter):
-                    self.datas = [newsletter]
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
-                    
-                }
+        let serialQueue = DispatchQueue(label: "serialQueue")
+        let semaphore = DispatchSemaphore(value: 1)
+
+        for reference in references {
+           
+            serialQueue.async {
+              
+                semaphore.wait()
                 
-            })
+                self.firestoreManager.getDocument(
+                    asType: NewsLetter.self,
+                    documentId: documentId,
+                    reference: reference,
+                    completion: { result in
+                        
+                        switch result {
+                        case .success(let newsletter):
+                            self.datas[0].append(newsletter)
+                            
+                        case .failure(let error):
+                            print("Error: \(error.localizedDescription)")
+                            
+                        }
+                        semaphore.signal()
+                    
+                    })
+            }
+        }
     }
  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-     print(datas[0].count)
-     print(datas)
+
             return datas[0].count
         }
         
@@ -140,7 +166,7 @@ class HomeViewController: ITBaseCollectionViewController {
            
             cell.user = self.user
             cell.newsletter = datas[0][indexPath.item] as? NewsLetter
-           
+            cell.isUserInteractionEnabled = true
             return cell
         }
   
@@ -150,10 +176,4 @@ class HomeViewController: ITBaseCollectionViewController {
         }
     
 }
-extension HomeViewController: HomeCollectionViewCellDelegate {
-    func didLoadHeader(_ cell: HomeCollectionViewCell, tableView: UITableView)  {
-      
-    }
-    
-    
-}
+

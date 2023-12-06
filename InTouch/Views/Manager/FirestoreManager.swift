@@ -51,16 +51,12 @@ class FirestoreManager {
             .collection(subCollection.rawValue)
     }
     private func getRefs(subCollection: FFCollection, from groups: [String]) -> [CollectionReference] {
-        var references: [CollectionReference] = []
-        for group in groups {
+       groups.map { group in
             let newsRef = db.collection(FFCollection.groups.rawValue)
                 .document(group)
                 .collection(subCollection.rawValue)
-            print("------------")
-            print("Group: \(group)")
-            references.append(newsRef)
+            return newsRef
         }
-        return references
     }
     // MARK: - Methods
     func listenToDocument<T: Decodable>(
@@ -218,18 +214,12 @@ class FirestoreManager {
         completion: @escaping CompletionHandler<[T]>
     ) {
         var data: [T] = []
-        let dispatchGroup = DispatchGroup()
         
-        print("references: \(references)")
         for reference in references {
-            dispatchGroup.enter()
             
             reference.document(documentId)
                 .getDocument(completion: { (snapshot, error) in
                     
-                defer {
-                    dispatchGroup.leave()
-                }
                 if let error {
                     completion(.failure(error))
                     return
@@ -246,17 +236,14 @@ class FirestoreManager {
                 do {
                     let documentData = try snapshot.data(as: T.self)
                     data.append(documentData)
-                    print(data)
+                
                 } catch {
                     completion(.failure(error))
                 }
                 
             })
         }
-        dispatchGroup.notify(queue: .main) {
-            completion(.success(data))
-        }
-        
+     
     }
     
     // MARK: -
