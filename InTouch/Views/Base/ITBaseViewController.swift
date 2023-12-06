@@ -30,6 +30,7 @@ class ITBaseViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         if isHideNavigationBar {
             navigationItem.hidesBackButton = true
         }
@@ -82,3 +83,23 @@ extension ITBaseViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
 }
 
+extension ITBaseViewController {
+    func showAddGroupPage() {
+        
+        let addGroupVC = AddGroupViewController()
+        addGroupVC.isModalInPresentation = true
+        
+        if #available(iOS 16.0, *) {
+            if let sheetPresentationController = addGroupVC.sheetPresentationController {
+                sheetPresentationController.accessibilityRespondsToUserInteraction = true
+                sheetPresentationController.preferredCornerRadius = 16
+                sheetPresentationController.detents = [.custom(resolver: { _ in
+                    220
+                })]
+            }
+            present(addGroupVC, animated: true, completion: nil)
+        }
+        
+        
+    }
+}
