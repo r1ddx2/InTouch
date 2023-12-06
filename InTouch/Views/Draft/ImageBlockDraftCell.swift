@@ -53,7 +53,7 @@ class ImageBlockDraftCell: UITableViewCell {
     }()
     let addImageButton: UIButton = {
         let addImageButton = UIButton()
-        addImageButton.setImage(UIImage(resource: .iconAdd), for: .normal)
+        addImageButton.setImage(UIImage(resource: .iconInput), for: .normal)
         return addImageButton
     }()
     let captionTextView: UITextView = {
@@ -143,7 +143,7 @@ class ImageBlockDraftCell: UITableViewCell {
         captionTextView.text = imageBlock.caption
         locationLabel.text = imageBlock.place
         userImageView.loadImage(imageBlock.image)
-        print("currentimage: \(imageBlock)")
+       
         if imageBlock.place == nil {
             locationLabel.text = "Add a location"
         }
