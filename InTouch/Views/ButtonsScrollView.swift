@@ -18,7 +18,7 @@ class ButtonsScrollView: UIScrollView {
     var selectedIndex = 0
     let indicatorView = UIView()
     var buttonsArray: [UIButton] = []
-    
+    var addGroupHandler: (() -> Void)?
     var didSwitchTabs: ((Int) -> Void)?
     // MARK: - Constraints
     private var centerXConstraint: ConstraintMakerEditable!
@@ -49,7 +49,8 @@ class ButtonsScrollView: UIScrollView {
     private func setUpLayouts() {
         self.addSubview(stackView)
         stackView.snp.makeConstraints { (make) -> Void in
-            make.left.right.equalTo(self)
+            make.left.equalTo(self).offset(16)
+            make.right.equalTo(self).offset(-16)
             make.top.equalTo(self).offset(10)
             make.bottom.equalTo(self).offset(-10)
             make.centerY.equalTo(self)
@@ -128,6 +129,7 @@ class ButtonsScrollView: UIScrollView {
         didSwitchTabs?(selectedIndex)
     }
     @objc func addGroup(sender: UIButton) {
+        addGroupHandler?()
     }
     
     private func setUpIndicator() {

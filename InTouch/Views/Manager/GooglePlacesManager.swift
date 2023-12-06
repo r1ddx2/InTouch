@@ -18,13 +18,14 @@ class GooglePlacesManager: NSObject {
     
     static let shared = GooglePlacesManager()
     private let client = GMSPlacesClient.shared()
-    
+  
     func findPlaces(
         query: String,
         completion: @escaping (Result<[Place], Error>) -> Void
     ) {
         let filter = GMSAutocompleteFilter()
         filter.type = .geocode
+      
         client.findAutocompletePredictions(
             fromQuery: query,
             filter: filter,
