@@ -18,6 +18,11 @@ class ImageBlockView: UIView {
         imageView.image = UIImage(resource: .apple)
         return imageView
     }()
+    let placeIcon: UIButton = {
+        let icon = UIButton()
+        icon.setImage(UIImage(resource: .iconLocation), for: .normal)
+        return icon
+    }()
     let placeLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 14)
@@ -50,18 +55,23 @@ class ImageBlockView: UIView {
         captionLabel.text = caption
         if let place = place {
             placeLabel.text = place
-        }
+        } 
     }
     private func setUpLayouts() {
         addSubview(imageView)
         addSubview(captionLabel)
         addSubview(placeLabel)
-        
+        addSubview(placeIcon)
+        placeIcon.snp.makeConstraints { make in
+            make.top.left.equalToSuperview()
+            make.height.width.equalTo(18)
+        }
         placeLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.right.equalToSuperview()
+            make.left.equalTo(placeIcon.snp.right).offset(8)
         }
         imageView.snp.makeConstraints { make in
-            make.top.equalTo(placeLabel.snp.bottom).offset(16)
+            make.top.equalTo(placeIcon.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(imageView.snp.width)
         }
@@ -71,7 +81,21 @@ class ImageBlockView: UIView {
         }
         
     }
-
+    private func resetLayout() {
+        self.subviews.forEach{ $0.removeFromSuperview() }
+        addSubview(imageView)
+        addSubview(captionLabel)
+       
+        imageView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(imageView.snp.width)
+        }
+        captionLabel.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(12)
+            make.right.left.equalToSuperview()
+        }
+        self.layoutIfNeeded()
+    }
     //MARK: - Methods
     
 }
