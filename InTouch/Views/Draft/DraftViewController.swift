@@ -8,20 +8,23 @@ import UIKit
 import FirebaseFirestore
 import MobileCoreServices
 import UniformTypeIdentifiers
+import GooglePlaces
+import CoreLocation
 
 enum DraftType: String, CaseIterable {
     case image = "Images"
     case text = "Articles"
 }
 
-
 class DraftViewController: ITBaseViewController {
-    
+   
     private let firestoreManager = FirestoreManager.shared
     private let cloudManager = CloudStorageManager.shared
-
-    var addedImageCell: ImageBlockDraftCell?
+    private let googlePlaceManager = GooglePlacesManager.shared
     
+    var modifyCell: ImageBlockDraftCell?
+    // MARK: - Fake Data
+    let user = FakeData.userRed
     var draft: Post? = Post(
         date: Date(),
         postId: "",
@@ -40,8 +43,7 @@ class DraftViewController: ITBaseViewController {
         }
     }
 
-    // MARK: - Fake Data
-    let user = FakeData.userRed
+
     
     // MARK: - Subviews
     let tableView = UITableView()
@@ -66,6 +68,7 @@ class DraftViewController: ITBaseViewController {
         setUpLayouts()
         setUpActions()
         setUpHeaderView()
+        
         fetchGroups()
     }
     private func setUpNavigationBar() {
@@ -156,7 +159,6 @@ class DraftViewController: ITBaseViewController {
                         updateNews: newsletter) { result in
                             switch result {
                             case .success(let documentId):
-                                print("Updated newsletter: \(documentId)")
                                 self.dismiss(animated: true)
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
@@ -171,7 +173,7 @@ class DraftViewController: ITBaseViewController {
                         documentId: documentId){ result in
                             switch result {
                             case .success(let documentId):
-                                print("Updated newsletter: \(documentId)")
+                                print("Added newsletter: \(documentId)")
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
                             }
@@ -249,10 +251,10 @@ class DraftViewController: ITBaseViewController {
     }
 
     @objc private func addImageBlockTapped() {
-        guard draft?.imageBlocks.count ?? 0 <= 3 else {
-            print("Too many blocks")
-            return
-        }
+//        guard draft?.imageBlocks.count ?? 0 <= 3 else {
+//            print("Too many blocks")
+//            return
+//        }
     
         draft?.imageBlocks.append(
             ImageBlock(
@@ -264,10 +266,10 @@ class DraftViewController: ITBaseViewController {
         reload()
     }
     @objc private func addTextBlockTapped() {
-        guard draft?.textBlocks.count ?? 0 <= 3 else {
-            print("Too many blocks")
-            return
-        }
+//        guard draft?.textBlocks.count ?? 0 <= 3 else {
+//            print("Too many blocks")
+//            return
+//        }
     
         draft?.textBlocks.append(
            TextBlock(
@@ -290,20 +292,7 @@ class DraftViewController: ITBaseViewController {
             headerView.buttonsView.buttonsArray[buttonIndex].isUserInteractionEnabled = true
         }
     }
-    private func presentAddLocationVC(from cell: ImageBlockDraftCell) {
-        let addLocationVC = AddLocationViewController()
-        self.navigationController?.pushViewController(addLocationVC, animated: true)
-        addLocationVC.didSelectLocation = { [weak self] location in
-            guard let self = self else { return }
-            
-            cell.locationLabel.text = location.name
-            if let indexPath = self.tableView.indexPath(for: cell) {
-                self.draft?.imageBlocks[indexPath.row].location = location.coordinate?.toGeoPoint()
-                self.draft?.imageBlocks[indexPath.row].place = location.address
-            }
-           
-        }
-    }
+
 }
 
 // MARK: - UITableView Data Source
@@ -337,12 +326,14 @@ extension DraftViewController: UITableViewDataSource {
                 }
             }
             cell.addImageHandler = { [weak self] in
-                self?.addedImageCell = cell
+                self?.modifyCell = cell
                 self?.showImagePicker()
             }
             
             cell.addLocationHandler = { [weak self] in
-                self?.presentAddLocationVC(from: cell)
+               // self?.presentAddLocationVC(from: cell)
+                self?.modifyCell = cell
+                self?.configureSearchController()
             }
             
             
@@ -352,8 +343,6 @@ extension DraftViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextBlockDraftCell.identifier, for: indexPath) as? TextBlockDraftCell else { fatalError("Cannot create text cell") }
          
             cell.layoutCell(textBlock: draft.textBlocks[indexPath.row])
-
-            
             cell.editTitleHandler = { [weak self] text in
                 if let indexPath = self?.tableView.indexPath(for: cell) {
                     self?.draft?.textBlocks[indexPath.row].title = text
@@ -423,8 +412,8 @@ extension DraftViewController {
         
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         
-        if let indexPath = tableView.indexPath(for: addedImageCell!) {
-            print("indexPath: \(indexPath)")
+        if let indexPath = tableView.indexPath(for: modifyCell!) {
+            
             let mediaType = info[.mediaType] as! CFString
             if mediaType as String == UTType.image.identifier {
                 if let imageURL = info[.imageURL] as? URL {
@@ -435,10 +424,10 @@ extension DraftViewController {
                             switch result {
                             case .success(let urlString):
                                 self?.draft?.imageBlocks[indexPath.row].image = urlString
-                                
+                                self?.dismiss(animated: true)
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
-                        
+                                self?.dismiss(animated: true)
                             }
                             
                         }
@@ -447,7 +436,7 @@ extension DraftViewController {
                 
             }
             
-            dismiss(animated: true)
+           
         }
         
     }
@@ -475,5 +464,58 @@ extension DraftViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
 
+}
+
+// MARK: - GMSAutocompleteViewController
+ 
+extension DraftViewController: GMSAutocompleteViewControllerDelegate {
+    func configureSearchController() {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(
+            UInt(GMSPlaceField.name.rawValue) |
+            UInt(GMSPlaceField.placeID.rawValue) |
+            UInt(GMSPlaceField.coordinate.rawValue) |
+            UInt(GMSPlaceField.formattedAddress.rawValue)
+        ))
+        autocompleteController.placeFields = fields
+        
+        let navigationController = ITBaseNavigationController(rootViewController: autocompleteController)
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        // Get selected Place
+        let location = Place(
+            name: place.name ?? "",
+            identifier: place.placeID ?? "",
+            address: place.formattedAddress ?? "",
+            coordinate: place.coordinate
+        )
+        
+        // Modify the image cell location
+        guard let cell = modifyCell else {
+            return
+        }
+        cell.locationLabel.text = location.name
+        if let indexPath = self.tableView.indexPath(for: cell) {
+            self.draft?.imageBlocks[indexPath.row].location = location.coordinate?.toGeoPoint()
+            self.draft?.imageBlocks[indexPath.row].place = location.name
+        }
+        
+        // Dismiss
+        navigationController?.popToRootViewController(animated: false)
+        viewController.dismiss(animated: true, completion: nil)
+        
+    }
+
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: \(error.localizedDescription)")
+        viewController.dismiss(animated: true, completion: nil)
+    }
+
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
 }
 
