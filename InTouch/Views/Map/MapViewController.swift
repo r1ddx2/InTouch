@@ -11,8 +11,13 @@ import CoreLocation
 class MapViewController: ITBaseViewController {
     private let firestoreManager = FirestoreManager.shared
     
-    var user: User?
-    
+    var user: User? = KeyChainManager.shared.loggedInUser {
+        didSet {
+            fetchPosts()
+        }
+    }
+    var markerDatas: [Marker] = []
+    var currentLocation: CLLocationCoordinate2D?
     // MARK: - Subviews
     var mapView = MKMapView()
     
@@ -35,6 +40,7 @@ class MapViewController: ITBaseViewController {
     // MARK: - View Load
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchUserData()
         setUpLocationManager()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -67,25 +73,86 @@ class MapViewController: ITBaseViewController {
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
         mapView.showsBuildings = false
-        // mapView.delegate = self
+        mapView.delegate = self
+        mapView.register(
+          MKUserAnnotationView.self,
+          forAnnotationViewWithReuseIdentifier:
+            MKUserAnnotationView.identifier)
     }
     
     
     // MARK: - Methods
     private func fetchUserData() {
-        firestoreManager.getDocument(
+        guard let user = user else { return }
+        self.user = nil
+        firestoreManager.listenDocument(
             asType: User.self,
-            documentId: FakeData.userRed.userId,
-            reference: firestoreManager.getRef(.users, group: nil)) { result in
+            documentId: user.userId,
+            reference: firestoreManager.getRef(.users, groupId: nil)) { result in
                 switch result {
                 case .success(let user):
                     self.user = user
+                    KeyChainManager.shared.loggedInUser = user
+                    
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                     
                 }
                 
             }
+        
+    }
+    private func fetchPosts() {
+        guard let user = user, let userGroups = user.groups else { return }
+        let groupIds = userGroups.map { $0.groupId }
+        print("Group names: \(groupIds)")
+        let documentId = Date().getLastWeekDateRange()
+        let references = firestoreManager.getRefs(subCollection: .newsletters, groupIds: groupIds)
+        
+        let dispatchGroup = DispatchGroup()
+        markerDatas.removeAll()
+        
+        for reference in references {
+            dispatchGroup.enter()
+            firestoreManager.getDocument(
+                asType: NewsLetter.self,
+                documentId: documentId,
+                reference: reference) { result in
+                    
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    switch result {
+                    case .success(let newsletter):
+                        let posts = newsletter.posts.map { $0 }
+                    
+                        for post in posts {
+                            let imageBlocks = post.imageBlocks
+                   
+                            for imageBlock in imageBlocks {
+                                guard let location = imageBlock.location else { return }
+                                let data = Marker(
+                                    coordinate: location.toCLLocationCoordinate2D(),
+                                    title: post.userName,
+                                    subtitle: "Tap to see more",
+                                    markerTintColor: .red,
+                                    imageBlock: imageBlock
+                                )
+                                self.markerDatas.append(data)
+                            }
+                        }
+            
+                    case .failure(let error):
+                        print("Error: \(error)")
+                        
+                    }
+                    
+                }
+        }
+        dispatchGroup.notify(queue: .main) {
+            self.addAllPins()
+        }
         
     }
 }
@@ -109,11 +176,12 @@ extension MapViewController: CLLocationManagerDelegate {
         mapView.setRegion(region, animated: true)
 
         showUserPin(coordinate)
-        //addUserPin(coordinate)
+     
     }
     func showUserPin(_ coordinate: CLLocationCoordinate2D) {
+        currentLocation = coordinate
         let pin = MKPointAnnotation()
-        pin.title = "Red"
+        pin.title = "Me"
         pin.coordinate = coordinate
         mapView.addAnnotation(pin)
     }
@@ -127,38 +195,123 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
     
+    func addAllPins() {
+        for markerData in markerDatas {
+            
+            guard let imageBlock = markerData.imageBlock else { return }
+            var icon = UIImage()
+            downloadUserIcon(imageString: imageBlock.image) { result in
+                switch result {
+                case .success(let image):
+                    icon = image
+                    let customAnnotation = ITAnnotation(
+                        coordinate: markerData.coordinate,
+                        title: markerData.title,
+                        subtitle: markerData.subtitle,
+                        imageBlock: markerData.imageBlock,
+                        icon: icon
+                    )
+                    
+                    self.mapView.addAnnotation(customAnnotation)
+                case .failure(let error):
+                    print(error)
+                    icon = UIImage(resource: .iconRight)
+                    let customAnnotation = ITAnnotation(
+                        coordinate: markerData.coordinate,
+                        title: markerData.title,
+                        subtitle: markerData.subtitle,
+                        imageBlock: markerData.imageBlock,
+                        icon: icon
+                    )
+                    
+                    self.mapView.addAnnotation(customAnnotation)
+                }
+            }
+           
+        }
+        
+    }
+    func downloadUserIcon(imageString: String, completion: @escaping ((Result<UIImage, Error>) -> Void)) {
+        
+        KingFisherWrapper.shared.downloadImage(url: imageString) { result in
+            switch result {
+            case .success(let icon):
+                completion(.success(icon))
+            case .failure(let error):
+                completion(.failure(error))
+                
+            }
+        }
+    }
 }
-//
-//extension MapViewController: MKMapViewDelegate {
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        guard !(annotation is MKUserLocation) else { return nil }
-//
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKUserAnnotationView.identifier) as? MKUserAnnotationView
-//        if annotationView == nil {
-//            annotationView = MKUserAnnotationView(annotation: annotation, reuseIdentifier: "custom")
-//        } else {
-//            annotationView?.annotation = annotation
-//        }
-//
-//        return annotationView
-//    }
-//
-//    func downloadUserIcon(completion: @escaping (UIImage?) -> Void) {
-//
-//        guard let user = user else {
-//            completion(nil)
-//            return
-//        }
-//
-//        KingFisherWrapper.shared.downloadImage(url: user.userIcon) { result in
-//            switch result {
-//            case .success(let icon):
-//                completion(icon)
-//            case .failure(let error):
-//                print("Error: \(error.localizedDescription)")
-//                completion(nil)
-//            }
-//        }
-//    }
-//
-//}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+      ) -> MKAnnotationView? {
+   
+        guard let annotation = annotation as? ITAnnotation else {
+          return nil
+        }
+
+        let identifier = MKUserAnnotationView.identifier
+        var view: MKUserAnnotationView
+   
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(
+          withIdentifier: identifier) as? MKUserAnnotationView {
+          dequeuedView.annotation = annotation
+          view = dequeuedView
+        } else {
+     
+          view = MKUserAnnotationView(
+            annotation: annotation,
+            reuseIdentifier: identifier)
+          view.canShowCallout = true
+          view.calloutOffset = CGPoint(x: -5, y: 5)
+          view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        return view
+      }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            guard let annotation = view.annotation else {
+                return
+            }
+
+        
+            let zoomedRegion = MKCoordinateRegion(
+                center: annotation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+            )
+            mapView.setRegion(zoomedRegion, animated: true)
+        }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            // The detail button was tapped
+            if let annotation = view.annotation as? ITAnnotation {
+                // Access the data associated with the selected annotation
+                let detailVC = MapDetailViewController()
+               detailVC.annotation = annotation
+                detailVC.currentLocation = currentLocation
+                
+                if #available(iOS 16.0, *) {
+                    if let sheetPresentationController = detailVC.sheetPresentationController {
+                        sheetPresentationController.accessibilityRespondsToUserInteraction = true
+                        sheetPresentationController.preferredCornerRadius = 16
+                        sheetPresentationController.detents = [.custom(resolver: { _ in
+                            500
+                        })]
+                    }
+                    present(detailVC, animated: true, completion: nil)
+                }
+           
+                
+                
+                
+                
+            }
+        }
+    }
+}
