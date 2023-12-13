@@ -26,13 +26,49 @@ class CloudStorageManager {
     
     func uploadImages(
         fileUrl: URL,
-        userName: String,
+        userId: String,
         completion: @escaping ImageCompletionHandler<String>
     ) {
         
         let timestamp = Int(Date().timeIntervalSince1970 * 1000)
         let fileExtension = fileUrl.pathExtension
-        let filePath = "\(userName)/\(timestamp).\(fileExtension)"
+        let filePath = "\(userId)/\(timestamp).\(fileExtension)"
+        let storageRef = storage.reference().child(filePath)
+        
+        storageRef.putFile(
+            from: fileUrl,
+            metadata: nil,
+            completion: { (storageMetaData, error) in
+                if let error = error {
+                    completion(.failure(CSError.uploadFail))
+                    return
+                }
+                
+                storageRef.downloadURL { (url, error) in
+                    if let error = error  {
+                        completion(.failure(CSError.downloadFail))
+                        return
+                    }
+                    if let urlString = url?.absoluteString {
+                        completion(.success(urlString))
+                        return
+                    }
+                    completion(.failure(CSError.invalidType))
+                }
+                
+        })
+        
+    }
+         
+    func uploadGroupImages(
+        fileUrl: URL,
+        groupId: String,
+        completion: @escaping ImageCompletionHandler<String>
+    ) {
+        
+        let timestamp = Int(Date().timeIntervalSince1970 * 1000)
+        let fileExtension = fileUrl.pathExtension
+        let filePath = "\(groupId)/\(timestamp).\(fileExtension)"
         let storageRef = storage.reference().child(filePath)
         
         storageRef.putFile(
