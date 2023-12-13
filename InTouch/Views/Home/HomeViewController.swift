@@ -13,7 +13,7 @@ class HomeViewController: ITBaseCollectionViewController {
    
     private let firestoreManager = FirestoreManager.shared
     
-    let userId: String = "r1ddx"
+    let userId: String = "panda666"
     var user: User? {
         didSet {
             fetchNewsletters()
@@ -27,12 +27,9 @@ class HomeViewController: ITBaseCollectionViewController {
         super.viewWillAppear(animated)
         headerLoader()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         setUpNavigationBar()
         setUpLayouts()
         setupCollectionView()
@@ -42,8 +39,6 @@ class HomeViewController: ITBaseCollectionViewController {
         }
        
     }
-    
-    
     private func setUpNavigationBar() {
         let navTitle = UILabel()
         navTitle.textColor = .ITBlack
@@ -69,7 +64,6 @@ class HomeViewController: ITBaseCollectionViewController {
     private func setupCollectionView() {
         collectionView.collectionViewLayout = configureCollectionLayout()
         collectionView.isPagingEnabled = true
-   
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
     }
     private func configureCollectionLayout() -> UICollectionViewCompositionalLayout {
@@ -90,8 +84,9 @@ class HomeViewController: ITBaseCollectionViewController {
         
     }
     private func setUpTab() {
-        guard let groups = KeyChainManager.shared.loggedInUser?.groups else { return }
-        tabButtonsView.setUpButtons(buttonsCount: groups.count, buttonTitles: groups, buttonStyle: .tab)
+        guard let user = user, let groups = user.groups else { return }
+        let groupNames = groups.map({ $0.groupName })
+        tabButtonsView.setUpButtons(buttonsCount: groupNames.count, buttonTitles: groupNames, buttonStyle: .tab)
         tabButtonsView.didSwitchTabs = { index in
             self.scrollToNewsletter(at: index)
             
@@ -106,7 +101,7 @@ class HomeViewController: ITBaseCollectionViewController {
         firestoreManager.getDocument(
             asType: User.self,
             documentId: userId,
-            reference: firestoreManager.getRef(.users, group: nil)) { result in
+            reference: firestoreManager.getRef(.users, groupId: nil)) { result in
                 switch result {
                 case .success(let user):
                     self.user = user
@@ -121,11 +116,12 @@ class HomeViewController: ITBaseCollectionViewController {
             }
         
     }
-    private func fetchNewsletters() {
-        guard let user = user,
-        let groups = user.groups else { return }
+    private func fetchNewsletters(for cell: HomeCollectionViewCell? = nil) {
+        datas = [[]]
+        guard let user = user, let groups = user.groups else { return }
+        let groupIds = groups.map({ $0.groupId })
         let documentId = "\(Date().getLastWeekDateRange())"
-        let references = firestoreManager.getRefs(subCollection: .newsletters, groups: groups)
+        let references = firestoreManager.getRefs(subCollection: .newsletters, groupIds: groupIds)
         
         let serialQueue = DispatchQueue(label: "serialQueue")
         let semaphore = DispatchSemaphore(value: 1)
@@ -145,7 +141,7 @@ class HomeViewController: ITBaseCollectionViewController {
                         switch result {
                         case .success(let newsletter):
                             self.datas[0].append(newsletter)
-                            
+                      
                         case .failure(let error):
                             print("Error: \(error.localizedDescription)")
                             
@@ -156,6 +152,7 @@ class HomeViewController: ITBaseCollectionViewController {
             }
         }
     }
+    // MARK: - UICollectionView Data Source
  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
             return datas[0].count

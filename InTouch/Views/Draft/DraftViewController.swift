@@ -23,20 +23,21 @@ class DraftViewController: ITBaseViewController {
     private let googlePlaceManager = GooglePlacesManager.shared
     
     var modifyCell: ImageBlockDraftCell?
-    // MARK: - Fake Data
-    let user = FakeData.userRed
-    var draft: Post? = Post(
-        date: Date(),
-        postId: "",
-        userId: FakeData.userRed.userId,
-        userIcon: FakeData.userRed.userIcon,
-        userName: FakeData.userRed.userName,
-        imageBlocks: [],
-        textBlocks: []){
+    // MARK: - Data
+    var user: User? = KeyChainManager.shared.loggedInUser {
+        didSet {
+            fetchGroups()
+        }
+    }
+    var groups: [Group] = []
+    var draft = Post() {
         didSet {
             reload()
         }
     }
+    var newsletter: NewsLetter?
+    
+    
     var pickerData: [String] = [] {
         didSet {
             headerView.groupPickerView.reloadAllComponents()
@@ -68,8 +69,8 @@ class DraftViewController: ITBaseViewController {
         setUpLayouts()
         setUpActions()
         setUpHeaderView()
-        
-        fetchGroups()
+        fetchUser()
+        headerView.changeIcon(userIcon: user?.userIcon)
     }
     private func setUpNavigationBar() {
         let dismissButton = UIBarButtonItem(image: UIImage(resource: .iconClose).withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(dismissTapped))
@@ -105,6 +106,7 @@ class DraftViewController: ITBaseViewController {
         tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame.size.height = 170
+        tableView.tableHeaderView?.frame.size.width = UIScreen.main.bounds.width
         tableView.tableFooterView = UIView()
         
     }
@@ -118,104 +120,120 @@ class DraftViewController: ITBaseViewController {
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - API Methods
+    // MARK: - Button Actions
     @objc private func submitButtonTapped(sender: UIButton) {
         // Get picker data
-        let selectedGroup = pickerData[headerView.groupPickerView.selectedRow(inComponent: 0)]
-        guard let draft = draft else { return }
-        // Set up upload data
-        let newsletter = NewsLetter(
-            date: Date(),
-            newsId: FakeData.postId,
-            newsCover: FakeData.postId,
-            posts: [draft],
-            title: "\(selectedGroup) Weekly Newsletter"
-        )
+        let pickerGroup = pickerData[headerView.groupPickerView.selectedRow(inComponent: 0)]
+        let selectedGroup = groups.first { $0.groupName == pickerGroup }
+
+        initializeDraft()
         
-        submitPost(
-            group: selectedGroup,
-            post: draft,
-            newsletter: newsletter
-        )
-        
-    }
-    private func submitPost(group: String, post: Post, newsletter: NewsLetter) {
-        
-        let reference = firestoreManager.getRef(.newsletters, group: group)
-        // let documentId = Date().getThisWeekDateRange()
-        let documentId = Date().getLastWeekDateRange()
-        isNewsletterExist(
-            reference: reference,
-            documentId: documentId) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                    
-                /// Update newsletter
-                case true:
-                    self.firestoreManager.updateNewsletter(
-                        documentId: documentId,
-                        reference: reference,
-                        updatePost: post,
-                        updateNews: newsletter) { result in
-                            switch result {
-                            case .success(let documentId):
-                                self.dismiss(animated: true)
-                            case .failure(let error):
-                                print("Error: \(error.localizedDescription)")
-                            }
-                        }
-                    
-                /// Create newsletter
-                case false:
-                    self.firestoreManager.addDocument(
-                        data: newsletter,
-                        reference: reference,
-                        documentId: documentId){ result in
-                            switch result {
-                            case .success(let documentId):
-                                print("Added newsletter: \(documentId)")
-                            case .failure(let error):
-                                print("Error: \(error.localizedDescription)")
-                            }
-                        }
-                    
-                }
+        // If newsletter exist
+        if newsletter != nil {
+            // Check if post already exists in the array
+            if let existingIndex = newsletter?.posts.firstIndex(
+                where: { $0.userId == draft.userId }) {
+                // Exist, update post
+                newsletter?.posts[existingIndex] = draft
+            } else {
+                // Don't exist, add to posts
+                newsletter?.posts.append(draft)
             }
+        // If newsletter doesn't exist
+        } else {
+            initializeNewsletter(with: selectedGroup)
+            newsletter?.posts = [draft]
+        }
+       
+        submitPost(group: selectedGroup, newsletter: newsletter)
         
     }
-    private func isNewsletterExist(reference: CollectionReference, documentId: String, completion: @escaping (Bool) -> Void) {
+    // MARK: - Methods
+    private func initializeNewsletter(with group: Group?) {
+        guard let group = group else { return }
+        if let groupCover = group.groupCover {
+            newsletter = NewsLetter(
+                date: Date(),
+                newsId: generateRandomCode(),
+                newsCover: groupCover,
+                posts: [],
+                title: "\(group.groupName) Weekly Newsletter"
+            )
+        }
+    }
+    private func initializeDraft() {
+        guard let user = user, let userIcon = user.userIcon else { return }
+        draft.userId = user.userId
+        draft.userIcon = userIcon
+        draft.userName = user.userName
+        draft.postId = generateRandomCode()
+    }
+    // MARK: - API Methods
+    private func submitPost(group: Group?, newsletter: NewsLetter?){
+        guard let newsletter = newsletter, let group = group else { return }
+     
+        let reference = firestoreManager.getRef(.newsletters, groupId: group.groupId)
+        let documentId = Date().getThisWeekDateRange()
         
-        // Check if the document already exists
-        firestoreManager.isDocumentExist(
+        firestoreManager.updateDocument(
             documentId: documentId,
-            reference: reference) { result in
+            reference: reference,
+            updateData: newsletter) { result in
                 switch result {
-                // Already exists
-                case .success:
-                    completion(true)
-                // Don't exist
+                case .success(let documentId):
+                    print("Updated newsletter: \(documentId)")
+                    self.dismiss(animated: true)
+                    
                 case .failure(let error):
-                    if error as? FFError == FFError.invalidDocument {
-                        completion(false)
-                    } else {
-                        print("Error: \(error.localizedDescription)")
-                    }
+                    print("Error: \(error.localizedDescription)")
                 }
             }
-        
     }
     private func fetchGroups() {
+        guard let user = user, let groups = user.groups else { return }
+        let documentIds = groups.map({ $0.groupId })
+        let reference = firestoreManager.getRef(.groups, groupId: nil)
         
-        firestoreManager.getDocument(
+        let serialQueue = DispatchQueue(label: "serialQueue")
+        let semaphore = DispatchSemaphore(value: 1)
+
+        for documentId in documentIds {
+            serialQueue.async {
+                semaphore.wait()
+                
+                self.firestoreManager.listenDocument(
+                    asType: Group.self,
+                    documentId: documentId,
+                    reference: reference,
+                    completion: { result in
+                        
+                        switch result {
+                        case .success(let group):
+                            self.groups.append(group)
+                      
+                        case .failure(let error):
+                            print("Error: \(error.localizedDescription)")
+                            
+                        }
+                        semaphore.signal()
+                    
+                    })
+            }
+        }
+    }
+    private func fetchUser() {
+        guard let user = user else { return }
+        firestoreManager.listenDocument(
             asType: User.self,
             documentId: user.userId,
-            reference: firestoreManager.getRef(.users, group: nil)) { result in
+            reference: firestoreManager.getRef(.users, groupId: nil)) { result in
                 switch result {
-                case .success(let data):
-                    guard let groups = data.groups else { return }
-                    self.pickerData = groups
-                    print("Updated: \(data)")
-                    
+                case .success(let user):
+                    self.user = user
+                    if let groups = user.groups {
+                        let groupNames = groups.map { $0.groupName }
+                        self.pickerData = groupNames
+                    }
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                 }
@@ -223,23 +241,24 @@ class DraftViewController: ITBaseViewController {
             }
         
     }
-    
-    private func fetchDraft(selectedGroup: String) {
-    
-        firestoreManager.getDocument(
+
+    private func fetchDraft(groupId: String) {
+       
+        firestoreManager.listenDocument(
             asType: NewsLetter.self,
-            documentId: Date().getLastWeekDateRange(),
-            reference: firestoreManager.getRef(.newsletters, group: selectedGroup)) { [weak self] result in
+            documentId: Date().getThisWeekDateRange(),
+            reference: firestoreManager.getRef(.newsletters, groupId: groupId)) { [weak self] result in
                 guard let self = self else { return }
                 
                 switch result {
-                case .success(let data):
-                    let draft = data.posts.first { $0.userId == self.user.userId }
-                    print(data)
-                    self.draft = draft
-                 print(draft)
+                case .success(let newsletter):
+                    self.newsletter = newsletter
+                    if let draft = newsletter.posts.first(where: { $0.userId == self.user?.userId }) {
+                        self.draft = draft
+                    }
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
+                    self.draft = Post()
                 }
                 
             }
@@ -251,12 +270,8 @@ class DraftViewController: ITBaseViewController {
     }
 
     @objc private func addImageBlockTapped() {
-//        guard draft?.imageBlocks.count ?? 0 <= 3 else {
-//            print("Too many blocks")
-//            return
-//        }
-    
-        draft?.imageBlocks.append(
+
+        draft.imageBlocks.append(
             ImageBlock(
                 caption: "Write something...",
                 image: "",
@@ -271,7 +286,7 @@ class DraftViewController: ITBaseViewController {
 //            return
 //        }
     
-        draft?.textBlocks.append(
+        draft.textBlocks.append(
            TextBlock(
             title: "",
             content: "Write something...")
@@ -302,7 +317,6 @@ extension DraftViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let draft = draft else{ return 0 }
         switch section{
         case 0: return draft.imageBlocks.count
         case 1: return draft.textBlocks.count
@@ -311,7 +325,6 @@ extension DraftViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let draft = draft else { return UITableViewCell() }
         
         switch indexPath.section {
         case 0:
@@ -322,7 +335,7 @@ extension DraftViewController: UITableViewDataSource {
   
             cell.editCaptionHandler = { [weak self] text in
                 if let indexPath = self?.tableView.indexPath(for: cell) {
-                    self?.draft?.imageBlocks[indexPath.row].caption = text
+                    self?.draft.imageBlocks[indexPath.row].caption = text
                 }
             }
             cell.addImageHandler = { [weak self] in
@@ -345,12 +358,12 @@ extension DraftViewController: UITableViewDataSource {
             cell.layoutCell(textBlock: draft.textBlocks[indexPath.row])
             cell.editTitleHandler = { [weak self] text in
                 if let indexPath = self?.tableView.indexPath(for: cell) {
-                    self?.draft?.textBlocks[indexPath.row].title = text
+                    self?.draft.textBlocks[indexPath.row].title = text
                 }
             }
             cell.editContentHandler = { [weak self] text in
                 if let indexPath = self?.tableView.indexPath(for: cell) {
-                    self?.draft?.textBlocks[indexPath.row].content = text
+                    self?.draft.textBlocks[indexPath.row].content = text
                 }
             }
             return cell
@@ -396,9 +409,9 @@ extension DraftViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if indexPath.section == 0 {
-                draft?.imageBlocks.remove(at: indexPath.row)
+                draft.imageBlocks.remove(at: indexPath.row)
             } else if indexPath.section == 1 {
-                draft?.textBlocks.remove(at: indexPath.row)
+                draft.textBlocks.remove(at: indexPath.row)
             }
         }
     }
@@ -410,9 +423,14 @@ extension DraftViewController {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        guard let selectedImage = info[.editedImage] as? UIImage,
+        let cell = modifyCell,
+        let user = user else { return }
+        // Update UI
+       cell.userImageView.image = selectedImage
         
-        if let indexPath = tableView.indexPath(for: modifyCell!) {
+        // Upload Cloud Storage
+        if let indexPath = tableView.indexPath(for: cell) {
             
             let mediaType = info[.mediaType] as! CFString
             if mediaType as String == UTType.image.identifier {
@@ -420,13 +438,15 @@ extension DraftViewController {
                     
                     cloudManager.uploadImages(
                         fileUrl: imageURL,
-                        userName: user.userId) { [weak self] result in
+                        userId: user.userId) { [weak self] result in
                             switch result {
                             case .success(let urlString):
-                                self?.draft?.imageBlocks[indexPath.row].image = urlString
+                                self?.draft.imageBlocks[indexPath.row].image = urlString
                                 self?.dismiss(animated: true)
+                                
                             case .failure(let error):
                                 print("Error: \(error.localizedDescription)")
+                                cell.userImageView.image = nil
                                 self?.dismiss(animated: true)
                             }
                             
@@ -460,7 +480,10 @@ extension DraftViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         headerView.groupTextField.text = pickerData[row]
-        fetchDraft(selectedGroup: pickerData[row])
+        if let selectedGroup = groups.first( where: { $0.groupName == pickerData[row] }) {
+            
+            fetchDraft(groupId: selectedGroup.groupId)
+        }
     }
 
 
@@ -499,8 +522,8 @@ extension DraftViewController: GMSAutocompleteViewControllerDelegate {
         }
         cell.locationLabel.text = location.name
         if let indexPath = self.tableView.indexPath(for: cell) {
-            self.draft?.imageBlocks[indexPath.row].location = location.coordinate?.toGeoPoint()
-            self.draft?.imageBlocks[indexPath.row].place = location.name
+            self.draft.imageBlocks[indexPath.row].location = location.coordinate?.toGeoPoint()
+            self.draft.imageBlocks[indexPath.row].place = location.name
         }
         
         // Dismiss

@@ -9,7 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class ITBaseViewController: UIViewController {
-
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -44,7 +44,7 @@ class ITBaseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isHideNavigationBar {
-            navigationController?.setNavigationBarHidden(true, animated: true)
+            navigationController?.setNavigationBarHidden(true, animated: false)
         }
         if isHideTabBar {
             tabBarController?.tabBar.isHidden = true
@@ -58,7 +58,7 @@ class ITBaseViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isHideNavigationBar {
-            navigationController?.setNavigationBarHidden(false, animated: true)
+            navigationController?.setNavigationBarHidden(false, animated: false)
         }
         if isHideTabBar {
             tabBarController?.tabBar.isHidden = false
@@ -66,13 +66,13 @@ class ITBaseViewController: UIViewController {
         IQKeyboardManager.shared.enable = !isEnableIQKeyboard
         IQKeyboardManager.shared.shouldResignOnTouchOutside = !isEnableResignOnTouchOutside
     }
+    // MARK: - Methods
     func popBack(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
-
- 
+   
 }
-
+// MARK: - UIImagePickerView
 extension ITBaseViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showImagePicker() {
         let imagePicker = UIImagePickerController()
@@ -82,7 +82,7 @@ extension ITBaseViewController: UIImagePickerControllerDelegate, UINavigationCon
         present(imagePicker, animated: true, completion: nil)
     }
 }
-
+// MARK: - Instantiate View Controller
 extension ITBaseViewController {
     func showAddGroupPage() {
         
@@ -100,6 +100,44 @@ extension ITBaseViewController {
             present(addGroupVC, animated: true, completion: nil)
         }
         
+        
+    }
+    func showConfirmJoinPage(for group: Group) {
+        let confirmJoinVC = ConfirmJoinGroupViewController()
+        confirmJoinVC.group = group
+        
+        if #available(iOS 16.0, *) {
+            if let sheetPresentationController = confirmJoinVC.sheetPresentationController {
+                sheetPresentationController.accessibilityRespondsToUserInteraction = true
+                sheetPresentationController.preferredCornerRadius = 16
+                sheetPresentationController.detents = [.custom(resolver: { _ in
+                    680
+                })]
+            }
+            present(confirmJoinVC, animated: true, completion: nil)
+        }
+    }
+}
+// MARK: - Common methods
+extension ITBaseViewController {
+    func generateRandomCode() -> String {
+        let randomString = UUID().uuidString.replacingOccurrences(of: "-", with: "")
+          return "\(randomString)"
+    }
+}
+
+
+extension UIViewController {
+    func dismissToRoot() {
+        
+        if presentingViewController != nil {
+            let superVC = presentingViewController
+            dismiss(animated: false, completion: nil)
+            superVC?.dismissToRoot()
+            return
+            
+            
+        }
         
     }
 }
