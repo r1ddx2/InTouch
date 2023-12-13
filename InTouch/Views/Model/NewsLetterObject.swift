@@ -28,13 +28,13 @@ struct NewsLetter: Codable {
 }
 
 struct Post: Codable {
-    var date: Date
-    var postId: String
-    var userId: String
-    var userIcon: String
-    var userName: String
-    var imageBlocks: [ImageBlock]
-    var textBlocks: [TextBlock]
+    var date: Date = Date()
+    var postId: String = ""
+    var userId: String = ""
+    var userIcon: String = ""
+    var userName: String = ""
+    var imageBlocks: [ImageBlock] = []
+    var textBlocks: [TextBlock] = []
     
     enum CodingKeys: String, CodingKey {
         case date
