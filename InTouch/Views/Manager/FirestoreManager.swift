@@ -31,27 +31,28 @@ class FirestoreManager {
     
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
+    
     // MARK: - Collection Reference
-    func getRef(_ reference: FFCollection, group: String?) -> CollectionReference {
+    func getRef(_ reference: FFCollection, groupId: String?) -> CollectionReference {
         switch reference {
         case .groups, .users: return getRef(collection: reference)
-        case .newsletters, .archived: return getSubRef(subCollection: reference, from: group!)
+        case .newsletters, .archived: return getSubRef(subCollection: reference, from: groupId!)
         }
     }
-    func getRefs(subCollection: FFCollection, groups: [String]) -> [CollectionReference] {
-        return getRefs(subCollection: subCollection, from: groups)
+    func getRefs(subCollection: FFCollection, groupIds: [String]) -> [CollectionReference] {
+        return getRefs(subCollection: subCollection, from: groupIds)
     }
     
     private func getRef(collection: FFCollection) -> CollectionReference {
         db.collection(collection.rawValue)
     }
-    private func getSubRef(subCollection: FFCollection, from group: String) -> CollectionReference {
+    private func getSubRef(subCollection: FFCollection, from groupId: String) -> CollectionReference {
         db.collection(FFCollection.groups.rawValue)
-            .document(group)
+            .document(groupId)
             .collection(subCollection.rawValue)
     }
-    private func getRefs(subCollection: FFCollection, from groups: [String]) -> [CollectionReference] {
-       groups.map { group in
+    private func getRefs(subCollection: FFCollection, from groupIds: [String]) -> [CollectionReference] {
+       groupIds.map { group in
             let newsRef = db.collection(FFCollection.groups.rawValue)
                 .document(group)
                 .collection(subCollection.rawValue)
@@ -106,13 +107,21 @@ class FirestoreManager {
                 completion(.failure(FFError.unknownError))
                 return
             }
+            // If document don't exist, create document
             guard document.exists else {
-                completion(.failure(FFError.emptyDocument))
-                return
+                do {
+                    try reference.document(documentId).setData(from: updateData)
+                    
+                    completion(.success(documentId))
+                } catch {
+                    completion(.failure(FFError.decodingFail))
+                }
+                    return
             }
-            
+            // If exist, update document
             do {
-                try reference.document(documentId).setData(from: updateData, merge: true) { error in
+                try 
+                reference.document(documentId).setData(from: updateData, merge: false) { error in
                     if let error = error {
                         completion(.failure(error))
                         return
@@ -176,14 +185,14 @@ class FirestoreManager {
         }
     }
     // MARK: - Get Document
-    func getDocument<T: Decodable>(
+    func listenDocument<T: Decodable>(
         asType: T.Type,
         documentId: String,
         reference: CollectionReference,
         completion: @escaping CompletionHandler<T>
         
     ) {
-        reference.document(documentId).getDocument(completion: { snapshot, error in
+        reference.document(documentId).addSnapshotListener { snapshot, error in
             if let error {
                 completion(.failure(error))
                 return
@@ -204,10 +213,71 @@ class FirestoreManager {
                 completion(.failure(error))
             }
             
-        })
+        }
+        
+    }
+    func getDocument<T: Decodable>(
+        asType: T.Type,
+        documentId: String,
+        reference: CollectionReference,
+        completion: @escaping CompletionHandler<T>
+        
+    ) {
+        reference.document(documentId).getDocument { snapshot, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let snapshot else {
+                completion(.failure(FFError.unknownError))
+                return
+            }
+            guard snapshot.exists else {
+                completion(.failure(FFError.invalidDocument))
+                return
+            }
+            
+            do {
+                let documentData = try snapshot.data(as: T.self)
+                completion(.success(documentData))
+            } catch {
+                completion(.failure(error))
+            }
+            
+        }
         
     }
     func getDocuments<T: Decodable>(
+        asType: T.Type,
+        reference: CollectionReference,
+        completion: @escaping CompletionHandler<[T]>
+        
+    ) {
+        reference.getDocuments { querySnapshot, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let querySnapshot else {
+                completion(.failure(FFError.unknownError))
+                return
+            }
+            
+            do {
+                var data: [T] = []
+                for document in querySnapshot.documents {
+                    let documentData = try document.data(as: T.self)
+                    data.append(documentData)
+                }
+                completion(.success(data))
+            } catch {
+                completion(.failure(error))
+            }
+            
+        }
+        
+    }
+    func getDifferentDocs<T: Decodable>(
         asType: T.Type,
         documentId: String,
         references: [CollectionReference],
