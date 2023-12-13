@@ -1,5 +1,12 @@
 PODS:
   - CRRefresh (1.1.3)
+  - GoogleMaps (8.3.0):
+    - GoogleMaps/Maps (= 8.3.0)
+  - GoogleMaps/Base (8.3.0)
+  - GoogleMaps/Maps (8.3.0):
+    - GoogleMaps/Base
+  - GooglePlaces (8.3.0)
+  - IQKeyboardManagerSwift (6.5.16)
   - KeychainAccess (4.2.2)
   - Kingfisher (7.10.0)
   - ProgressHUD (2.70)
@@ -8,6 +15,9 @@ PODS:
 
 DEPENDENCIES:
   - CRRefresh
+  - GoogleMaps
+  - GooglePlaces
+  - IQKeyboardManagerSwift
   - KeychainAccess
   - Kingfisher (~> 7.0)
   - ProgressHUD
@@ -17,6 +27,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CRRefresh
+    - GoogleMaps
+    - GooglePlaces
+    - IQKeyboardManagerSwift
     - KeychainAccess
     - Kingfisher
     - ProgressHUD
@@ -25,12 +38,15 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CRRefresh: 1415d4ae06837fa7bb064c44f2e102f3ef517044
+  GoogleMaps: 54762190c9741867d03e4e4218672ab5a0a8096b
+  GooglePlaces: b922e192c50994436900ef14d19f84971950250b
+  IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: a18f05d3b6d37d8650ee4a3e61d57a28fc6207f6
   ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 4cafb6c150d8ab93980d741c275a7fb02f46f9ab
+PODFILE CHECKSUM: e3c110dfb5f33eedc39c48cce23172c86c233c96
 
 COCOAPODS: 1.12.1

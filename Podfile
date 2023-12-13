@@ -12,10 +12,12 @@ pod 'SwiftLint'
 pod 'SnapKit', '~> 5.6.0'
 pod 'Kingfisher', '~> 7.0'
 pod 'CRRefresh'
+pod 'IQKeyboardManagerSwift'
 pod 'ProgressHUD'
 use_frameworks!
 pod 'KeychainAccess'
-
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 
   target 'InTouchTests' do
     inherit! :search_paths

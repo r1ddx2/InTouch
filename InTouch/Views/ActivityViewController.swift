@@ -23,7 +23,7 @@ class ActivityViewController: ITBaseViewController {
         view.backgroundColor = .white
         setUpLayouts()
         setUpActions()
-        buttonsView.setUpButtons(buttonsCount: 7, buttonTitles: ["Add text block", "Add image block", "Add text block", "Add text block", "Add text block", "Add text block", "Add text block"])
+        buttonsView.setUpButtons(buttonsCount: 7, buttonTitles: ["Add text block", "Add image block", "Add text block", "Add text block", "Add text block", "Add text block", "Add text block"], buttonStyle: .round)
     }
     private func setUpLayouts() {
         view.addSubview(buttonsView)
@@ -31,7 +31,7 @@ class ActivityViewController: ITBaseViewController {
             make.top.equalTo(view).offset(50)
             make.left.equalTo(view)
             make.right.equalTo(view)
-            //make.height.equalTo()
+            make.height.equalTo(50)
         }
     
     }

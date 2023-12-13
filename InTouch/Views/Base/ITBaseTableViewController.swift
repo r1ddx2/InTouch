@@ -19,6 +19,7 @@ class ITBaseTableViewController: ITBaseViewController,
     }
 
     // MARK: - View Life Cycle
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetUp()
@@ -41,7 +42,7 @@ class ITBaseTableViewController: ITBaseViewController,
     }
 
     // MARK: - Public Method
-    private func reloadData() {
+    func reloadData() {
         guard Thread.isMainThread else {
             DispatchQueue.main.async { [weak self] in
                 self?.reloadData()
