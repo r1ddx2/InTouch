@@ -37,7 +37,7 @@ class HomeTableViewImageCell: UITableViewCell {
             make.top.equalTo(userBlockView.snp.bottom).offset(8)
             make.left.right.equalTo(contentView)
             make.height.equalTo(385)
-            make.bottom.equalTo(contentView)
+            make.bottom.equalTo(contentView).offset(-16)
         }
     
     }
@@ -49,7 +49,7 @@ class HomeTableViewImageCell: UITableViewCell {
     //MARK: - Methods
     func layoutCell(imageBlocks: [ImageBlock], user: User) {
         setUpImageBlocks(imageBlocks: imageBlocks)
-        setUpUserBlock(userName: user.userName, userIcon: user.userIcon)
+        setUpUserBlock(userName: user.userName, userIcon: user.userIcon!)
     }
     private func setUpImageBlocks(imageBlocks array: [ImageBlock]) {
         imageBlocksScrollView.setUpImageBlocks(imageBlocks: array)

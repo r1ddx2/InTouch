@@ -28,19 +28,19 @@ class HomeTableViewTextCell: UITableViewCell {
 
         userBlockView.snp.makeConstraints { (make) -> Void in
             make.top.right.left.equalTo(contentView)
-            make.height.equalTo(UserBlockView.height)
+            make.height.equalTo(56)
         }
         stackTextBlocks.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(userBlockView.snp.bottom).offset(8)
+            make.top.equalTo(userBlockView.snp.bottom)
             make.left.right.equalTo(contentView)
-            make.bottom.equalTo(contentView)
+            make.bottom.equalTo(contentView).offset(-8)
         }
     
     }
     //MARK: - Methods
     func layoutCell(textBlock: [TextBlock], user: User) {
         stackTextBlocks.setUpTextBlocks(textBlocks: textBlock)
-        setUpUserBlock(userName: user.userName, userIcon: user.userIcon)
+        setUpUserBlock(userName: user.userName, userIcon: user.userIcon!)
     }
  
     private func setUpUserBlock(userName: String, userIcon: String) {

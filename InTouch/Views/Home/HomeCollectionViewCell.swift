@@ -7,15 +7,10 @@
 
 import UIKit
 
-protocol HomeCollectionViewCellDelegate {
-    func didLoadHeader(_ cell: HomeCollectionViewCell, tableView: UITableView)
-}
-
 class HomeCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "\(HomeCollectionViewCell.self)"
-    var delegate: HomeCollectionViewCellDelegate?
-    
+
     var user: User?
     var newsletter: NewsLetter? {
         didSet {
@@ -63,18 +58,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
         }
         tableView.reloadData()
     }
-    
-    func headerLoader() {
-        delegate?.didLoadHeader(self, tableView: tableView)
-        tableView.endHeaderRefreshing()
-    }
+  
     private func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        
-        tableView.addRefreshHeader(refreshingBlock: { [weak self] in
-            self?.headerLoader()
-        })
         
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         tableView.register(HomeTableViewTextCell.self, forCellReuseIdentifier: HomeTableViewTextCell.identifier)
@@ -118,7 +105,7 @@ extension HomeCollectionViewCell: UITableViewDataSource, UITableViewDelegate {
             headerCell.layoutCell(
                 image: newsletter.newsCover,
                 title: newsletter.title,
-                date: newsletter.date.getThisWeekDateRange()
+                date: newsletter.date.getLastWeekDateRange()
             )
             return headerCell
         }

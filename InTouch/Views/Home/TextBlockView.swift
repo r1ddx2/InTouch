@@ -46,7 +46,7 @@ class TextBlockView: UIView {
         addSubview(contentLabel)
         
         titleLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self).offset(21)
+            make.top.equalTo(self).offset(16)
             make.left.equalTo(self).offset(21)
             make.right.equalTo(self).offset(-21)
         }

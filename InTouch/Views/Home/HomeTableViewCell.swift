@@ -65,7 +65,7 @@ class HomeTableViewCell: UITableViewCell {
     func layoutCell(imageBlocks: [ImageBlock], textBlocks: [TextBlock], user: User) {
         imageBlocksScrollView.setUpImageBlocks(imageBlocks: imageBlocks)
         stackTextBlockView.setUpTextBlocks(textBlocks: textBlocks)
-        setUpUserBlock(userName: user.userName, userIcon: user.userIcon)
+        setUpUserBlock(userName: user.userName, userIcon: user.userIcon!)
     }
     private func setUpUserBlock(userName: String, userIcon: String) {
         userBlockView.userNameLabel.text = userName

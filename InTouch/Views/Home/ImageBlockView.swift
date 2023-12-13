@@ -16,6 +16,7 @@ class ImageBlockView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(resource: .apple)
+        imageView.layer.cornerRadius = 8
         return imageView
     }()
     let placeIcon: UIButton = {
