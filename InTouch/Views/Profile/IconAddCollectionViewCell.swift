@@ -36,7 +36,6 @@ class IconAddCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(contentView)
             make.centerX.equalTo(contentView.snp.centerX)
             make.height.width.equalTo(60)
-            make.bottom.equalTo(contentView).offset(-20)
         }
     }
    

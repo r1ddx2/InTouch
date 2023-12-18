@@ -185,7 +185,7 @@ class GroupProfileViewController: ITBaseViewController {
         users = []
         guard let group = group, let members = group.members else { return }
         
-        let documentIds = members.map({ $0.userId })
+        let documentIds = members.map({ $0.userEmail })
         let reference = firestoreManager.getRef(.users, groupId: nil)
 
         let serialQueue = DispatchQueue(label: "serialQueue")
@@ -198,7 +198,7 @@ class GroupProfileViewController: ITBaseViewController {
                 
                 self.firestoreManager.listenDocument(
                     asType: User.self,
-                    documentId: documentId,
+                    documentId: documentId!,
                     reference: reference,
                     completion: { result in
                         

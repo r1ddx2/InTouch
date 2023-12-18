@@ -200,10 +200,10 @@ class CreateGroupViewController: ITBaseViewController {
             
             user.groups?.append(usersGroup)
             let reference = firestoreManager.getRef(.users, groupId: nil)
-            let documentId = user.userId
+            let documentId = user.userEmail
             
             firestoreManager.updateDocument(
-                documentId: documentId,
+                documentId: documentId!,
                 reference: reference,
                 updateData: user) { result in
                     switch result {
@@ -218,7 +218,7 @@ class CreateGroupViewController: ITBaseViewController {
     }
     private func initializeGroup(with groupName: String = "") {
         guard let user = user else { return }
-        let groupMember = User(userId: user.userId, userName: user.userName)
+        let groupMember = User(userId: user.userId, userName: user.userName, userEmail: user.userEmail)
         groupToCreate = Group(
             groupName: groupName,
             groupId: generateRandomCode(),
