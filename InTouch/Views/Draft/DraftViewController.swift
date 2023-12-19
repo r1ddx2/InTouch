@@ -14,6 +14,7 @@ import CoreLocation
 enum DraftType: String, CaseIterable {
     case image = "Images"
     case text = "Articles"
+    case audio = "Audio"
 }
 
 class DraftViewController: ITBaseViewController {
@@ -48,7 +49,7 @@ class DraftViewController: ITBaseViewController {
     
     // MARK: - Subviews
     let tableView = UITableView()
-    let headerView = DraftTableHeaderView(user: FakeData.userRed, buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block"], buttonStyle: .round)
+    let headerView = DraftTableHeaderView(user: FakeData.userRed, buttonCount: DraftType.allCases.count, buttonTitles: ["Add image block", "Add text block", "Add audio block"], buttonStyle: .round)
     
     let submitButton: UIButton = {
         let button = UIButton()
@@ -99,6 +100,7 @@ class DraftViewController: ITBaseViewController {
         tableView.delegate = self
         tableView.register(TextBlockDraftCell.self, forCellReuseIdentifier: TextBlockDraftCell.identifier)
         tableView.register(ImageBlockDraftCell.self, forCellReuseIdentifier: ImageBlockDraftCell.identifier)
+        tableView.register(AudioBlockDraftCell.self, forCellReuseIdentifier: AudioBlockDraftCell.identifier)
         tableView.register(DraftTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: DraftTableSectionHeaderView.identifier)
         tableView.rowHeight = 170
         tableView.sectionHeaderHeight = 45
@@ -115,6 +117,8 @@ class DraftViewController: ITBaseViewController {
         headerView.groupPickerView.delegate = self
         headerView.buttonsView.buttonsArray[0].addTarget(self, action: #selector(addImageBlockTapped), for: .touchUpInside)
         headerView.buttonsView.buttonsArray[1].addTarget(self, action: #selector(addTextBlockTapped), for: .touchUpInside)
+        headerView.buttonsView.buttonsArray[2].addTarget(self, action: #selector(addAudioBlockTapped), for: .touchUpInside)
+
     }
     private func setUpActions() {
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
@@ -173,7 +177,7 @@ class DraftViewController: ITBaseViewController {
         guard let newsletter = newsletter, let group = group else { return }
      
         let reference = firestoreManager.getRef(.newsletters, groupId: group.groupId)
-        let documentId = Date().getThisWeekDateRange()
+        let documentId = Date().getLastWeekDateRange()
         
         firestoreManager.updateDocument(
             documentId: documentId,
@@ -246,7 +250,7 @@ class DraftViewController: ITBaseViewController {
        
         firestoreManager.listenDocument(
             asType: NewsLetter.self,
-            documentId: Date().getThisWeekDateRange(),
+            documentId: Date().getLastWeekDateRange(),
             reference: firestoreManager.getRef(.newsletters, groupId: groupId)) { [weak self] result in
                 guard let self = self else { return }
                 
@@ -285,7 +289,6 @@ class DraftViewController: ITBaseViewController {
 //            print("Too many blocks")
 //            return
 //        }
-    
         draft.textBlocks.append(
            TextBlock(
             title: "",
@@ -293,7 +296,31 @@ class DraftViewController: ITBaseViewController {
         )
         reload()
     }
-  
+    @objc func addAudioBlockTapped() {
+        let audioVC = AudioRecordViewController()
+       
+        audioVC.urlHandler = { [weak self] url in
+            guard let self = self else { return }
+            self.draft.audioBlocks.append(
+                AudioBlock(audioUrl: url)
+            )
+            self.reload()
+            print("draft: \(draft.audioBlocks)")
+        }
+        
+        audioVC.isModalInPresentation = true
+        if #available(iOS 16.0, *) {
+            if let sheetPresentationController = audioVC.sheetPresentationController {
+                sheetPresentationController.accessibilityRespondsToUserInteraction = true
+                sheetPresentationController.preferredCornerRadius = 16
+                sheetPresentationController.detents = [.custom(resolver: { _ in
+                    240
+                })]
+            }
+            present(audioVC, animated: true, completion: nil)
+        }
+    
+    }
     private func reload() {
         tableView.reloadData()
     }
@@ -312,6 +339,7 @@ class DraftViewController: ITBaseViewController {
 
 // MARK: - UITableView Data Source
 extension DraftViewController: UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return DraftType.allCases.count
     }
@@ -320,6 +348,7 @@ extension DraftViewController: UITableViewDataSource {
         switch section{
         case 0: return draft.imageBlocks.count
         case 1: return draft.textBlocks.count
+        case 2: return draft.audioBlocks.count
         default: return 0
         }
     }
@@ -332,7 +361,7 @@ extension DraftViewController: UITableViewDataSource {
                 fatalError("Cannot create image cell") }
             
             cell.layoutCell(imageBlock: draft.imageBlocks[indexPath.row])
-  
+            
             cell.editCaptionHandler = { [weak self] text in
                 if let indexPath = self?.tableView.indexPath(for: cell) {
                     self?.draft.imageBlocks[indexPath.row].caption = text
@@ -344,7 +373,7 @@ extension DraftViewController: UITableViewDataSource {
             }
             
             cell.addLocationHandler = { [weak self] in
-               // self?.presentAddLocationVC(from: cell)
+                // self?.presentAddLocationVC(from: cell)
                 self?.modifyCell = cell
                 self?.configureSearchController()
             }
@@ -354,7 +383,7 @@ extension DraftViewController: UITableViewDataSource {
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextBlockDraftCell.identifier, for: indexPath) as? TextBlockDraftCell else { fatalError("Cannot create text cell") }
-         
+            
             cell.layoutCell(textBlock: draft.textBlocks[indexPath.row])
             cell.editTitleHandler = { [weak self] text in
                 if let indexPath = self?.tableView.indexPath(for: cell) {
@@ -368,8 +397,18 @@ extension DraftViewController: UITableViewDataSource {
             }
             return cell
             
+        case 2:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AudioBlockDraftCell.identifier, for: indexPath) as? AudioBlockDraftCell else { fatalError("Cannot create text cell") }
+            cell.setUpPlayer(with: draft.audioBlocks[indexPath.row].audioUrl)
+            tableView.rowHeight = UITableView.automaticDimension
+            tableView.estimatedRowHeight = 100
+            return cell
+            
+            
         default:
-            return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))}}
+            return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))
+        }
+    }
     
 }
 // MARK: - UITable View Delegate
@@ -408,10 +447,11 @@ extension DraftViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if indexPath.section == 0 {
-                draft.imageBlocks.remove(at: indexPath.row)
-            } else if indexPath.section == 1 {
-                draft.textBlocks.remove(at: indexPath.row)
+            switch indexPath.section {
+            case 0:  draft.imageBlocks.remove(at: indexPath.row)
+            case 1:  draft.textBlocks.remove(at: indexPath.row)
+            case 2:  draft.audioBlocks.remove(at: indexPath.row)
+            default: break
             }
         }
     }
