@@ -35,6 +35,7 @@ struct Post: Codable {
     var userName: String = ""
     var imageBlocks: [ImageBlock] = []
     var textBlocks: [TextBlock] = []
+    var audioBlocks: [AudioBlock] = []
     
     enum CodingKeys: String, CodingKey {
         case date
@@ -44,6 +45,7 @@ struct Post: Codable {
         case userName = "user_name"
         case imageBlocks = "image_blocks"
         case textBlocks = "text_blocks"
+        case audioBlocks = "audio_blocks"
     }
 }
 
@@ -66,3 +68,6 @@ struct TextBlock: Codable {
     var content: String
 }
 
+struct AudioBlock: Codable {
+    var audioUrl: String
+}
