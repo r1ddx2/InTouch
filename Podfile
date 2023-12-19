@@ -18,7 +18,7 @@ use_frameworks!
 pod 'KeychainAccess'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
-pod 'SoundWave'
+pod 'CountdownLabel'
 
 
   target 'InTouchTests' do

@@ -8,6 +8,25 @@
 import Foundation
 
 extension Date {
+    func minutesRemainingUntilNextMonday() -> TimeInterval {
+           let calendar = Calendar.current
+
+           // Calculate the next Monday
+           var nextMondayComponents = DateComponents()
+           nextMondayComponents.weekday = 2 // Monday
+           nextMondayComponents.hour = 0
+           nextMondayComponents.minute = 0
+           nextMondayComponents.second = 0
+
+           if let nextMonday = calendar.nextDate(after: self, matching: nextMondayComponents, matchingPolicy: .nextTime) {
+               // Calculate the time interval between now and the next Monday in minutes
+               let minutesRemaining = nextMonday.timeIntervalSince(self) / 60
+               return minutesRemaining
+           }
+
+           // If for some reason the next Monday couldn't be calculated, return a default value
+           return 0
+       }
     // For each post
     func getCurrentDateTime() -> String {
         let dateFormatter = DateFormatter()

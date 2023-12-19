@@ -44,6 +44,12 @@ class HomeViewController: ITBaseCollectionViewController {
         navTitle.text = "InTouch"
         navTitle.font = .boldSystemFont(ofSize: 26)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: navTitle)
+        
+        let rightBarButton = UIBarButtonItem(image: UIImage(resource: .iconTimer).withRenderingMode(.alwaysOriginal),
+                                                    style: .plain,
+                                                    target: self,
+                                                    action: #selector(timerButtonTapped))
+        navigationItem.rightBarButtonItem = rightBarButton
     }
     private func setUpLayouts() {
          view.addSubview(collectionView)
@@ -95,7 +101,7 @@ class HomeViewController: ITBaseCollectionViewController {
             
         }
     }
-    // MARK: - Methods}
+    // MARK: - Methods
     override func headerLoader() {
         fetchUserData()
         endHeaderRefreshing()
@@ -155,6 +161,10 @@ class HomeViewController: ITBaseCollectionViewController {
                     })
             }
         }
+    }
+    @objc private func timerButtonTapped() {
+        let timerVC = TimerViewController()
+        present(timerVC, animated: true)
     }
     // MARK: - UICollectionView Data Source
  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
