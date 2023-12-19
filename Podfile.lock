@@ -11,6 +11,7 @@ PODS:
   - Kingfisher (7.10.0)
   - ProgressHUD (2.70)
   - SnapKit (5.6.0)
+  - SoundWave (0.1.4)
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - Kingfisher (~> 7.0)
   - ProgressHUD
   - SnapKit (~> 5.6.0)
+  - SoundWave
   - SwiftLint
 
 SPEC REPOS:
@@ -34,6 +36,7 @@ SPEC REPOS:
     - Kingfisher
     - ProgressHUD
     - SnapKit
+    - SoundWave
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -45,8 +48,9 @@ SPEC CHECKSUMS:
   Kingfisher: a18f05d3b6d37d8650ee4a3e61d57a28fc6207f6
   ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SoundWave: d98ffaa863570b29d991da32a09b7ce1b4aaf2d4
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: e3c110dfb5f33eedc39c48cce23172c86c233c96
+PODFILE CHECKSUM: b82380b8182880b32e02178e06fbe1b279fb1032
 
 COCOAPODS: 1.12.1

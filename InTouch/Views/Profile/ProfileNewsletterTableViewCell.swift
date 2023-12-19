@@ -75,7 +75,7 @@ class ProfileNewsletterTableViewCell: UITableViewCell {
         guard let newsletter = newsletter else { return }
         letterCoverImageView.loadImage(newsletter.newsCover)
         letterTitleLabel.text = newsletter.title
-        letterDateLabel.text = newsletter.date.getLastWeekDateRange()
+        letterDateLabel.text = newsletter.date.getThisWeekDateRange()
     }
     
     

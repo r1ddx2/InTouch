@@ -18,6 +18,8 @@ use_frameworks!
 pod 'KeychainAccess'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'SoundWave'
+
 
   target 'InTouchTests' do
     inherit! :search_paths

@@ -9,7 +9,7 @@ import UIKit
 
 class DraftTableSectionHeaderView: UITableViewHeaderFooterView {
     
-    static let identifier = "DraftTableSectionHeaderView"
+    static let identifier = "\(DraftTableSectionHeaderView.self)"
     
     let titleLabel: UILabel = {
         let label = UILabel()

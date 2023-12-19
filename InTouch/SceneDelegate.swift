@@ -21,7 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         let signInVC = SignInViewController()
         let nav = ITBaseNavigationController(rootViewController: signInVC)
-        window.rootViewController = nav
+        let tabBarVC = ITTabBarViewController()
+       // if KeyChainManager.shared.loggedInUser == nil {
+            window.rootViewController = nav
+      //  } else {
+           // window.rootViewController = tabBarVC
+      //  }
         window.makeKeyAndVisible()
         self.window = window
     }
