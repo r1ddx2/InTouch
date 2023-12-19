@@ -168,10 +168,10 @@ class ConfirmJoinGroupViewController: ITBaseViewController {
             
             user.groups?.append(usersGroup)
             let reference = firestoreManager.getRef(.users, groupId: nil)
-            let documentId = user.userId
+            let documentId = user.userEmail
             
             firestoreManager.updateDocument(
-                documentId: documentId,
+                documentId: documentId!,
                 reference: reference,
                 updateData: user) { result in
                     switch result {
@@ -187,7 +187,7 @@ class ConfirmJoinGroupViewController: ITBaseViewController {
     
     private func addMemberToGroup(_ user: User) {
         guard var group = group else { return }
-        let member = User(userId: user.userId, userName: user.userName)
+        let member = User(userId: user.userId, userName: user.userName, userEmail: user.userEmail)
         
         if var groupMembers = group.members {
             groupMembers.append(member)

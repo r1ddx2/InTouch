@@ -10,6 +10,17 @@
 		9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */; };
 		9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */; };
 		9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */; };
+		9DC1B7472B2C4CEF0063E667 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7462B2C4CEF0063E667 /* AuthManager.swift */; };
+		9DC1B7492B2C4F630063E667 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7482B2C4F630063E667 /* AuthState.swift */; };
+		9DC1B74B2B2C50400063E667 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B74A2B2C50400063E667 /* SignInViewController.swift */; };
+		9DC1B74D2B2C51D40063E667 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B74C2B2C51D40063E667 /* Info.swift */; };
+		9DC1B74F2B2EEC500063E667 /* SetUpAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B74E2B2EEC500063E667 /* SetUpAccountViewController.swift */; };
+		9DC1B7522B302EE20063E667 /* AudioBlockDraftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7512B302EE20063E667 /* AudioBlockDraftCell.swift */; };
+		9DC1B7542B3030750063E667 /* AudioRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7532B3030750063E667 /* AudioRecordViewController.swift */; };
+		9DC1B7562B3043A00063E667 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7552B3043A00063E667 /* AudioManager.swift */; };
+		9DC1B7592B304B260063E667 /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC1B7582B304B260063E667 /* DSWaveformImage */; };
+		9DC1B75B2B304B260063E667 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC1B75A2B304B260063E667 /* DSWaveformImageViews */; };
+		9DC1B75E2B3175E80063E667 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B75D2B3175E80063E667 /* TimerViewController.swift */; };
 		9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */; };
 		9DC6AFA42B1B436C002D812C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA32B1B436C002D812C /* Place.swift */; };
 		9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */; };
@@ -113,6 +124,15 @@
 		9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
 		9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
 		9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9DC1B7462B2C4CEF0063E667 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		9DC1B7482B2C4F630063E667 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
+		9DC1B74A2B2C50400063E667 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		9DC1B74C2B2C51D40063E667 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		9DC1B74E2B2EEC500063E667 /* SetUpAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpAccountViewController.swift; sourceTree = "<group>"; };
+		9DC1B7512B302EE20063E667 /* AudioBlockDraftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBlockDraftCell.swift; sourceTree = "<group>"; };
+		9DC1B7532B3030750063E667 /* AudioRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordViewController.swift; sourceTree = "<group>"; };
+		9DC1B7552B3043A00063E667 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		9DC1B75D2B3175E80063E667 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		9DC6AFA32B1B436C002D812C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D + Extension.swift"; sourceTree = "<group>"; };
@@ -192,9 +212,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DF8AAB32B075B5A00F5D3D3 /* FirebaseAnalytics in Frameworks */,
+				9DC1B75B2B304B260063E667 /* DSWaveformImageViews in Frameworks */,
 				9DF8AAB72B075B5A00F5D3D3 /* FirebaseCrashlytics in Frameworks */,
 				9DF8AAB52B075B5A00F5D3D3 /* FirebaseAuth in Frameworks */,
 				9DF8AABD2B075B5A00F5D3D3 /* FirebaseFirestoreSwift in Frameworks */,
+				9DC1B7592B304B260063E667 /* DSWaveformImage in Frameworks */,
 				DF61BEB1184C77011185ED02 /* Pods_InTouch.framework in Frameworks */,
 				9DF8AABF2B075B5A00F5D3D3 /* FirebaseStorage in Frameworks */,
 				9DF8AAB92B075B5A00F5D3D3 /* FirebaseDynamicLinks in Frameworks */,
@@ -232,6 +254,23 @@
 				82D8F9EBFF6935A6B98CBAD2 /* Pods-InTouchTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9DC1B7502B2F11A10063E667 /* Sign In */ = {
+			isa = PBXGroup;
+			children = (
+				9DC1B74A2B2C50400063E667 /* SignInViewController.swift */,
+				9DC1B74E2B2EEC500063E667 /* SetUpAccountViewController.swift */,
+			);
+			path = "Sign In";
+			sourceTree = "<group>";
+		};
+		9DC1B75C2B3175DD0063E667 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				9DC1B75D2B3175E80063E667 /* TimerViewController.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		9DC6AFB72B1F6FEB002D812C /* Map */ = {
@@ -348,7 +387,9 @@
 		9DF8AA282B07411D00F5D3D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9DC1B75C2B3175DD0063E667 /* Timer */,
 				9DF8AA292B07412600F5D3D3 /* Base */,
+				9DC1B7502B2F11A10063E667 /* Sign In */,
 				9DEEE8652B0DE808006B4496 /* Home */,
 				9DC6AFBC2B204117002D812C /* Groups */,
 				9DC6AFC72B22E169002D812C /* Profile */,
@@ -394,8 +435,10 @@
 				9DF8AAA92B074EB800F5D3D3 /* DraftViewController.swift */,
 				9DF8AAC12B07603200F5D3D3 /* TextBlockDraftCell.swift */,
 				9DF8AAC32B07604B00F5D3D3 /* ImageBlockDraftCell.swift */,
+				9DC1B7512B302EE20063E667 /* AudioBlockDraftCell.swift */,
 				9DF8AAD22B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift */,
 				9DF8AAD82B0B1F2100F5D3D3 /* DraftTableHeaderView.swift */,
+				9DC1B7532B3030750063E667 /* AudioRecordViewController.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -418,6 +461,8 @@
 				9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */,
 				9DC6AFA32B1B436C002D812C /* Place.swift */,
 				9DDEE1962B28414200343DDC /* MarkerObject.swift */,
+				9DC1B74C2B2C51D40063E667 /* Info.swift */,
+				9DC1B7482B2C4F630063E667 /* AuthState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -428,7 +473,9 @@
 				9DF8AADE2B0B422200F5D3D3 /* FirestoreManager.swift */,
 				9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */,
 				9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */,
+				9DC1B7462B2C4CEF0063E667 /* AuthManager.swift */,
 				9DC6AFBA2B2033AB002D812C /* KeychainManager.swift */,
+				9DC1B7552B3043A00063E667 /* AudioManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -471,6 +518,8 @@
 				9DF8AABA2B075B5A00F5D3D3 /* FirebaseFirestore */,
 				9DF8AABC2B075B5A00F5D3D3 /* FirebaseFirestoreSwift */,
 				9DF8AABE2B075B5A00F5D3D3 /* FirebaseStorage */,
+				9DC1B7582B304B260063E667 /* DSWaveformImage */,
+				9DC1B75A2B304B260063E667 /* DSWaveformImageViews */,
 			);
 			productName = InTouch;
 			productReference = 9DE69C522B05F77800AE7AEE /* InTouch.app */;
@@ -550,6 +599,7 @@
 			mainGroup = 9DE69C492B05F77800AE7AEE;
 			packageReferences = (
 				9DF8AAB12B075B5A00F5D3D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9DC1B7572B30474B0063E667 /* XCRemoteSwiftPackageReference "DSWaveformImage" */,
 			);
 			productRefGroup = 9DE69C532B05F77800AE7AEE /* Products */;
 			projectDirPath = "";
@@ -750,11 +800,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DC1B74F2B2EEC500063E667 /* SetUpAccountViewController.swift in Sources */,
 				9DF8AACA2B07634400F5D3D3 /* UIFont + Extension.swift in Sources */,
+				9DC1B7472B2C4CEF0063E667 /* AuthManager.swift in Sources */,
 				9DE69C5A2B05F77800AE7AEE /* ITBaseViewController.swift in Sources */,
 				9DEEE86B2B0DE8CB006B4496 /* HomeTableViewCell.swift in Sources */,
 				9DF8AAC22B07603200F5D3D3 /* TextBlockDraftCell.swift in Sources */,
+				9DC1B7492B2C4F630063E667 /* AuthState.swift in Sources */,
 				9DC6AFC22B2069B1002D812C /* JoinGroupViewController.swift in Sources */,
+				9DC1B7522B302EE20063E667 /* AudioBlockDraftCell.swift in Sources */,
 				9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */,
 				9DF8AAA12B07483300F5D3D3 /* ITBaseNavigationController.swift in Sources */,
 				9DEEE8692B0DE841006B4496 /* TextBlockView.swift in Sources */,
@@ -762,6 +816,7 @@
 				9DC6AFCF2B22F875002D812C /* ProfileHeaderView.swift in Sources */,
 				9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */,
 				9DF8AAD72B0AFD0100F5D3D3 /* ButtonsScrollView.swift in Sources */,
+				9DC1B74B2B2C50400063E667 /* SignInViewController.swift in Sources */,
 				9DC6AFCD2B22F6A1002D812C /* IconsCollectionViewCell.swift in Sources */,
 				9DE69C582B05F77800AE7AEE /* SceneDelegate.swift in Sources */,
 				9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */,
@@ -778,9 +833,11 @@
 				9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */,
 				9DC6AFC92B22E182002D812C /* ProfileViewController.swift in Sources */,
 				9DC6AFB02B1DD7F0002D812C /* StackTextBlockView.swift in Sources */,
+				9DC1B7542B3030750063E667 /* AudioRecordViewController.swift in Sources */,
 				9DF8AAC82B07633400F5D3D3 /* UIColor + Extension.swift in Sources */,
 				9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */,
 				9DC6AFC02B2069A6002D812C /* CreateGroupViewController.swift in Sources */,
+				9DC1B75E2B3175E80063E667 /* TimerViewController.swift in Sources */,
 				9DC6AFD32B23104C002D812C /* GroupProfileViewController.swift in Sources */,
 				9DC6AFBE2B204125002D812C /* AddGroupViewController.swift in Sources */,
 				9DC6AFD12B230312002D812C /* IconAddCollectionViewCell.swift in Sources */,
@@ -796,7 +853,9 @@
 				9DC6AFC42B21E12F002D812C /* ConfirmJoinGroupViewController.swift in Sources */,
 				9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */,
 				9DC6AFB22B1DDE37002D812C /* ITBaseCollectionViewController.swift in Sources */,
+				9DC1B74D2B2C51D40063E667 /* Info.swift in Sources */,
 				9DC6AFB92B1F8C62002D812C /* MKUserAnnotationView.swift in Sources */,
+				9DC1B7562B3043A00063E667 /* AudioManager.swift in Sources */,
 				9DDEE1912B26A9EF00343DDC /* EditGroupNameViewController.swift in Sources */,
 				9DEEE87A2B10A8DB006B4496 /* ImageBlockView.swift in Sources */,
 				9DC6AFC62B21E978002D812C /* UITextField + Extension.swift in Sources */,
@@ -1014,9 +1073,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1050,9 +1112,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.red.InTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1178,6 +1243,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9DC1B7572B30474B0063E667 /* XCRemoteSwiftPackageReference "DSWaveformImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmrschmidt/DSWaveformImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.2.1;
+			};
+		};
 		9DF8AAB12B075B5A00F5D3D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1189,6 +1262,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9DC1B7582B304B260063E667 /* DSWaveformImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC1B7572B30474B0063E667 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImage;
+		};
+		9DC1B75A2B304B260063E667 /* DSWaveformImageViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC1B7572B30474B0063E667 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImageViews;
+		};
 		9DF8AAB22B075B5A00F5D3D3 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9DF8AAB12B075B5A00F5D3D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -154,7 +154,7 @@ class ProfileViewController: ITBaseViewController {
         self.user = nil
         firestoreManager.listenDocument(
             asType: User.self,
-            documentId: user.userId,
+            documentId: user.userEmail!,
             reference: firestoreManager.getRef(.users, groupId: nil)) { result in
                 switch result {
                 case .success(let user):

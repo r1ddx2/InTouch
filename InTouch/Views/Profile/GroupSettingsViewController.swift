@@ -290,7 +290,7 @@ class GroupSettingsViewController: ITBaseViewController {
     }
     private func postUserUpdate() {
     
-        let documentIds = removedUsers.map { $0.userId }
+        let documentIds = removedUsers.map { $0.userEmail }
         let reference = firestoreManager.getRef(.users, groupId: nil)
         
         for (index, documentId) in documentIds.enumerated() {
@@ -299,7 +299,7 @@ class GroupSettingsViewController: ITBaseViewController {
             let data = removedUsers[index]
         
             firestoreManager.updateDocument(
-                documentId: documentId,
+                documentId: documentId!,
                 reference: reference,
                 updateData: data) { result in
                     switch result {
@@ -391,7 +391,7 @@ extension GroupSettingsViewController: UITableViewDataSource, UITableViewDelegat
                     self.group?.members?.remove(at: indexPath.row)
     
                 } else {
-                    let member = User(userId: user.userId, userName: user.userName)
+                    let member = User(userId: user.userId, userName: user.userName, userEmail: user.userEmail)
                     self.removedUsers = self.removedUsers.filter { $0.userId != member.userId }
                     self.group?.members?.append(member)
             

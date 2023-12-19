@@ -20,7 +20,12 @@ class GroupProfileViewController: ITBaseViewController {
             collectionView.reloadData()
         }
     }
-
+    var newsletters: [NewsLetter] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     private let firestoreManager = FirestoreManager.shared
     // MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
@@ -31,7 +36,7 @@ class GroupProfileViewController: ITBaseViewController {
         collectionView.register(IconAddCollectionViewCell.self, forCellWithReuseIdentifier: IconAddCollectionViewCell.identifier)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-     
+        
         return collectionView
     }()
     let groupCoverView: UIImageView = {
@@ -80,12 +85,20 @@ class GroupProfileViewController: ITBaseViewController {
         label.text = "Members"
         return label
     }()
+    let archivedLabel: UILabel = {
+        let label = UILabel()
+        label.font = .medium(size: 16)
+        label.textColor = .ITBlack
+        label.text = "Archived Newsletters"
+        return label
+    }()
+    let tableView = UITableView()
     // MARK: - View Load
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         fetchGroupData()
-      
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -95,6 +108,7 @@ class GroupProfileViewController: ITBaseViewController {
         fetchGroupData()
         setUpLayouts()
         setUpActions()
+        setUpTableView()
     }
     private func setUpLayouts() {
         view.addSubview(groupCoverView)
@@ -105,7 +119,9 @@ class GroupProfileViewController: ITBaseViewController {
         view.addSubview(backButton)
         view.addSubview(settingsButton)
         view.addSubview(myMembersLabel)
-
+        view.addSubview(archivedLabel)
+        view.addSubview(tableView)
+        
         groupCoverView.snp.makeConstraints { make in
             make.top.left.right.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(120)
@@ -142,6 +158,15 @@ class GroupProfileViewController: ITBaseViewController {
             make.height.equalTo(85)
             make.right.left.equalTo(view)
         }
+        archivedLabel.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom).offset(16)
+            make.left.equalTo(view).offset(24)
+        }
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(archivedLabel.snp.bottom).offset(12)
+            make.left.right.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     private func setUpActions() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -155,6 +180,15 @@ class GroupProfileViewController: ITBaseViewController {
         layout.minimumLineSpacing = 8
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         return layout
+    }
+    private func setUpTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(ProfileNewsletterTableViewCell.self, forCellReuseIdentifier: ProfileNewsletterTableViewCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1000
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.cellLayoutMarginsFollowReadableWidth = false
     }
     
     // MARK: - Methods
@@ -185,26 +219,26 @@ class GroupProfileViewController: ITBaseViewController {
         users = []
         guard let group = group, let members = group.members else { return }
         
-        let documentIds = members.map({ $0.userId })
+        let documentIds = members.map({ $0.userEmail })
         let reference = firestoreManager.getRef(.users, groupId: nil)
-
+        
         let serialQueue = DispatchQueue(label: "serialQueue")
         let semaphore = DispatchSemaphore(value: 1)
-
+        
         for documentId in documentIds {
-           
+            
             serialQueue.async {
                 semaphore.wait()
                 
                 self.firestoreManager.listenDocument(
                     asType: User.self,
-                    documentId: documentId,
+                    documentId: documentId!,
                     reference: reference,
                     completion: { result in
                         
                         switch result {
                         case .success(let user):
-                         
+                            
                             self.users.append(user)
                             print(self.users)
                             
@@ -213,13 +247,13 @@ class GroupProfileViewController: ITBaseViewController {
                             
                         }
                         semaphore.signal()
-                    
+                        
                     })
             }
         }
     }
     private func fetchGroupData() {
-       guard let group = group else { return }
+        guard let group = group else { return }
         self.group = nil
         firestoreManager.listenDocument(
             asType: Group.self,
@@ -229,19 +263,51 @@ class GroupProfileViewController: ITBaseViewController {
                 case .success(let group):
                     self.group = group
                     self.fetchUsers()
-              
+                    self.fetchNewsletters()
+                    
                 case .failure(let error):
                     print("Error: \(error)")
-                 
+                    
                 }
                 
             }
         
     }
-}
-extension GroupProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    // MARK: - UICollectionViewDataSource
     
+    private func fetchNewsletters() {
+        guard let group = group else { return }
+        newsletters = []
+        let groupId = group.groupId
+        let reference = firestoreManager.getRef(.newsletters, groupId: groupId)
+        
+        firestoreManager.getDocuments(
+            asType: NewsLetter.self,
+            reference: reference,
+            completion: { result in
+                
+                switch result {
+                case .success(let newsletter):
+                    var news = newsletter
+                    news.sort(by: { $0.date > $1.date })
+                    self.newsletters = news
+                    print("xxxxxxxxxxxxxxxxxxx")
+                    print(self.newsletters)
+                    print("xxxxxxxxxxxxxxxxxxx")
+                case .failure(let error):
+                    print("Error: \(error)")
+                    
+                }
+                
+            })
+        
+        
+    }
+    
+    
+}
+// MARK: - UICollectionViewDataSource
+extension GroupProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+   
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard users.isEmpty == false else { return 0 }
         return users.count + 1
@@ -265,3 +331,21 @@ extension GroupProfileViewController: UICollectionViewDataSource, UICollectionVi
     
     }
 }
+
+// MARK: - UITableView Data Source
+extension GroupProfileViewController: UITableViewDataSource, UITableViewDelegate {
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard newsletters.isEmpty == false else { return 0 }
+        return newsletters.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileNewsletterTableViewCell.identifier, for: indexPath) as? ProfileNewsletterTableViewCell else { fatalError("Cannot create cell") }
+        
+        cell.newsletter = newsletters[indexPath.row]
+        return cell
+    }
+    
+}
+

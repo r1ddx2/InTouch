@@ -12,9 +12,8 @@ class HomeViewController: ITBaseCollectionViewController {
     
    
     private let firestoreManager = FirestoreManager.shared
-    
-    let userId: String = "panda666"
-    var user: User? {
+
+    var user: User? = KeyChainManager.shared.loggedInUser {
         didSet {
             fetchNewsletters()
         }
@@ -86,7 +85,11 @@ class HomeViewController: ITBaseCollectionViewController {
     private func setUpTab() {
         guard let user = user, let groups = user.groups else { return }
         let groupNames = groups.map({ $0.groupName })
-        tabButtonsView.setUpButtons(buttonsCount: groupNames.count, buttonTitles: groupNames, buttonStyle: .tab)
+        tabButtonsView.setUpButtons(
+            buttonsCount: groupNames.count,
+            buttonTitles: groupNames,
+            buttonStyle: .tab
+        )
         tabButtonsView.didSwitchTabs = { index in
             self.scrollToNewsletter(at: index)
             
@@ -98,9 +101,10 @@ class HomeViewController: ITBaseCollectionViewController {
         endHeaderRefreshing()
     }
     private func fetchUserData() {
+        guard let user = user, let email = user.userEmail else { return }
         firestoreManager.getDocument(
             asType: User.self,
-            documentId: userId,
+            documentId: email,
             reference: firestoreManager.getRef(.users, groupId: nil)) { result in
                 switch result {
                 case .success(let user):
@@ -117,7 +121,7 @@ class HomeViewController: ITBaseCollectionViewController {
         
     }
     private func fetchNewsletters(for cell: HomeCollectionViewCell? = nil) {
-        datas = [[]]
+      
         guard let user = user, let groups = user.groups else { return }
         let groupIds = groups.map({ $0.groupId })
         let documentId = "\(Date().getLastWeekDateRange())"
@@ -125,9 +129,9 @@ class HomeViewController: ITBaseCollectionViewController {
         
         let serialQueue = DispatchQueue(label: "serialQueue")
         let semaphore = DispatchSemaphore(value: 1)
-
+        datas = [[]]
         for reference in references {
-           
+         
             serialQueue.async {
               
                 semaphore.wait()
