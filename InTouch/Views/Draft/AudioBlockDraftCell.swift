@@ -45,7 +45,11 @@ class AudioBlockDraftCell: UITableViewCell {
         let imageView = UIImageView()
         return imageView
     }()
-
+    let fakeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: .fakeSound)
+        return imageView
+    }()
     //MARK: - View Load
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -62,6 +66,7 @@ class AudioBlockDraftCell: UITableViewCell {
         audioView.addSubview(waveImageView)
         audioView.addSubview(topWaveImageView)
         audioView.addSubview(bottomWaveImageView)
+        audioView.addSubview(fakeImageView)
         contentView.addSubview(audioView)
     
         playButton.snp.makeConstraints { (make) -> Void in
@@ -74,22 +79,25 @@ class AudioBlockDraftCell: UITableViewCell {
             make.centerY.equalTo(audioView.snp.centerY)
             make.left.equalTo(playButton.snp.left).offset(16)
             make.right.equalTo(contentView.snp.right).offset(-16)
-            make.width.equalTo(40)
             make.height.equalTo(40)
         }
         topWaveImageView.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(audioView.snp.centerY)
             make.left.equalTo(playButton.snp.left).offset(16)
             make.right.equalTo(contentView.snp.right).offset(-16)
-            make.width.equalTo(40)
             make.height.equalTo(40)
         }
         bottomWaveImageView.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(audioView.snp.centerY)
             make.left.equalTo(playButton.snp.left).offset(16)
             make.right.equalTo(contentView.snp.right).offset(-16)
-            make.width.equalTo(40)
             make.height.equalTo(40)
+        }
+        fakeImageView.snp.makeConstraints { (make) -> Void in
+            make.centerY.equalTo(audioView.snp.centerY)
+            make.left.equalTo(playButton.snp.right)
+            make.right.equalTo(audioView.snp.right)
+            make.height.equalTo(80)
         }
         audioView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(contentView).offset(24)
