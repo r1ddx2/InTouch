@@ -21,7 +21,17 @@ extension Date {
            if let nextMonday = calendar.nextDate(after: self, matching: nextMondayComponents, matchingPolicy: .nextTime) {
                // Calculate the time interval between now and the next Monday in minutes
                let minutesRemaining = nextMonday.timeIntervalSince(self) / 60
-               return minutesRemaining
+
+               // If the next Monday is in the future, return the minutes remaining
+               if minutesRemaining >= 0 {
+                   return minutesRemaining
+               }
+
+               // If the next Monday is in the past, calculate the minutes remaining until the following Monday
+               if let nextNextMonday = calendar.date(byAdding: .weekOfYear, value: 1, to: nextMonday),
+                  let minutesRemainingNextNextMonday = calendar.dateComponents([.minute], from: self, to: nextNextMonday).minute {
+                   return Double(minutesRemainingNextNextMonday)
+               }
            }
 
            // If for some reason the next Monday couldn't be calculated, return a default value

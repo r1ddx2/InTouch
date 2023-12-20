@@ -40,7 +40,7 @@ extension UIColor {
     static let ITTransparentGrey = UIColor(red: 235, green: 235, blue: 235, alpha: 0.4)
     static let ITDarkGrey = UIColor(red: 93, green: 93, blue: 91)
     static let ITLightGrey = UIColor(red: 194, green: 194, blue: 194)
-    static let ITPurple = UIColor(red: 190, green: 173, blue: 250)
+    static let ITPurple = UIColor(red: 190, green: 173, blue: 250, alpha: 0.8)
     
     
 }

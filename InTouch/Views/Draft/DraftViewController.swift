@@ -177,7 +177,7 @@ class DraftViewController: ITBaseViewController {
         guard let newsletter = newsletter, let group = group else { return }
      
         let reference = firestoreManager.getRef(.newsletters, groupId: group.groupId)
-        let documentId = Date().getLastWeekDateRange()
+        let documentId = Date().getThisWeekDateRange()
         
         firestoreManager.updateDocument(
             documentId: documentId,
@@ -250,12 +250,14 @@ class DraftViewController: ITBaseViewController {
        
         firestoreManager.listenDocument(
             asType: NewsLetter.self,
-            documentId: Date().getLastWeekDateRange(),
+            documentId: Date().getThisWeekDateRange(),
             reference: firestoreManager.getRef(.newsletters, groupId: groupId)) { [weak self] result in
                 guard let self = self else { return }
                 
                 switch result {
-                case .success(let newsletter):
+                case 
+                        
+                        .success(let newsletter):
                     self.newsletter = newsletter
                     if let draft = newsletter.posts.first(where: { $0.userId == self.user?.userId }) {
                         self.draft = draft
