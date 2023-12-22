@@ -45,7 +45,7 @@ class DraftViewController: ITBaseViewController {
         }
     }
 
-
+var localAudioURLs: [URL] = []
     
     // MARK: - Subviews
     let tableView = UITableView()
@@ -177,7 +177,7 @@ class DraftViewController: ITBaseViewController {
         guard let newsletter = newsletter, let group = group else { return }
      
         let reference = firestoreManager.getRef(.newsletters, groupId: group.groupId)
-        let documentId = Date().getThisWeekDateRange()
+        let documentId = Date().getLastWeekDateRange()
         
         firestoreManager.updateDocument(
             documentId: documentId,
@@ -250,7 +250,7 @@ class DraftViewController: ITBaseViewController {
        
         firestoreManager.listenDocument(
             asType: NewsLetter.self,
-            documentId: Date().getThisWeekDateRange(),
+            documentId: Date().getLastWeekDateRange(),
             reference: firestoreManager.getRef(.newsletters, groupId: groupId)) { [weak self] result in
                 guard let self = self else { return }
                 
@@ -309,6 +309,7 @@ class DraftViewController: ITBaseViewController {
             self.reload()
             print("draft: \(draft.audioBlocks)")
         }
+
         
         audioVC.isModalInPresentation = true
         if #available(iOS 16.0, *) {
@@ -401,7 +402,7 @@ extension DraftViewController: UITableViewDataSource {
             
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AudioBlockDraftCell.identifier, for: indexPath) as? AudioBlockDraftCell else { fatalError("Cannot create text cell") }
-            cell.setUpPlayer(with: draft.audioBlocks[indexPath.row].audioUrl)
+            cell.audioBlockView.downloadAudio(remoteURL: draft.audioBlocks[indexPath.row].audioUrl)
             tableView.rowHeight = UITableView.automaticDimension
             tableView.estimatedRowHeight = 100
             return cell

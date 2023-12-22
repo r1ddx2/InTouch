@@ -56,7 +56,7 @@ class TimerViewController: ITBaseViewController {
         setUpLayouts()
     }
     private func setUpLayouts() {
-        view.addSubview(backgroundView)
+      //  view.addSubview(backgroundView)
         view.addSubview(daysCountLabel)
         view.addSubview(daysLabel)
         view.addSubview(countdownLabel)
@@ -78,11 +78,11 @@ class TimerViewController: ITBaseViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(countdownLabel.snp.bottom).offset(12)
         }
-        backgroundView.snp.makeConstraints { (make) -> Void in
-            make.height.width.equalTo(200)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(-90)
-            make.right.equalTo(view).offset(90)
-        }
+//        backgroundView.snp.makeConstraints { (make) -> Void in
+//            make.height.width.equalTo(200)
+//            make.top.equalTo(view.safeAreaLayoutGuide).offset(-90)
+//            make.right.equalTo(view).offset(90)
+//        }
     }
     private func setUpTimer() {
         countdownLabel.animationType = .Evaporate

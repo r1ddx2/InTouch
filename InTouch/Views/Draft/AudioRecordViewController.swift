@@ -14,8 +14,10 @@ class AudioRecordViewController: ITBaseViewController, AVAudioRecorderDelegate {
     
     var audioRecorder: AVAudioRecorder!
     var recordingSession: AVAudioSession!
+    
     var urlHandler: ((String) -> Void)?
-    var url: URL?
+    var localURL: URL?
+    
     var user = KeyChainManager.shared.loggedInUser
     var timer: Timer?
     
@@ -130,9 +132,17 @@ class AudioRecordViewController: ITBaseViewController, AVAudioRecorderDelegate {
               )
     }
     // MARK: - Methods
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
     func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        let recordingIdentifier = UUID().uuidString
 
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(recordingIdentifier).m4a")
+        localURL = audioFilename
+    
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -147,7 +157,7 @@ class AudioRecordViewController: ITBaseViewController, AVAudioRecorderDelegate {
          
             audioRecorder.record()
             startTimer()
-            url = audioFilename
+    
             recordButton.setImage(UIImage(resource: .iconStop).withRenderingMode(.alwaysOriginal), for: .normal)
         } catch {
             finishRecording(success: false)
@@ -168,10 +178,7 @@ class AudioRecordViewController: ITBaseViewController, AVAudioRecorderDelegate {
       deinit {
           timer?.invalidate()
       }
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
+  
     
     func finishRecording(success: Bool) {
         audioRecorder.stop()
@@ -203,14 +210,13 @@ class AudioRecordViewController: ITBaseViewController, AVAudioRecorderDelegate {
     }
     @objc func doneButtonTapped() {
         
-        guard let url = url , let user = user, let email = user.userEmail else { return }
+        guard let url = localURL , let user = user, let email = user.userEmail else { return }
         
         cloudManager.uploadAudio(
             fileUrl: url,
             userId: email) { result in
                 switch result {
                 case .success(let url):
-                    print(url)
                     self.urlHandler?(url)
                     self.dismiss(animated: true)
                 case .failure(let error):

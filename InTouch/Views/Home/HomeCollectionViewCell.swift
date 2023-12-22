@@ -66,6 +66,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         tableView.register(HomeTableViewTextCell.self, forCellReuseIdentifier: HomeTableViewTextCell.identifier)
         tableView.register(HomeTableViewImageCell.self, forCellReuseIdentifier: HomeTableViewImageCell.identifier)
+        tableView.register(HomeTableViewImageAudioCell.self, forCellReuseIdentifier: HomeTableViewImageAudioCell.identifier)
         tableView.register(NewsletterHeaderViewCell.self, forCellReuseIdentifier: NewsletterHeaderViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 1000
@@ -96,6 +97,9 @@ extension HomeCollectionViewCell: UITableViewDataSource, UITableViewDelegate {
         guard let imageCell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewImageCell.identifier, for: indexPath) as? HomeTableViewImageCell else {
             fatalError("Cannot create image cell")
         }
+        guard let imageAudioCell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewImageAudioCell.identifier, for: indexPath) as? HomeTableViewImageAudioCell else {
+            fatalError("Cannot create image cell")
+        }
         
         guard let newsletter = newsletter else {
             return UITableViewCell()
@@ -118,8 +122,14 @@ extension HomeCollectionViewCell: UITableViewDataSource, UITableViewDelegate {
             return textCell
             
         } else if post.textBlocks.isEmpty == true {
-            imageCell.layoutCell(imageBlocks: post.imageBlocks, user: user)
-            return imageCell
+            
+            if post.audioBlocks.isEmpty == true {
+                imageCell.layoutCell(imageBlocks: post.imageBlocks, user: user)
+                return imageCell
+            } else {
+                imageAudioCell.layoutCell(imageBlocks: post.imageBlocks, audioBlocks: post.audioBlocks, user: user)
+                return imageAudioCell
+            }
             
         } else {
             cell.layoutCell(imageBlocks: post.imageBlocks, textBlocks: post.textBlocks, user: user)
