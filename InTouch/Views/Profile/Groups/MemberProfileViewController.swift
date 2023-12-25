@@ -7,21 +7,28 @@
 import UIKit
 
 class MemberProfileViewController: ITBaseViewController {
-    var user: User? = KeyChainManager.shared.loggedInUser
-    
+    var user: User? {
+        didSet {
+            layoutPageWithUser()
+        }
+    }
+
     // MARK: - Subviews
+
     let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = .bold(size: 24)
         label.textColor = .ITBlack
         return label
     }()
+
     let userIdLabel: UILabel = {
         let label = UILabel()
-        label.font = .medium(size: 20)
+        label.font = .regular(size: 18)
         label.textColor = .ITBlack
         return label
     }()
+
     let groupsLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 14)
@@ -32,7 +39,7 @@ class MemberProfileViewController: ITBaseViewController {
 
     let groupsCountLabel: UILabel = {
         let label = UILabel()
-        label.font = .medium(size: 16)
+        label.font = .medium(size: 18)
         label.textColor = .ITBlack
         return label
     }()
@@ -52,13 +59,11 @@ class MemberProfileViewController: ITBaseViewController {
         return imageView
     }()
 
-
     // MARK: - View Load
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLayouts()
-        layoutPageWithUser()
     }
 
     private func setUpLayouts() {
@@ -94,14 +99,14 @@ class MemberProfileViewController: ITBaseViewController {
             make.top.equalTo(groupsCountLabel.snp.bottom).offset(4)
             make.centerX.equalTo(view.snp.centerX)
         }
-      
     }
+
     func layoutPageWithUser() {
         guard let user = user, let groups = user.groups else { return }
         iconImageView.loadImage(user.userIcon)
         coverImageView.loadImage(user.userCover)
         userNameLabel.text = "\(user.userName)"
-        userIdLabel.text = "\(user.userId)"
+        userIdLabel.text = "@\(user.userId)"
         groupsCountLabel.text = "\(groups.count)"
     }
 }

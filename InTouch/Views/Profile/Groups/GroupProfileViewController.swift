@@ -350,10 +350,10 @@ extension GroupProfileViewController: UICollectionViewDataSource {
 // MARK: - UICollectionView Delegate
 
 extension GroupProfileViewController: UICollectionViewDelegate {
-    func collectionView(_: UICollectionView, didSelectItemAt _: IndexPath) {
-        let userProfileVC = ConfirmJoinGroupViewController()
-        userProfileVC.layoutPageWithUser()
-        configureSheetPresent(vc: userProfileVC, height: 500)
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let membersVC = MemberProfileViewController()
+        membersVC.user = users[indexPath.item - 1]
+        configureSheetPresent(vc: membersVC, height: 610)
     }
 }
 
