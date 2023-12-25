@@ -6,15 +6,17 @@
 //
 import UIKit
 
-
 class EditGroupNameViewController: ITBaseViewController {
     var group: Group? {
         didSet {
             configurePage()
         }
     }
+
     private let firestoreManager = FirestoreManager.shared
+
     // MARK: - Subviews
+
     let saveButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .ITBlack
@@ -24,19 +26,22 @@ class EditGroupNameViewController: ITBaseViewController {
         button.cornerRadius = 8
         return button
     }()
+
     let underlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .ITDarkGrey
         return view
     }()
+
     let editTextField: UITextField = {
         let textField = UITextField()
         textField.font = .regular(size: 22)
         textField.textColor = .ITBlack
         textField.placeholder = "Enter group name"
-        
+
         return textField
     }()
+
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .medium(size: 22)
@@ -44,18 +49,21 @@ class EditGroupNameViewController: ITBaseViewController {
         label.text = "Group name"
         return label
     }()
+
     // MARK: - View Load
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLayouts()
         setUpActions()
     }
+
     private func setUpLayouts() {
         view.addSubview(descriptionLabel)
         view.addSubview(underlineView)
         view.addSubview(editTextField)
         view.addSubview(saveButton)
-        
+
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
             make.left.equalTo(view).offset(24)
@@ -72,49 +80,51 @@ class EditGroupNameViewController: ITBaseViewController {
             make.right.equalTo(view).offset(-24)
             make.height.equalTo(1)
         }
-       
-        saveButton.snp.makeConstraints { (make) -> Void in
+
+        saveButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.left.equalTo(view).offset(24)
             make.right.equalTo(view).offset(-24)
             make.height.equalTo(40)
         }
-        
     }
+
     private func setUpActions() {
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
+
     // MARK: - Methods
+
     @objc func saveButtonTapped() {
         postGroupName()
         dismiss(animated: true)
     }
+
     func configurePage() {
         guard let group = group else { return }
         editTextField.text = group.groupName
     }
+
     private func postGroupName() {
         guard var group = group,
-                let text = editTextField.text,
-        text != "" else { return }
+              let text = editTextField.text,
+              text != "" else { return }
         group.groupName = text
-        
+
         let documentId = group.groupId
         let reference = firestoreManager.getRef(.groups, groupId: nil)
-        
+
         firestoreManager.updateDocument(
             documentId: documentId,
             reference: reference,
-            updateData: group) { result in
-                switch result {
-                case .success(let documentId):
-                    print("Update group: \(documentId)")
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
-                }
+            updateData: group
+        ) { result in
+            switch result {
+            case let .success(documentId):
+                print("Update group: \(documentId)")
+            case let .failure(error):
+                print("Error: \(error.localizedDescription)")
             }
-        
-        
-        
+        }
     }
 }

@@ -8,9 +8,10 @@
 import UIKit
 
 class JoinGroupViewController: ITBaseViewController {
-    
     private let firestoreManager = FirestoreManager.shared
+
     // MARK: - Subviews
+
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .bold(size: 24)
@@ -18,6 +19,7 @@ class JoinGroupViewController: ITBaseViewController {
         label.text = "Join a Group"
         return label
     }()
+
     let groupCodeTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .ITVeryLightGrey
@@ -31,6 +33,7 @@ class JoinGroupViewController: ITBaseViewController {
         textField.addPadding(left: 12, right: 12)
         return textField
     }()
+
     let joinButton: UIButton = {
         let button = UIButton()
         button.setTitle("Join", for: .normal)
@@ -40,6 +43,7 @@ class JoinGroupViewController: ITBaseViewController {
         button.titleLabel?.font = .medium(size: 18)
         return button
     }()
+
     let cancelButton: UIButton = {
         let cancelButton = UIButton()
         cancelButton.backgroundColor = .ITVeryLightPink
@@ -49,79 +53,87 @@ class JoinGroupViewController: ITBaseViewController {
         cancelButton.cornerRadius = 8
         return cancelButton
     }()
-    
+
     // MARK: - View Load
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLayouts()
         setUpActions()
     }
+
     private func setUpLayouts() {
         view.addSubview(groupCodeTextField)
         view.addSubview(joinButton)
         view.addSubview(cancelButton)
         view.addSubview(descriptionLabel)
-        
-        descriptionLabel.snp.makeConstraints { (make) -> Void in
+
+        descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(24)
             make.centerX.equalTo(view.snp.centerX)
         }
-        groupCodeTextField.snp.makeConstraints { (make) -> Void in
+        groupCodeTextField.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(24)
             make.left.equalTo(view).offset(24)
             make.width.equalTo(260)
             make.height.equalTo(45)
         }
-        
-        joinButton.snp.makeConstraints { (make) -> Void in
+
+        joinButton.snp.makeConstraints { make in
             make.left.equalTo(groupCodeTextField.snp.right).offset(12)
             make.centerY.equalTo(groupCodeTextField.snp.centerY)
             make.right.equalTo(view).offset(-24)
             make.height.equalTo(45)
         }
-        cancelButton.snp.makeConstraints { (make) -> Void in
+        cancelButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
             make.left.equalTo(view).offset(24)
             make.right.equalTo(view).offset(-24)
             make.height.equalTo(45)
         }
-
     }
+
     private func setUpActions() {
         cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
     }
-    
-    
+
     // MARK: - Methods
+
     @objc private func cancelTapped() {
-            dismiss(animated: true)
+        dismiss(animated: true)
     }
-    
+
     @objc private func joinButtonTapped() {
         guard let groupId = groupCodeTextField.text,
-              groupId != "" else {
-                  return
-            }
+              groupId != ""
+        else {
+            return
+        }
         fetchGroupInfo(groupId)
     }
+
     private func fetchGroupInfo(_ documentId: String) {
-        
         let reference = firestoreManager.getRef(.groups, groupId: nil)
 
         firestoreManager.getDocument(
             asType: Group.self,
             documentId: documentId,
-            reference: reference) { result in
-                switch result {
-                case .success(let group):
-                    self.showConfirmJoinPage(for: group)
-                    
-                case .failure(let error):
-                    print("Error \(error.localizedDescription)")
-                }
+            reference: reference
+        ) { result in
+            switch result {
+            case let .success(group):
+                self.showConfirmJoinPage(for: group)
+
+            case let .failure(error):
+                print("Error \(error.localizedDescription)")
             }
-        
+        }
     }
-   
+
+    private func showConfirmJoinPage(for group: Group) {
+        let confirmJoinVC = ConfirmJoinGroupViewController()
+        confirmJoinVC.group = group
+        configureSheetPresent(vc: confirmJoinVC, height: 680)
+    }
 }

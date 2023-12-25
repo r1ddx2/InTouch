@@ -5,11 +5,10 @@
 //  Created by Red Wang on 2023/11/16.
 //
 
-import XCTest
 @testable import InTouch
+import XCTest
 
 final class InTouchTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -28,9 +27,8 @@ final class InTouchTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

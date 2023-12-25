@@ -7,18 +7,19 @@
 
 import UIKit
 
-
 class GroupSettingsTableViewCell: UITableViewCell {
-    
     static let identifier = "\(GroupSettingsTableViewCell.self)"
     var user: User? {
         didSet {
             layoutCell()
         }
     }
+
     var removeMemberHandler: ((Bool) -> Void)?
     var isRemove: Bool = true
+
     // MARK: - Subview
+
     let userIconView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .iconProfileSelected)
@@ -27,18 +28,21 @@ class GroupSettingsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         return imageView
     }()
+
     let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = .medium(size: 15)
         label.textColor = .ITBlack
         return label
     }()
+
     let userIdLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 14)
         label.textColor = .ITBlack
         return label
     }()
+
     let removeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Remove", for: .normal)
@@ -48,22 +52,25 @@ class GroupSettingsTableViewCell: UITableViewCell {
         button.titleLabel?.font = .regular(size: 12)
         return button
     }()
-    //MARK: - View Load
+
+    // MARK: - View Load
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayouts()
         setUpActions()
     }
+
     private func setUpLayouts() {
         contentView.addSubview(userIconView)
         contentView.addSubview(userNameLabel)
         contentView.addSubview(userIdLabel)
         contentView.addSubview(removeButton)
-        
+
         userIconView.snp.makeConstraints { make in
             make.height.width.equalTo(50)
             make.centerY.equalTo(contentView.snp.centerY)
@@ -84,16 +91,20 @@ class GroupSettingsTableViewCell: UITableViewCell {
             make.right.equalTo(contentView).offset(-24)
         }
     }
+
     private func setUpActions() {
         removeButton.addTarget(self, action: #selector(removeUserTapped), for: .touchUpInside)
     }
-    //MARK: - Methods
+
+    // MARK: - Methods
+
     func layoutCell() {
         guard let user = user else { return }
         userIconView.loadImage(user.userIcon)
         userNameLabel.text = user.userName
         userIdLabel.text = "@\(user.userId)"
     }
+
     @objc func removeUserTapped() {
         removeMemberHandler?(isRemove)
         updateButtonUI()
@@ -103,6 +114,7 @@ class GroupSettingsTableViewCell: UITableViewCell {
             isRemove = true
         }
     }
+
     func updateButtonUI() {
         if isRemove {
             removeButton.setTitleColor(.white, for: .normal)
@@ -113,7 +125,5 @@ class GroupSettingsTableViewCell: UITableViewCell {
             removeButton.backgroundColor = .ITYellow
             removeButton.setTitle("Remove", for: .normal)
         }
-        
     }
 }
-
