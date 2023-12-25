@@ -8,9 +8,8 @@
 import UIKit
 
 class DraftTableSectionHeaderView: UITableViewHeaderFooterView {
-    
     static let identifier = "\(DraftTableSectionHeaderView.self)"
-    
+
     let titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
@@ -18,14 +17,17 @@ class DraftTableSectionHeaderView: UITableViewHeaderFooterView {
         label.textColor = .ITBlack
         return label
     }()
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
-    required init?(coder aDecoder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     private func setupLayout() {
         contentView.backgroundColor = .white
         addSubview(titleLabel)

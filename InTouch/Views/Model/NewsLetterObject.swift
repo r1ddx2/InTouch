@@ -5,10 +5,8 @@
 //  Created by Red Wang on 2023/11/23.
 //
 
-
-import UIKit
 import FirebaseFirestore
-
+import UIKit
 
 struct NewsLetter: Codable {
     var date: Date
@@ -16,7 +14,7 @@ struct NewsLetter: Codable {
     var newsCover: String
     var posts: [Post]
     var title: String
-    
+
     enum CodingKeys: String, CodingKey {
         case date
         case newsId = "news_id"
@@ -24,11 +22,10 @@ struct NewsLetter: Codable {
         case posts
         case title
     }
-    
 }
 
 struct Post: Codable {
-    var date: Date = Date()
+    var date: Date = .init()
     var postId: String = ""
     var userId: String = ""
     var userIcon: String = ""
@@ -36,7 +33,7 @@ struct Post: Codable {
     var imageBlocks: [ImageBlock] = []
     var textBlocks: [TextBlock] = []
     var audioBlocks: [AudioBlock] = []
-    
+
     enum CodingKeys: String, CodingKey {
         case date
         case postId = "post_id"
@@ -54,7 +51,7 @@ struct ImageBlock: Codable {
     var image: String
     var location: GeoPoint?
     var place: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case caption
         case image

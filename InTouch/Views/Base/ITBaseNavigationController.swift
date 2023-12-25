@@ -8,7 +8,7 @@ import UIKit
 
 class ITBaseNavigationController: UINavigationController {
     var backgroundColor: UIColor = .ITYellow
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.backgroundColor = backgroundColor

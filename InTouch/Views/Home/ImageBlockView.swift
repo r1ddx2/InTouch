@@ -1,5 +1,5 @@
 //
-//  ImageBlockCollectionViewCell.swift
+//  ImageBlockView.swift
 //  InTouch
 //
 //  Created by Red Wang on 2023/11/24.
@@ -7,10 +7,9 @@
 
 import UIKit
 
-
 class ImageBlockView: UIView {
-
     // MARK: - Subview
+
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -19,11 +18,13 @@ class ImageBlockView: UIView {
         imageView.layer.cornerRadius = 8
         return imageView
     }()
+
     let placeIcon: UIButton = {
         let icon = UIButton()
         icon.setImage(UIImage(resource: .iconLocation), for: .normal)
         return icon
     }()
+
     let placeLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 14)
@@ -32,6 +33,7 @@ class ImageBlockView: UIView {
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
+
     let captionLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 16)
@@ -42,13 +44,17 @@ class ImageBlockView: UIView {
     }()
 
     // MARK: - View Load
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("Cannot create ImageCollectionViewCell")
     }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayouts()
     }
+
     convenience init(image: String, caption: String, place: String?) {
         self.init()
         setUpLayouts()
@@ -56,8 +62,9 @@ class ImageBlockView: UIView {
         captionLabel.text = caption
         if let place = place {
             placeLabel.text = place
-        } 
+        }
     }
+
     private func setUpLayouts() {
         addSubview(imageView)
         addSubview(captionLabel)
@@ -80,13 +87,13 @@ class ImageBlockView: UIView {
             make.top.equalTo(imageView.snp.bottom).offset(12)
             make.right.left.equalToSuperview()
         }
-        
     }
+
     private func resetLayout() {
-        self.subviews.forEach{ $0.removeFromSuperview() }
+        subviews.forEach { $0.removeFromSuperview() }
         addSubview(imageView)
         addSubview(captionLabel)
-       
+
         imageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(imageView.snp.width)
@@ -95,8 +102,8 @@ class ImageBlockView: UIView {
             make.top.equalTo(imageView.snp.bottom).offset(12)
             make.right.left.equalToSuperview()
         }
-        self.layoutIfNeeded()
+        layoutIfNeeded()
     }
-    //MARK: - Methods
-    
+
+    // MARK: - Methods
 }

@@ -1,12 +1,12 @@
 //
-//  User.swift
+//  UserObject.swift
 //  InTouch
 //
 //  Created by Red Wang on 2023/11/20.
 //
 
-import UIKit
 import FirebaseFirestore
+import UIKit
 
 struct User: Codable {
     var userId: String
@@ -15,7 +15,7 @@ struct User: Codable {
     var userIcon: String?
     var userCover: String?
     var groups: [Group]?
-    
+
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"
         case userName = "user_name"

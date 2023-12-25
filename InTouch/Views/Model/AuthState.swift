@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 enum AuthState {
     case emptyInput
     case emailAlreadyInUse
@@ -19,23 +18,23 @@ enum AuthState {
     case unexpectedError
     case logInSuccess
     case signUpSuccess
-    
-    
+
     var actionTitle: String {
-        return "OK"
+        "OK"
     }
-        
+
     var title: String {
         switch self {
-            
-        case .emptyInput, .emailAlreadyInUse, .invalidEmail, .weakPassword, .wrongPassword, .userNotFound, .unexpectedError:
+        case .emptyInput, .emailAlreadyInUse,
+             .invalidEmail, .weakPassword,
+             .wrongPassword, .userNotFound, .unexpectedError:
             return "Error"
-            
+
         case .logInSuccess, .signUpSuccess:
             return "Success"
         }
     }
-    
+
     var message: String {
         switch self {
         case .emptyInput:
@@ -59,5 +58,3 @@ enum AuthState {
         }
     }
 }
-
-

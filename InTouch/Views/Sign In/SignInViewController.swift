@@ -12,15 +12,15 @@ enum Mode: String, CaseIterable {
 }
 
 class SignInViewController: ITBaseViewController {
-    
     private let authManager = AuthManager.shared
     private let firestoreManager = FirestoreManager.shared
-    
+
     var userEmail: String?
     var mode: Mode = .logIn
     var alertState: AuthState?
 
     // MARK: - Subviews
+
     let appLabel: UILabel = {
         let label = UILabel()
         label.text = "InTouch"
@@ -28,6 +28,7 @@ class SignInViewController: ITBaseViewController {
         label.textColor = .ITBlack
         return label
     }()
+
     let modeControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [Mode.logIn.rawValue, Mode.signUp.rawValue])
         control.selectedSegmentIndex = 0
@@ -40,6 +41,7 @@ class SignInViewController: ITBaseViewController {
         control.layer.borderWidth = 1
         return control
     }()
+
     let accountTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
@@ -50,6 +52,7 @@ class SignInViewController: ITBaseViewController {
         textField.addPadding(left: 5, right: 5)
         return textField
     }()
+
     let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
@@ -60,6 +63,7 @@ class SignInViewController: ITBaseViewController {
         textField.addPadding(left: 5, right: 5)
         return textField
     }()
+
     let confirmButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
@@ -69,11 +73,14 @@ class SignInViewController: ITBaseViewController {
         button.titleLabel?.font = .medium(size: 18)
         return button
     }()
+
     // MARK: - View Load
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ITYellow
@@ -85,13 +92,14 @@ class SignInViewController: ITBaseViewController {
         accountTextField.delegate = self
         passwordTextField.delegate = self
     }
+
     private func setUpLayouts() {
         view.addSubview(appLabel)
         view.addSubview(accountTextField)
         view.addSubview(passwordTextField)
         view.addSubview(modeControl)
         view.addSubview(confirmButton)
-        
+
         appLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
@@ -123,12 +131,15 @@ class SignInViewController: ITBaseViewController {
             make.height.equalTo(40)
         }
     }
+
     private func setUpActions() {
         modeControl.addTarget(self, action: #selector(changeMode), for: .valueChanged)
         confirmButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
+
     // MARK: - Methods
-    @objc func changeMode(sender: UISegmentedControl) {
+
+    @objc func changeMode(sender _: UISegmentedControl) {
         if modeControl.selectedSegmentIndex == 0 {
             mode = .logIn
         } else {
@@ -136,21 +147,20 @@ class SignInViewController: ITBaseViewController {
         }
         updateUI(mode: mode)
     }
-  
 
     @objc func buttonPressed() {
         // Fetch input
         let userInput = getInfo()
-        
+
         switch mode {
         case .logIn:
             authManager.logIn(userInput: userInput) { result in
                 switch result {
-                case .success(let email):
+                case let .success(email):
                     self.userEmail = email
                     self.logInToApp()
                     self.showAlert(with: self.authManager.alertState)
-                case .failure(let error):
+                case let .failure(error):
                     print("Error: \(error)")
                     self.showAlert(with: self.authManager.alertState)
                 }
@@ -158,58 +168,55 @@ class SignInViewController: ITBaseViewController {
         case .signUp:
             authManager.signUp(userInput: userInput) { result in
                 switch result {
-                case .success(let email):
+                case let .success(email):
                     self.userEmail = email
                     self.showAlert(with: self.authManager.alertState)
-                case .failure(let error):
+                case let .failure(error):
                     print("Error: \(error)")
                     self.showAlert(with: self.authManager.alertState)
                 }
             }
         }
-            
-        updateUI(mode: .logIn)
+        mode = .logIn
+        updateUI(mode: mode)
     }
-    
-        // MARK: - Methods
+
+    // MARK: - Methods
+
     private func logInToApp() {
         guard let email = userEmail else { return }
-               firestoreManager.getDocument(
-                   asType: User.self,
-                   documentId: email,
-                   reference: firestoreManager.getRef(.users, groupId: nil)) { result in
-                       switch result {
-                       case .success(let user):
-                           KeyChainManager.shared.loggedInUser = user
-                   
-                       case .failure(let error):
-                           print("Error: \(error)")
-                        
-                       }
-                       
-                   }
-               
-           }
-   
+        firestoreManager.getDocument(
+            asType: User.self,
+            documentId: email,
+            reference: firestoreManager.getRef(.users, groupId: nil)
+        ) { result in
+            switch result {
+            case let .success(user):
+                KeyChainManager.shared.loggedInUser = user
+
+            case let .failure(error):
+                print("Error: \(error)")
+            }
+        }
+    }
+
     func getInfo() -> Info {
         guard let account = accountTextField.text,
               let password = passwordTextField.text,
               accountTextField.text != "",
-              passwordTextField.text != "" else {
+              passwordTextField.text != ""
+        else {
             return Info(email: "", password: "")
         }
         return Info(email: account, password: password)
     }
-    
-    
 
     func updateUI(mode: Mode) {
         passwordTextField.text = ""
         accountTextField.text = ""
-        textFieldDidBeginEditing(accountTextField)
-        
+
         confirmButton.setTitle(mode.rawValue, for: .normal)
-        
+
         if mode == .logIn {
             modeControl.selectedSegmentIndex = 0
         } else {
@@ -218,12 +225,9 @@ class SignInViewController: ITBaseViewController {
     }
 }
 
-
-
 // MARK: - UITextField
 
 extension SignInViewController: UITextFieldDelegate {
-
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
     }
@@ -241,41 +245,42 @@ extension SignInViewController: UITextFieldDelegate {
 // MARK: - AuthManagerDelegate, UIAlertController
 
 extension SignInViewController {
-
     func showAlert(with alertState: AuthState) {
-        
         let alert = UIAlertController(
             title: alertState.title,
             message: alertState.message,
             preferredStyle: .alert
         )
-        
+
         let action = UIAlertAction(
-            title: alertState.actionTitle ,
+            title: alertState.actionTitle,
             style: .default,
-            handler: nil)
-        
+            handler: nil
+        )
+
         /// Action for alert after log in success
         let showLogInPage = UIAlertAction(
-            title: alertState.actionTitle ,
-            style: .default) { _ in
-                
-                // Present Tab bar controller
-                let tabBarVC = ITTabBarViewController()
-                tabBarVC.navigationItem.hidesBackButton = true
-                self.navigationController?.pushViewController(tabBarVC, animated: true)
-            }
-        
+            title: alertState.actionTitle,
+            style: .default
+        ) { _ in
+
+            // Present Tab bar controller
+            let tabBarVC = ITTabBarViewController()
+            tabBarVC.navigationItem.hidesBackButton = true
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+
         let showSignUpPage = UIAlertAction(
-            title: alertState.actionTitle ,
-            style: .default) { _ in
-               
-                let setUpVC = SetUpAccountViewController()
-                setUpVC.userEmail = self.userEmail
-                setUpVC.navigationItem.hidesBackButton = true
-                self.navigationController?.pushViewController(setUpVC, animated: true)
-            }
-        
+            title: alertState.actionTitle,
+            style: .default
+        ) { _ in
+
+            let setUpVC = SetUpAccountViewController()
+            setUpVC.userEmail = self.userEmail
+            setUpVC.navigationItem.hidesBackButton = true
+            self.navigationController?.pushViewController(setUpVC, animated: true)
+        }
+
         switch alertState {
         case .logInSuccess:
             alert.addAction(showLogInPage)
@@ -284,11 +289,8 @@ extension SignInViewController {
         default:
             alert.addAction(action)
         }
-        
+
         // Show Alert
-        self.present(alert, animated: true)
-  
+        present(alert, animated: true)
     }
-    
-    
 }

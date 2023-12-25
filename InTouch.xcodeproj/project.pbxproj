@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */; };
+		9D1BEFC52B394A8D002C8D61 /* MemberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1BEFC42B394A8D002C8D61 /* MemberProfileViewController.swift */; };
+		9D40A9372B38A18B00C63132 /* FirestoreManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A9362B38A18B00C63132 /* FirestoreManagerTest.swift */; };
 		9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */; };
 		9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */; };
 		9DC1B7472B2C4CEF0063E667 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7462B2C4CEF0063E667 /* AuthManager.swift */; };
@@ -25,6 +26,8 @@
 		9DC1B7622B3294080063E667 /* AudioScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7612B3294080063E667 /* AudioScrollView.swift */; };
 		9DC1B7652B34307A0063E667 /* DSWaveFormImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7642B34307A0063E667 /* DSWaveFormImageWrapper.swift */; };
 		9DC1B7692B3437140063E667 /* HomeTableViewImageAudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B7682B3437140063E667 /* HomeTableViewImageAudioCell.swift */; };
+		9DC1B76B2B353AC10063E667 /* Double + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B76A2B353AC10063E667 /* Double + Extension.swift */; };
+		9DC1B76D2B353ACB0063E667 /* GeoPoint + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1B76C2B353ACB0063E667 /* GeoPoint + Extension.swift */; };
 		9DC6AFA02B19C2BA002D812C /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */; };
 		9DC6AFA42B1B436C002D812C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA32B1B436C002D812C /* Place.swift */; };
 		9DC6AFA62B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */; };
@@ -125,7 +128,8 @@
 		73B439C99D88FFBC84CACDD7 /* Pods-InTouch-InTouchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch-InTouchUITests.debug.xcconfig"; path = "Target Support Files/Pods-InTouch-InTouchUITests/Pods-InTouch-InTouchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82D8F9EBFF6935A6B98CBAD2 /* Pods-InTouchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouchTests.release.xcconfig"; path = "Target Support Files/Pods-InTouchTests/Pods-InTouchTests.release.xcconfig"; sourceTree = "<group>"; };
 		8BAF04407494FA72B72D204C /* Pods_InTouch_InTouchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouch_InTouchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
+		9D1BEFC42B394A8D002C8D61 /* MemberProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileViewController.swift; sourceTree = "<group>"; };
+		9D40A9362B38A18B00C63132 /* FirestoreManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManagerTest.swift; sourceTree = "<group>"; };
 		9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
 		9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DC1B7462B2C4CEF0063E667 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		9DC1B7612B3294080063E667 /* AudioScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioScrollView.swift; sourceTree = "<group>"; };
 		9DC1B7642B34307A0063E667 /* DSWaveFormImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSWaveFormImageWrapper.swift; sourceTree = "<group>"; };
 		9DC1B7682B3437140063E667 /* HomeTableViewImageAudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewImageAudioCell.swift; sourceTree = "<group>"; };
+		9DC1B76A2B353AC10063E667 /* Double + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extension.swift"; sourceTree = "<group>"; };
+		9DC1B76C2B353ACB0063E667 /* GeoPoint + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoPoint + Extension.swift"; sourceTree = "<group>"; };
 		9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		9DC6AFA32B1B436C002D812C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D + Extension.swift"; sourceTree = "<group>"; };
@@ -264,6 +270,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9D1BEFC62B394BAB002C8D61 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				9DC6AFD22B23104C002D812C /* GroupProfileViewController.swift */,
+				9DC6AFD42B262BA4002D812C /* GroupSettingsViewController.swift */,
+				9DDEE1902B26A9EF00343DDC /* EditGroupNameViewController.swift */,
+				9DDEE1922B26D30C00343DDC /* GroupSettingsTableViewCell.swift */,
+				9D1BEFC42B394A8D002C8D61 /* MemberProfileViewController.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
 		9DC1B7502B2F11A10063E667 /* Sign In */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,7 +317,7 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		9DC6AFBC2B204117002D812C /* Groups */ = {
+		9DC6AFBC2B204117002D812C /* Add Groups */ = {
 			isa = PBXGroup;
 			children = (
 				9DC6AFBD2B204125002D812C /* AddGroupViewController.swift */,
@@ -307,21 +325,19 @@
 				9DC6AFC12B2069B1002D812C /* JoinGroupViewController.swift */,
 				9DC6AFC32B21E12F002D812C /* ConfirmJoinGroupViewController.swift */,
 			);
-			path = Groups;
+			path = "Add Groups";
 			sourceTree = "<group>";
 		};
 		9DC6AFC72B22E169002D812C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				9DC6AFC82B22E182002D812C /* ProfileViewController.swift */,
-				9DC6AFD22B23104C002D812C /* GroupProfileViewController.swift */,
-				9DC6AFD42B262BA4002D812C /* GroupSettingsViewController.swift */,
-				9DDEE1902B26A9EF00343DDC /* EditGroupNameViewController.swift */,
+				9DC6AFCE2B22F875002D812C /* ProfileHeaderView.swift */,
+				9DDEE1942B27030E00343DDC /* ProfileNewsletterTableViewCell.swift */,
 				9DC6AFCC2B22F6A1002D812C /* IconsCollectionViewCell.swift */,
 				9DC6AFD02B230312002D812C /* IconAddCollectionViewCell.swift */,
-				9DC6AFCE2B22F875002D812C /* ProfileHeaderView.swift */,
-				9DDEE1922B26D30C00343DDC /* GroupSettingsTableViewCell.swift */,
-				9DDEE1942B27030E00343DDC /* ProfileNewsletterTableViewCell.swift */,
+				9DC6AFBC2B204117002D812C /* Add Groups */,
+				9D1BEFC62B394BAB002C8D61 /* Groups */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -369,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				9DE69C6C2B05F77900AE7AEE /* InTouchTests.swift */,
+				9D40A9362B38A18B00C63132 /* FirestoreManagerTest.swift */,
 			);
 			path = InTouchTests;
 			sourceTree = "<group>";
@@ -410,7 +427,6 @@
 				9DF8AA292B07412600F5D3D3 /* Base */,
 				9DC1B7502B2F11A10063E667 /* Sign In */,
 				9DEEE8652B0DE808006B4496 /* Home */,
-				9DC6AFBC2B204117002D812C /* Groups */,
 				9DC6AFC72B22E169002D812C /* Profile */,
 				9DC6AFB72B1F6FEB002D812C /* Map */,
 				9DF8AAC02B07601700F5D3D3 /* Draft */,
@@ -437,13 +453,15 @@
 		9DF8AAA42B074C6500F5D3D3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */,
+				9DEEE86F2B0F23CA006B4496 /* Date + Extension.swift */,
+				9DC1B76A2B353AC10063E667 /* Double + Extension.swift */,
 				9DF8AAC52B07632A00F5D3D3 /* UIView + Extension.swift */,
+				9DC6AFC52B21E978002D812C /* UITextField + Extension.swift */,
 				9DF8AAC72B07633400F5D3D3 /* UIColor + Extension.swift */,
 				9DF8AAC92B07634400F5D3D3 /* UIFont + Extension.swift */,
-				9DEEE86F2B0F23CA006B4496 /* Date + Extension.swift */,
 				9DC6AFA52B1B6CAE002D812C /* CLLocationCoordinate2D + Extension.swift */,
-				9DC6AFB52B1F2C0F002D812C /* Array + Extension.swift */,
-				9DC6AFC52B21E978002D812C /* UITextField + Extension.swift */,
+				9DC1B76C2B353ACB0063E667 /* GeoPoint + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -478,9 +496,8 @@
 				9DF8AADB2B0B3EEA00F5D3D3 /* UserObject.swift */,
 				9DEEE8712B0F2E7A006B4496 /* GroupObject.swift */,
 				9DEEE8732B0F2F32006B4496 /* NewsLetterObject.swift */,
-				9D1DC7A02B182F9A00B31EB4 /* FakeData.swift */,
-				9DC6AFA32B1B436C002D812C /* Place.swift */,
 				9DDEE1962B28414200343DDC /* MarkerObject.swift */,
+				9DC6AFA32B1B436C002D812C /* Place.swift */,
 				9DC1B74C2B2C51D40063E667 /* Info.swift */,
 				9DC1B7482B2C4F630063E667 /* AuthState.swift */,
 			);
@@ -494,8 +511,8 @@
 				9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */,
 				9DC6AF9F2B19C2BA002D812C /* GooglePlacesManager.swift */,
 				9DC1B7462B2C4CEF0063E667 /* AuthManager.swift */,
-				9DC6AFBA2B2033AB002D812C /* KeychainManager.swift */,
 				9DC1B7552B3043A00063E667 /* AudioManager.swift */,
+				9DC6AFBA2B2033AB002D812C /* KeychainManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -522,8 +539,9 @@
 				9DE69C4F2B05F77800AE7AEE /* Frameworks */,
 				9DE69C502B05F77800AE7AEE /* Resources */,
 				9022D9C4D65CA18C856875E7 /* [CP] Embed Pods Frameworks */,
-				9DEEE86E2B0EE230006B4496 /* ShellScript */,
+				9DEEE86E2B0EE230006B4496 /* Swift Lint */,
 				AC4B4160417E95A673C41527 /* [CP] Copy Pods Resources */,
+				9D40A9352B358C4300C63132 /* Swift Format */,
 			);
 			buildRules = (
 			);
@@ -734,7 +752,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InTouch/Pods-InTouch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9DEEE86E2B0EE230006B4496 /* ShellScript */ = {
+		9D40A9352B358C4300C63132 /* Swift Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Format";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nSWIFT_FORMAT_PATH=$(which swiftformat)\n\nif [ -n \"$SWIFT_FORMAT_PATH\" ]; then\n  $SWIFT_FORMAT_PATH --swiftversion 5.4 .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+		9DEEE86E2B0EE230006B4496 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -744,6 +780,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Swift Lint";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -820,6 +857,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DC1B76D2B353ACB0063E667 /* GeoPoint + Extension.swift in Sources */,
 				9DC1B74F2B2EEC500063E667 /* SetUpAccountViewController.swift in Sources */,
 				9DF8AACA2B07634400F5D3D3 /* UIFont + Extension.swift in Sources */,
 				9DC1B7472B2C4CEF0063E667 /* AuthManager.swift in Sources */,
@@ -833,6 +871,7 @@
 				9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */,
 				9DF8AAA12B07483300F5D3D3 /* ITBaseNavigationController.swift in Sources */,
 				9DEEE8692B0DE841006B4496 /* TextBlockView.swift in Sources */,
+				9DC1B76B2B353AC10063E667 /* Double + Extension.swift in Sources */,
 				9DF8AACF2B07E00400F5D3D3 /* CRRefreshWrapper.swift in Sources */,
 				9DC6AFCF2B22F875002D812C /* ProfileHeaderView.swift in Sources */,
 				9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */,
@@ -851,7 +890,6 @@
 				9DDEE1992B285D0200343DDC /* MapDetailViewController.swift in Sources */,
 				9DEEE8742B0F2F32006B4496 /* NewsLetterObject.swift in Sources */,
 				9DEEE8722B0F2E7A006B4496 /* GroupObject.swift in Sources */,
-				9D1DC7A12B182F9A00B31EB4 /* FakeData.swift in Sources */,
 				9DEEE8782B105136006B4496 /* UserBlockView.swift in Sources */,
 				9DC6AFAC2B1DB502002D812C /* NewsletterHeaderViewCell.swift in Sources */,
 				9DC6AFC92B22E182002D812C /* ProfileViewController.swift in Sources */,
@@ -893,6 +931,7 @@
 				9DDEE1932B26D30C00343DDC /* GroupSettingsTableViewCell.swift in Sources */,
 				9DC1B7622B3294080063E667 /* AudioScrollView.swift in Sources */,
 				9DEEE8702B0F23CA006B4496 /* Date + Extension.swift in Sources */,
+				9D1BEFC52B394A8D002C8D61 /* MemberProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -901,6 +940,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DE69C6D2B05F77900AE7AEE /* InTouchTests.swift in Sources */,
+				9D40A9372B38A18B00C63132 /* FirestoreManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,7 +1025,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1048,7 +1088,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

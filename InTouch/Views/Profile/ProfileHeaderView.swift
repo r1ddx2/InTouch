@@ -8,8 +8,8 @@
 import UIKit
 
 class ProfileHeaderView: UIView {
-    
-        // MARK: - Subviews
+    // MARK: - Subviews
+
     let userIconView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -23,18 +23,21 @@ class ProfileHeaderView: UIView {
         imageView.borderWidth = 1.0
         return imageView
     }()
+
     let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = .bold(size: 20)
         label.textColor = .ITBlack
         return label
     }()
+
     let userIdLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 14)
         label.textColor = .ITBlack
         return label
     }()
+
     let groupsLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 13)
@@ -42,12 +45,14 @@ class ProfileHeaderView: UIView {
         label.text = "Groups"
         return label
     }()
+
     let groupsCountLabel: UILabel = {
         let label = UILabel()
         label.font = .medium(size: 17)
         label.textColor = .ITBlack
         return label
     }()
+
     let postsLabel: UILabel = {
         let label = UILabel()
         label.font = .regular(size: 13)
@@ -55,6 +60,7 @@ class ProfileHeaderView: UIView {
         label.text = "Posts"
         return label
     }()
+
     let postsCountLabel: UILabel = {
         let label = UILabel()
         label.font = .medium(size: 17)
@@ -62,6 +68,7 @@ class ProfileHeaderView: UIView {
         label.text = "25"
         return label
     }()
+
     let settingsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Settings", for: .normal)
@@ -71,6 +78,7 @@ class ProfileHeaderView: UIView {
         button.titleLabel?.font = .medium(size: 13)
         return button
     }()
+
     let editProfileButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .ITVeryLightGrey
@@ -80,26 +88,31 @@ class ProfileHeaderView: UIView {
         button.cornerRadius = 8
         return button
     }()
+
     // MARK: - View Load
-    required init?(coder aDecoder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayouts()
         setUpActions()
     }
+
     private func setUpLayouts() {
-        self.addSubview(userIconView)
-        self.addSubview(userNameLabel)
-        self.addSubview(userIdLabel)
-        self.addSubview(groupsLabel)
-        self.addSubview(groupsCountLabel)
-        self.addSubview(postsLabel)
-        self.addSubview(postsCountLabel)
-        self.addSubview(settingsButton)
-        self.addSubview(editProfileButton)
-        
+        addSubview(userIconView)
+        addSubview(userNameLabel)
+        addSubview(userIdLabel)
+        addSubview(groupsLabel)
+        addSubview(groupsCountLabel)
+        addSubview(postsLabel)
+        addSubview(postsCountLabel)
+        addSubview(settingsButton)
+        addSubview(editProfileButton)
+
         userIconView.snp.makeConstraints { make in
             make.height.width.equalTo(70)
             make.top.equalTo(self)
@@ -142,12 +155,11 @@ class ProfileHeaderView: UIView {
             make.centerX.equalTo(postsLabel.snp.centerX)
         }
     }
-    private func setUpActions() {
-        
-    }
-    
-    
+
+    private func setUpActions() {}
+
     // MARK: - Methods
+
     func layoutView(with user: User) {
         guard let groups = user.groups else { return }
         userIconView.loadImage(user.userIcon)
@@ -155,5 +167,4 @@ class ProfileHeaderView: UIView {
         userIdLabel.text = "@\(user.userId)"
         groupsCountLabel.text = "\(groups.count)"
     }
-    
 }

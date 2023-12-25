@@ -17,32 +17,31 @@ private enum ITFontName: String {
 }
 
 extension UIFont {
-  
     static func regular(size: CGFloat) -> UIFont? {
-        return ITFont(.regular, size: size)
+        ITFont(.regular, size: size)
     }
+
     static func ultraLight(size: CGFloat) -> UIFont? {
-        return ITFont(.ultraLight, size: size)
+        ITFont(.ultraLight, size: size)
     }
 
     static func light(size: CGFloat) -> UIFont? {
-        return ITFont(.light, size: size)
+        ITFont(.light, size: size)
     }
 
     static func thin(size: CGFloat) -> UIFont? {
-        return ITFont(.thin, size: size)
+        ITFont(.thin, size: size)
     }
 
     static func medium(size: CGFloat) -> UIFont? {
-        return ITFont(.medium, size: size)
+        ITFont(.medium, size: size)
     }
 
     static func bold(size: CGFloat) -> UIFont? {
-        return ITFont(.bold, size: size)
+        ITFont(.bold, size: size)
     }
-    
+
     private static func ITFont(_ font: ITFontName, size: CGFloat) -> UIFont? {
-        return UIFont(name: font.rawValue, size: size)
+        UIFont(name: font.rawValue, size: size)
     }
-    
 }

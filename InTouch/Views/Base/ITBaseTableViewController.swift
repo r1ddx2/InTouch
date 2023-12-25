@@ -8,8 +8,8 @@ import UIKit
 
 class ITBaseTableViewController: ITBaseViewController,
     UITableViewDataSource,
-    UITableViewDelegate{
-
+    UITableViewDelegate
+{
     var tableView: UITableView!
 
     var datas: [[Any]] = [[]] {
@@ -19,7 +19,7 @@ class ITBaseTableViewController: ITBaseViewController,
     }
 
     // MARK: - View Life Cycle
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetUp()
@@ -27,21 +27,23 @@ class ITBaseTableViewController: ITBaseViewController,
     }
 
     // MARK: - Private Method
+
     private func tableViewSetUp() {
         if tableView == nil {
             let tableView = UITableView()
             self.tableView = tableView
         }
-    
+
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         tableView.addRefreshHeader(refreshingBlock: { [weak self] in
             self?.headerLoader()
         })
     }
 
     // MARK: - Public Method
+
     func reloadData() {
         guard Thread.isMainThread else {
             DispatchQueue.main.async { [weak self] in
@@ -77,16 +79,16 @@ class ITBaseTableViewController: ITBaseViewController,
     }
 
     // MARK: - UITableViewDataSource. Subclass should override these method for setting properly.
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return datas.count
+
+    func numberOfSections(in _: UITableView) -> Int {
+        datas.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datas[section].count
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        datas[section].count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))
+    func tableView(_: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
+        UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))
     }
-
 }

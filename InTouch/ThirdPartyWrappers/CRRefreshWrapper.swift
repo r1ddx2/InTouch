@@ -5,75 +5,89 @@
 //  Created by Red Wang on 2023/11/18.
 //
 
-import UIKit
 import CRRefresh
+import UIKit
 
 extension UITableView {
     func addRefreshHeader(refreshingBlock: @escaping () -> Void) {
-        self.cr.addHeadRefresh(animator: RamotionAnimator()) {
+        cr.addHeadRefresh(animator: RamotionAnimator()) {
             refreshingBlock()
         }
     }
+
     func endHeaderRefreshing() {
-        self.cr.endHeaderRefresh()
+        cr.endHeaderRefresh()
     }
+
     func beginHeaderRefreshing() {
-        self.cr.beginHeaderRefresh()
+        cr.beginHeaderRefresh()
     }
+
     func addRefreshFooter(refreshingBlock: @escaping () -> Void) {
-        self.cr.addFootRefresh(animator: RamotionAnimator()) {
+        cr.addFootRefresh(animator: RamotionAnimator()) {
             refreshingBlock()
         }
     }
+
     func endFooterRefreshing() {
-        self.cr.endLoadingMore()
+        cr.endLoadingMore()
     }
+
     func endWithNoMoreData() {
-        self.cr.noticeNoMoreData()
+        cr.noticeNoMoreData()
     }
+
     func resetNoMoreData() {
-        self.cr.resetNoMore()
+        cr.resetNoMore()
     }
+
     func removeHeader() {
-        self.cr.removeHeader()
+        cr.removeHeader()
     }
+
     func removeFooter() {
-        self.cr.removeFooter()
+        cr.removeFooter()
     }
 }
-
 
 extension UICollectionView {
     func addRefreshHeader(refreshingBlock: @escaping () -> Void) {
-        self.cr.addHeadRefresh(animator: RamotionAnimator()) {
+        cr.addHeadRefresh(animator: RamotionAnimator()) {
             refreshingBlock()
         }
     }
+
     func endHeaderRefreshing() {
-        self.cr.endHeaderRefresh()
+        cr.endHeaderRefresh()
     }
+
     func beginHeaderRefreshing() {
-        self.cr.beginHeaderRefresh()
+        cr.beginHeaderRefresh()
     }
+
     func addRefreshFooter(refreshingBlock: @escaping () -> Void) {
-        self.cr.addFootRefresh(animator: RamotionAnimator()) {
+        cr.addFootRefresh(animator: RamotionAnimator()) {
             refreshingBlock()
         }
     }
+
     func endFooterRefreshing() {
-        self.cr.endLoadingMore()
+        cr.endLoadingMore()
     }
+
     func endWithNoMoreData() {
-        self.cr.noticeNoMoreData()
+        cr.noticeNoMoreData()
     }
+
     func resetNoMoreData() {
-        self.cr.resetNoMore()
+        cr.resetNoMore()
     }
+
     func removeHeader() {
-        self.cr.removeHeader()
+        cr.removeHeader()
     }
+
     func removeFooter() {
-        self.cr.removeFooter()
+        cr.removeFooter()
     }
 }
-

@@ -1,16 +1,16 @@
 //
-//  TimerViewControlleer.swift
+//  TimerViewController.swift
 //  InTouch
 //
 //  Created by Red Wang on 2023/12/19.
 //
 
-import UIKit
 import CountdownLabel
+import UIKit
 
 class TimerViewController: ITBaseViewController {
-
     // MARK: - Subviews
+
     let daysCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = .ITYellow
@@ -18,6 +18,7 @@ class TimerViewController: ITBaseViewController {
         label.textAlignment = .center
         return label
     }()
+
     let daysLabel: UILabel = {
         let label = UILabel()
         label.text = "DAYS"
@@ -26,6 +27,7 @@ class TimerViewController: ITBaseViewController {
         label.textAlignment = .center
         return label
     }()
+
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "till next update..."
@@ -34,15 +36,18 @@ class TimerViewController: ITBaseViewController {
         label.textAlignment = .center
         return label
     }()
+
     let backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .ITPurple
         view.cornerRadius = 100
         return view
     }()
-    
+
     var countdownLabel: CountdownLabel!
+
     // MARK: - View Load
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -55,26 +60,27 @@ class TimerViewController: ITBaseViewController {
         countdownLabel.start()
         setUpLayouts()
     }
+
     private func setUpLayouts() {
-      //  view.addSubview(backgroundView)
+        //  view.addSubview(backgroundView)
         view.addSubview(daysCountLabel)
         view.addSubview(daysLabel)
         view.addSubview(countdownLabel)
         view.addSubview(titleLabel)
-        daysCountLabel.snp.makeConstraints { (make) -> Void in
+        daysCountLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide).offset(210)
         }
-        daysLabel.snp.makeConstraints { (make) -> Void in
+        daysLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(daysCountLabel.snp.bottom).offset(24)
         }
-        countdownLabel.snp.makeConstraints { (make) -> Void in
+        countdownLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(daysLabel.snp.bottom).offset(16)
             make.height.equalTo(120)
         }
-        titleLabel.snp.makeConstraints { (make) -> Void in
+        titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(countdownLabel.snp.bottom).offset(12)
         }
@@ -84,11 +90,12 @@ class TimerViewController: ITBaseViewController {
 //            make.right.equalTo(view).offset(90)
 //        }
     }
+
     private func setUpTimer() {
         countdownLabel.animationType = .Evaporate
         countdownLabel.textColor = .ITYellow
         countdownLabel.font = .bold(size: 68)
     }
-    
+
     // MARK: - Methods
 }

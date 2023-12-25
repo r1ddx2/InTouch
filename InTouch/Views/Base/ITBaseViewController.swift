@@ -1,33 +1,40 @@
 //
-//  ViewController.swift
+//  ITBaseViewController.swift
 //  InTouch
 //
 //  Created by Red Wang on 2023/11/16.
 //
-//MARK: - Init
-import UIKit
+
+// MARK: - Init
+
 import IQKeyboardManagerSwift
+import UIKit
 
 class ITBaseViewController: UIViewController {
-    
     static var identifier: String {
-        return String(describing: self)
+        String(describing: self)
     }
+
     var isHideNavigationBarOnScroll: Bool {
-        return false
+        false
     }
+
     var isHideNavigationBar: Bool {
-        return false
+        false
     }
+
     var isEnableResignOnTouchOutside: Bool {
-        return true
+        true
     }
+
     var isHideTabBar: Bool {
-        return false
+        false
     }
+
     var isEnableIQKeyboard: Bool {
-        return true
+        true
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -41,6 +48,7 @@ class ITBaseViewController: UIViewController {
             tabBarController?.tabBar.isHidden = true
         }
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isHideNavigationBar {
@@ -49,12 +57,13 @@ class ITBaseViewController: UIViewController {
         if isHideTabBar {
             tabBarController?.tabBar.isHidden = true
         }
-        
+
         IQKeyboardManager.shared.enable = isEnableIQKeyboard
         IQKeyboardManager.shared.shouldResignOnTouchOutside = isEnableResignOnTouchOutside
-        
+
         setNeedsStatusBarAppearanceUpdate()
     }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isHideNavigationBar {
@@ -66,13 +75,16 @@ class ITBaseViewController: UIViewController {
         IQKeyboardManager.shared.enable = !isEnableIQKeyboard
         IQKeyboardManager.shared.shouldResignOnTouchOutside = !isEnableResignOnTouchOutside
     }
+
     // MARK: - Methods
-    func popBack(_ sender: UIButton) {
+
+    func popBack(_: UIButton) {
         navigationController?.popViewController(animated: true)
     }
-   
 }
+
 // MARK: - UIImagePickerView
+
 extension ITBaseViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showImagePicker() {
         let imagePicker = UIImagePickerController()
@@ -82,62 +94,44 @@ extension ITBaseViewController: UIImagePickerControllerDelegate, UINavigationCon
         present(imagePicker, animated: true, completion: nil)
     }
 }
+
 // MARK: - Instantiate View Controller
+
 extension ITBaseViewController {
     func showAddGroupPage() {
-        
         let addGroupVC = AddGroupViewController()
         addGroupVC.isModalInPresentation = true
-        
-        if #available(iOS 16.0, *) {
-            if let sheetPresentationController = addGroupVC.sheetPresentationController {
-                sheetPresentationController.accessibilityRespondsToUserInteraction = true
-                sheetPresentationController.preferredCornerRadius = 16
-                sheetPresentationController.detents = [.custom(resolver: { _ in
-                    220
-                })]
-            }
-            present(addGroupVC, animated: true, completion: nil)
-        }
-        
-        
+        configureSheetPresent(vc: addGroupVC, height: 220)
     }
-    func showConfirmJoinPage(for group: Group) {
-        let confirmJoinVC = ConfirmJoinGroupViewController()
-        confirmJoinVC.group = group
-        
-        if #available(iOS 16.0, *) {
-            if let sheetPresentationController = confirmJoinVC.sheetPresentationController {
-                sheetPresentationController.accessibilityRespondsToUserInteraction = true
-                sheetPresentationController.preferredCornerRadius = 16
-                sheetPresentationController.detents = [.custom(resolver: { _ in
-                    680
-                })]
-            }
-            present(confirmJoinVC, animated: true, completion: nil)
+
+    func configureSheetPresent(vc: ITBaseViewController, height: CGFloat) {
+        if let sheetPresentationController = vc.sheetPresentationController {
+            sheetPresentationController.accessibilityRespondsToUserInteraction = true
+            sheetPresentationController.preferredCornerRadius = 16
+            sheetPresentationController.detents = [.custom(resolver: { _ in
+                height
+            })]
+            present(vc, animated: true, completion: nil)
         }
     }
 }
+
 // MARK: - Common methods
+
 extension ITBaseViewController {
     func generateRandomCode() -> String {
         let randomString = UUID().uuidString.replacingOccurrences(of: "-", with: "")
-          return "\(randomString)"
+        return "\(randomString)"
     }
 }
 
-
 extension UIViewController {
     func dismissToRoot() {
-        
         if presentingViewController != nil {
             let superVC = presentingViewController
             dismiss(animated: false, completion: nil)
             superVC?.dismissToRoot()
             return
-            
-            
         }
-        
     }
 }

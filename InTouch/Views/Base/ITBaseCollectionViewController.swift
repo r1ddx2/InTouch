@@ -7,8 +7,8 @@
 import UIKit
 
 class ITBaseCollectionViewController: ITBaseViewController,
-   UICollectionViewDataSource, UICollectionViewDelegate {
-
+    UICollectionViewDataSource, UICollectionViewDelegate
+{
     var collectionView: UICollectionView!
 
     var datas: [[Any]] = [[]] {
@@ -18,10 +18,12 @@ class ITBaseCollectionViewController: ITBaseViewController,
     }
 
     // MARK: - View Life Cycle
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.beginHeaderRefreshing()
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewSetUp()
@@ -29,6 +31,7 @@ class ITBaseCollectionViewController: ITBaseViewController,
     }
 
     // MARK: - Private Method
+
     private func collectionViewSetUp() {
         if collectionView == nil {
             let collectionView = UICollectionView(
@@ -37,16 +40,17 @@ class ITBaseCollectionViewController: ITBaseViewController,
             )
             self.collectionView = collectionView
         }
-    
+
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+
         collectionView.addRefreshHeader(refreshingBlock: { [weak self] in
             self?.headerLoader()
         })
     }
 
     // MARK: - Public Method
+
     func reloadData() {
         guard Thread.isMainThread else {
             DispatchQueue.main.async { [weak self] in
@@ -81,21 +85,20 @@ class ITBaseCollectionViewController: ITBaseViewController,
         collectionView.resetNoMoreData()
     }
 
-   
     // MARK: - UICollectionViewDataSource. Subclass should override these method for setting properly.
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return datas.count
+
+    func numberOfSections(in _: UICollectionView) -> Int {
+        datas.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datas[section].count
+    func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        datas[section].count
     }
 
     func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
+        _: UICollectionView,
+        cellForItemAt _: IndexPath
     ) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        UICollectionViewCell()
     }
-
 }

@@ -9,6 +9,6 @@ import Foundation
 
 extension Array {
     func getReversed() -> [Element] {
-        return Array(self.reversed())
+        Array(reversed())
     }
 }

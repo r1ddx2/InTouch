@@ -1,5 +1,5 @@
 //
-//  DraftHeaderCell.swift
+//  DraftTableHeaderView.swift
 //  InTouch
 //
 //  Created by Red Wang on 2023/11/20.
@@ -8,10 +8,10 @@
 import UIKit
 
 class DraftTableHeaderView: UIView {
-    
     static let identifier = "DraftHeaderCell"
 
     // MARK: - Subview
+
     let buttonsView = ButtonsScrollView()
     let addBlocksLabel: UILabel = {
         let addBlocksLabel = UILabel()
@@ -20,6 +20,7 @@ class DraftTableHeaderView: UIView {
         addBlocksLabel.textColor = .ITBlack
         return addBlocksLabel
     }()
+
     let userIconView: UIImageView = {
         let userIcon = UIImageView()
         userIcon.clipsToBounds = true
@@ -27,11 +28,13 @@ class DraftTableHeaderView: UIView {
         userIcon.layer.cornerRadius = 25
         return userIcon
     }()
+
     let groupPickerView: UIPickerView = {
         let groupPickerView = UIPickerView()
-        
+
         return groupPickerView
     }()
+
     let groupTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
@@ -48,30 +51,35 @@ class DraftTableHeaderView: UIView {
         return textField
     }()
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+
     convenience init(user: User, buttonCount: Int, buttonTitles: [String], buttonStyle: ButtonStyle) {
         self.init()
         setUpLayouts()
         setUpPickerView()
-        
+
         buttonsView.setUpButtons(buttonsCount: buttonCount, buttonTitles: buttonTitles, buttonStyle: buttonStyle)
         userIconView.loadImage(user.userIcon)
     }
+
     private func setUpPickerView() {
         groupTextField.inputView = groupPickerView
         groupTextField.placeholder = "Select a group"
     }
+
     private func setUpLayouts() {
-        self.addSubview(userIconView)
-        self.addSubview(groupTextField)
-        self.addSubview(addBlocksLabel)
-        self.addSubview(buttonsView)
-        
+        addSubview(userIconView)
+        addSubview(groupTextField)
+        addSubview(addBlocksLabel)
+        addSubview(buttonsView)
+
         userIconView.snp.makeConstraints { make in
             make.top.equalTo(self).offset(24)
             make.left.equalTo(self).offset(24)
@@ -81,26 +89,28 @@ class DraftTableHeaderView: UIView {
         groupTextField.snp.makeConstraints { make in
             make.centerY.equalTo(userIconView.snp.centerY)
             make.left.equalTo(userIconView.snp.right).offset(24)
-           // make.right.equalTo(self.snp.right).offset(-24)
-         make.height.equalTo(40)
-          make.width.equalTo(265)
+            // make.right.equalTo(self.snp.right).offset(-24)
+            make.height.equalTo(40)
+            make.width.equalTo(265)
         }
         addBlocksLabel.snp.makeConstraints { make in
             make.top.equalTo(userIconView.snp.bottom).offset(16)
             make.left.equalTo(self).offset(16)
         }
-        buttonsView.snp.makeConstraints { (make) -> Void in
+        buttonsView.snp.makeConstraints { make in
             make.top.equalTo(addBlocksLabel.snp.bottom).offset(8)
             make.left.equalTo(self)
             make.right.equalTo(self)
             make.bottom.equalTo(self)
         }
     }
-    
-    //MARK: - Methods
+
+    // MARK: - Methods
+
     @objc func doneButtonTapped() {
         groupTextField.endEditing(true)
     }
+
     func changeIcon(userIcon: String?) {
         if let userIcon = userIcon {
             userIconView.loadImage(userIcon)

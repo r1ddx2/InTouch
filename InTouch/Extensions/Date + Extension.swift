@@ -9,34 +9,34 @@ import Foundation
 
 extension Date {
     func minutesRemainingUntilNextMonday() -> TimeInterval {
-           let calendar = Calendar.current
+        let calendar = Calendar.current
 
-           // Calculate the next Monday
-           var nextMondayComponents = DateComponents()
-           nextMondayComponents.weekday = 2 // Monday
-           nextMondayComponents.hour = 0
-           nextMondayComponents.minute = 0
-           nextMondayComponents.second = 0
+        // Calculate the next Monday
+        var nextMondayComponents = DateComponents()
+        nextMondayComponents.weekday = 2 // Monday
+        nextMondayComponents.hour = 0
+        nextMondayComponents.minute = 0
+        nextMondayComponents.second = 0
 
-           if let nextMonday = calendar.nextDate(after: self, matching: nextMondayComponents, matchingPolicy: .nextTime) {
-               // Calculate the time interval between now and the next Monday in minutes
-               let minutesRemaining = nextMonday.timeIntervalSince(self) / 60
+        if let nextMonday = calendar.nextDate(after: self, matching: nextMondayComponents, matchingPolicy: .nextTime) {
+            // Calculate the time interval between now and the next Monday in minutes
+            let minutesRemaining = nextMonday.timeIntervalSince(self) / 60
 
-               // If the next Monday is in the future, return the minutes remaining
-               if minutesRemaining >= 0 {
-                   return minutesRemaining
-               }
+            // If the next Monday is in the future
+            if minutesRemaining >= 0 {
+                return minutesRemaining
+            }
 
-               // If the next Monday is in the past, calculate the minutes remaining until the following Monday
-               if let nextNextMonday = calendar.date(byAdding: .weekOfYear, value: 1, to: nextMonday),
-                  let minutesRemainingNextNextMonday = calendar.dateComponents([.minute], from: self, to: nextNextMonday).minute {
-                   return Double(minutesRemainingNextNextMonday)
-               }
-           }
+            // If the next Monday is in the past
+            if let nextNextMonday = calendar.date(byAdding: .weekOfYear, value: 1, to: nextMonday),
+               let minutesRemainingNextNextMonday = calendar.dateComponents([.minute], from: self, to: nextNextMonday).minute
+            {
+                return Double(minutesRemainingNextNextMonday)
+            }
+        }
+        return 0
+    }
 
-           // If for some reason the next Monday couldn't be calculated, return a default value
-           return 0
-       }
     // For each post
     func getCurrentDateTime() -> String {
         let dateFormatter = DateFormatter()
@@ -49,8 +49,7 @@ extension Date {
         let (startDate, endDate) = calculateDateRange(for: self)
         return "\(formatDate(startDate)) - \(formatDate(endDate))"
     }
-    
-   
+
     func getLastWeekDateRange() -> String {
         let (startDate, endDate) = calculateDateRange(for: self)
         let calendar = Calendar.current
@@ -67,15 +66,14 @@ extension Date {
         let endDate = calendar.date(byAdding: .day, value: 6, to: startDate)!
         return (startDate, endDate)
     }
-    
- 
-    
+
     private func formatDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"
         return dateFormatter.string(from: date)
     }
-   func formatDate() -> String {
+
+    func formatDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"
         return dateFormatter.string(from: self)
