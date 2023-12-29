@@ -150,6 +150,7 @@ class SignInViewController: ITBaseViewController {
 
     @objc func buttonPressed() {
         // Fetch input
+
         let userInput = getInfo()
 
         switch mode {

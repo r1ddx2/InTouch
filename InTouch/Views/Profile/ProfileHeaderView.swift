@@ -71,7 +71,7 @@ class ProfileHeaderView: UIView {
 
     let settingsButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Settings", for: .normal)
+        button.setTitle("Log Out", for: .normal)
         button.backgroundColor = .ITVeryLightGrey
         button.setTitleColor(.ITBlack, for: .normal)
         button.cornerRadius = 8
