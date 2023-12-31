@@ -108,7 +108,7 @@ extension HomeCollectionViewCell: UITableViewDataSource, UITableViewDelegate {
             headerCell.layoutCell(
                 image: newsletter.newsCover,
                 title: newsletter.title,
-                date: newsletter.date.getLastWeekDateRange()
+                date: newsletter.date.getThisWeekDateRange()
             )
             return headerCell
         }

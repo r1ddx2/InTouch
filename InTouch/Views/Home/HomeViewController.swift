@@ -109,11 +109,11 @@ class HomeViewController: ITBaseCollectionViewController {
 
     override func headerLoader() {
         fetchUserData()
-        endHeaderRefreshing()
     }
 
     private func fetchUserData() {
         guard let user = user, let email = user.userEmail else { return }
+        endHeaderRefreshing()
         firestoreManager.getDocument(
             asType: User.self,
             documentId: email,
@@ -133,6 +133,7 @@ class HomeViewController: ITBaseCollectionViewController {
 
     private func fetchNewsletters(for _: HomeCollectionViewCell? = nil) {
         guard let user = user, let groups = user.groups else { return }
+        endHeaderRefreshing()
         let groupIds = groups.map(\.groupId)
         let documentId = "\(Date().getLastWeekDateRange())"
         let references = firestoreManager.getRefs(subCollection: .newsletters, groupIds: groupIds)
@@ -163,6 +164,42 @@ class HomeViewController: ITBaseCollectionViewController {
             }
         }
     }
+
+//    private func fetchNewsletters(for _: HomeCollectionViewCell? = nil) {
+//        guard let user = user, let groups = user.groups else { return }
+//        let groupIds = groups.map(\.groupId)
+//        let documentId = "\(Date().getLastWeekDateRange())"
+//        let references = firestoreManager.getRefs(subCollection: .newsletters, groupIds: groupIds)
+//
+//        let serialQueue = DispatchQueue(label: "serialQueue")
+//        let dispatchGroup = DispatchGroup()
+//        datas = [[]]
+//
+//        for reference in references {
+//            dispatchGroup.enter()
+//
+//            serialQueue.sync {
+//                self.firestoreManager.getDocument(
+//                    asType: NewsLetter.self,
+//                    documentId: documentId,
+//                    reference: reference,
+//                    completion: { result in
+//                        defer {
+//                            dispatchGroup.leave()
+//                        }
+//
+//                        switch result {
+//                        case let .success(newsletter):
+//                            self.datas[0].append(newsletter)
+//
+//                        case let .failure(error):
+//                            print("Error: \(error.localizedDescription)")
+//                        }
+//                    }
+//                )
+//            }
+//        }
+//    }
 
     @objc private func timerButtonTapped() {
         let timerVC = TimerViewController()

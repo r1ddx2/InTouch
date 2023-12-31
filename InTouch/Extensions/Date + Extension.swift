@@ -58,6 +58,13 @@ extension Date {
         return "\(formatDate(startDateOfLastWeek)) - \(formatDate(endDateOfLastWeek))"
     }
 
+    func getLastWeekDay() -> Date {
+        let (startDate, endDate) = calculateDateRange(for: self)
+        let calendar = Calendar.current
+        let startDateOfLastWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: startDate)!
+        return startDateOfLastWeek
+    }
+
     private func calculateDateRange(for date: Date) -> (Date, Date) {
         let calendar = Calendar.current
         let currentWeekday = calendar.component(.weekday, from: date)

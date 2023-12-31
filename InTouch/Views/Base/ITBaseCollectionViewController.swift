@@ -19,11 +19,6 @@ class ITBaseCollectionViewController: ITBaseViewController,
 
     // MARK: - View Life Cycle
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.beginHeaderRefreshing()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewSetUp()
