@@ -12,6 +12,7 @@ class ITBaseNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.backgroundColor = backgroundColor
+        navigationBar.tintColor = .ITBlack
         var appearance = UINavigationBarAppearance()
         appearance.backgroundColor = backgroundColor
         appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.ITBlack]

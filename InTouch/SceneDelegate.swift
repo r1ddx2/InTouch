@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let nav = ITBaseNavigationController(rootViewController: signInVC)
         let tabBarVC = ITTabBarViewController()
         //    window.rootViewController = nav
-         if KeyChainManager.shared.loggedInUser == nil {
-        window.rootViewController = nav
+        if KeyChainManager.shared.loggedInUser == nil {
+            window.rootViewController = nav
         } else {
             window.rootViewController = tabBarVC
         }

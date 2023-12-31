@@ -273,9 +273,9 @@ class ProfileViewController: ITBaseViewController {
     }
 }
 
-extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    // MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
+extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         groups.count + 1
     }
@@ -323,5 +323,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
         cell.newsletter = newsletters[indexPath.row]
         return cell
+    }
+
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsletterVC = NewsletterViewController()
+        newsletterVC.newsletter = newsletters[indexPath.row]
+        navigationController?.pushViewController(newsletterVC, animated: true)
     }
 }

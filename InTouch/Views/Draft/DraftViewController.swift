@@ -420,7 +420,7 @@ extension DraftViewController: UITableViewDataSource {
             return cell
 
         default:
-            return UITableViewCell(style: .default, reuseIdentifier: String(describing: ITBaseTableViewController.self))
+            return UITableViewCell()
         }
     }
 }

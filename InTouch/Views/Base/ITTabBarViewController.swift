@@ -7,7 +7,7 @@
 import UIKit
 
 class ITTabBarViewController: UITabBarController, UITabBarControllerDelegate {
-    private let tabs: [Tab] = [.home, .map, .draft, .activity, .profile]
+    private let tabs: [Tab] = [.home, .map, .draft, .profile]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,6 @@ extension ITTabBarViewController {
         case home
         case map
         case draft
-        case activity
         case profile
 
         func makeViewController() -> UIViewController {
@@ -35,7 +34,6 @@ extension ITTabBarViewController {
             case .home: controller = HomeViewController()
             case .map: controller = MapViewController()
             case .draft: controller = DraftViewController()
-            case .activity: controller = ActivityViewController()
             case .profile: controller = ProfileViewController()
             }
             let navController = ITBaseNavigationController(rootViewController: controller)
@@ -55,8 +53,6 @@ extension ITTabBarViewController {
                 return UIImage(resource: .iconHome)
             case .map:
                 return UIImage(resource: .iconMap)
-            case .activity:
-                return UIImage(resource: .iconActivity)
             case .draft:
                 return UIImage(resource: .iconDraft)
             case .profile:
@@ -70,8 +66,6 @@ extension ITTabBarViewController {
                 return UIImage(resource: .iconHomeSelected).withRenderingMode(.alwaysOriginal)
             case .map:
                 return UIImage(resource: .iconMapSelected).withRenderingMode(.alwaysOriginal)
-            case .activity:
-                return UIImage(resource: .iconActivitySelected).withRenderingMode(.alwaysOriginal)
             case .draft:
                 return UIImage(resource: .iconDraft).withRenderingMode(.alwaysOriginal)
             case .profile:

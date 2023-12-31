@@ -74,12 +74,12 @@
 		9DEEE87C2B130EA0006B4496 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */; };
 		9DEEE87E2B1443F1006B4496 /* HomeTableViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */; };
 		9DEEE8802B145C66006B4496 /* HomeTableViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */; };
+		9DEFA7802B4026BF002A90C1 /* NewsletterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEFA77F2B4026BF002A90C1 /* NewsletterViewController.swift */; };
 		9DF8AAA12B07483300F5D3D3 /* ITBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */; };
 		9DF8AAA32B07485300F5D3D3 /* ITTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */; };
 		9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */; };
 		9DF8AAAA2B074EB800F5D3D3 /* DraftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAA92B074EB800F5D3D3 /* DraftViewController.swift */; };
 		9DF8AAAC2B074EC500F5D3D3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAAB2B074EC500F5D3D3 /* MapViewController.swift */; };
-		9DF8AAAE2B074ED700F5D3D3 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAAD2B074ED700F5D3D3 /* ActivityViewController.swift */; };
 		9DF8AAB32B075B5A00F5D3D3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9DF8AAB22B075B5A00F5D3D3 /* FirebaseAnalytics */; };
 		9DF8AAB52B075B5A00F5D3D3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9DF8AAB42B075B5A00F5D3D3 /* FirebaseAuth */; };
 		9DF8AAB72B075B5A00F5D3D3 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9DF8AAB62B075B5A00F5D3D3 /* FirebaseCrashlytics */; };
@@ -197,12 +197,12 @@
 		9DEEE87B2B130EA0006B4496 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewTextCell.swift; sourceTree = "<group>"; };
 		9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewImageCell.swift; sourceTree = "<group>"; };
+		9DEFA77F2B4026BF002A90C1 /* NewsletterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITBaseNavigationController.swift; sourceTree = "<group>"; };
 		9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITTabBarViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9DF8AAA92B074EB800F5D3D3 /* DraftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftViewController.swift; sourceTree = "<group>"; };
 		9DF8AAAB2B074EC500F5D3D3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		9DF8AAAD2B074ED700F5D3D3 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		9DF8AAC12B07603200F5D3D3 /* TextBlockDraftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockDraftCell.swift; sourceTree = "<group>"; };
 		9DF8AAC32B07604B00F5D3D3 /* ImageBlockDraftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBlockDraftCell.swift; sourceTree = "<group>"; };
 		9DF8AAC52B07632A00F5D3D3 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
@@ -274,10 +274,8 @@
 			isa = PBXGroup;
 			children = (
 				9DC6AFD22B23104C002D812C /* GroupProfileViewController.swift */,
-				9DC6AFD42B262BA4002D812C /* GroupSettingsViewController.swift */,
-				9DDEE1902B26A9EF00343DDC /* EditGroupNameViewController.swift */,
-				9DDEE1922B26D30C00343DDC /* GroupSettingsTableViewCell.swift */,
 				9D1BEFC42B394A8D002C8D61 /* MemberProfileViewController.swift */,
+				9DEFA7872B4028E7002A90C1 /* Group Settings */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -297,14 +295,6 @@
 				9DC1B75D2B3175E80063E667 /* TimerViewController.swift */,
 			);
 			path = Timer;
-			sourceTree = "<group>";
-		};
-		9DC1B7632B342C420063E667 /* Activity */ = {
-			isa = PBXGroup;
-			children = (
-				9DF8AAAD2B074ED700F5D3D3 /* ActivityViewController.swift */,
-			);
-			path = Activity;
 			sourceTree = "<group>";
 		};
 		9DC6AFB72B1F6FEB002D812C /* Map */ = {
@@ -333,9 +323,9 @@
 			children = (
 				9DC6AFC82B22E182002D812C /* ProfileViewController.swift */,
 				9DC6AFCE2B22F875002D812C /* ProfileHeaderView.swift */,
-				9DDEE1942B27030E00343DDC /* ProfileNewsletterTableViewCell.swift */,
 				9DC6AFCC2B22F6A1002D812C /* IconsCollectionViewCell.swift */,
 				9DC6AFD02B230312002D812C /* IconAddCollectionViewCell.swift */,
+				9DEFA77E2B402666002A90C1 /* Newsletter */,
 				9DC6AFBC2B204117002D812C /* Add Groups */,
 				9D1BEFC62B394BAB002C8D61 /* Groups */,
 			);
@@ -404,33 +394,119 @@
 			children = (
 				9DF8AAA72B074E8400F5D3D3 /* HomeViewController.swift */,
 				9DC6AFB32B1DE388002D812C /* HomeCollectionViewCell.swift */,
+				9DEFA7862B402889002A90C1 /* Home Table View Cells */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9DEFA77E2B402666002A90C1 /* Newsletter */ = {
+			isa = PBXGroup;
+			children = (
+				9DEFA77F2B4026BF002A90C1 /* NewsletterViewController.swift */,
+				9DDEE1942B27030E00343DDC /* ProfileNewsletterTableViewCell.swift */,
+			);
+			path = Newsletter;
+			sourceTree = "<group>";
+		};
+		9DEFA7812B402728002A90C1 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				9DEEE8792B10A8DB006B4496 /* ImageBlockView.swift */,
+				9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		9DEFA7822B402739002A90C1 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				9DEEE8682B0DE841006B4496 /* TextBlockView.swift */,
+				9DC6AFAF2B1DD7F0002D812C /* StackTextBlockView.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		9DEFA7832B40274C002A90C1 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				9DC1B75F2B3293EF0063E667 /* AudioBlockView.swift */,
+				9DC1B7612B3294080063E667 /* AudioScrollView.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		9DEFA7842B402763002A90C1 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				9DEEE8772B105136006B4496 /* UserBlockView.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		9DEFA7852B402783002A90C1 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				9DF8AAD62B0AFD0100F5D3D3 /* ButtonsScrollView.swift */,
+				9DEFA7842B402763002A90C1 /* User */,
+				9DEFA7812B402728002A90C1 /* Image */,
+				9DEFA7822B402739002A90C1 /* Text */,
+				9DEFA7832B40274C002A90C1 /* Audio */,
+			);
+			path = "UI Elements";
+			sourceTree = "<group>";
+		};
+		9DEFA7862B402889002A90C1 /* Home Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
 				9DC6AFAB2B1DB502002D812C /* NewsletterHeaderViewCell.swift */,
 				9DEEE86A2B0DE8CB006B4496 /* HomeTableViewCell.swift */,
 				9DEEE87D2B1443F1006B4496 /* HomeTableViewTextCell.swift */,
 				9DEEE87F2B145C66006B4496 /* HomeTableViewImageCell.swift */,
 				9DC1B7682B3437140063E667 /* HomeTableViewImageAudioCell.swift */,
-				9DEEE8772B105136006B4496 /* UserBlockView.swift */,
-				9DEEE8682B0DE841006B4496 /* TextBlockView.swift */,
-				9DC6AFAF2B1DD7F0002D812C /* StackTextBlockView.swift */,
-				9DEEE8792B10A8DB006B4496 /* ImageBlockView.swift */,
-				9DC6AFA72B1D6651002D812C /* ImageScrollView.swift */,
-				9DC1B75F2B3293EF0063E667 /* AudioBlockView.swift */,
-				9DC1B7612B3294080063E667 /* AudioScrollView.swift */,
 			);
-			path = Home;
+			path = "Home Table View Cells";
+			sourceTree = "<group>";
+		};
+		9DEFA7872B4028E7002A90C1 /* Group Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9DC6AFD42B262BA4002D812C /* GroupSettingsViewController.swift */,
+				9DDEE1922B26D30C00343DDC /* GroupSettingsTableViewCell.swift */,
+				9DDEE1902B26A9EF00343DDC /* EditGroupNameViewController.swift */,
+			);
+			path = "Group Settings";
+			sourceTree = "<group>";
+		};
+		9DEFA7882B402948002A90C1 /* Draft Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9DF8AAD22B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift */,
+				9DF8AAC32B07604B00F5D3D3 /* ImageBlockDraftCell.swift */,
+				9DF8AAC12B07603200F5D3D3 /* TextBlockDraftCell.swift */,
+				9DC1B7512B302EE20063E667 /* AudioBlockDraftCell.swift */,
+			);
+			path = "Draft Table View Cells";
+			sourceTree = "<group>";
+		};
+		9DEFA7892B402978002A90C1 /* Audio Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				9DC1B7532B3030750063E667 /* AudioRecordViewController.swift */,
+			);
+			path = "Audio Recorder";
 			sourceTree = "<group>";
 		};
 		9DF8AA282B07411D00F5D3D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9DC1B75C2B3175DD0063E667 /* Timer */,
 				9DF8AA292B07412600F5D3D3 /* Base */,
+				9DEFA7852B402783002A90C1 /* UI Elements */,
+				9DC1B75C2B3175DD0063E667 /* Timer */,
 				9DC1B7502B2F11A10063E667 /* Sign In */,
 				9DEEE8652B0DE808006B4496 /* Home */,
 				9DC6AFC72B22E169002D812C /* Profile */,
 				9DC6AFB72B1F6FEB002D812C /* Map */,
 				9DF8AAC02B07601700F5D3D3 /* Draft */,
-				9DC1B7632B342C420063E667 /* Activity */,
 				9DF8AADD2B0B421300F5D3D3 /* Manager */,
 				9DF8AADA2B0B3A0C00F5D3D3 /* Model */,
 			);
@@ -440,12 +516,11 @@
 		9DF8AA292B07412600F5D3D3 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				9DE69C592B05F77800AE7AEE /* ITBaseViewController.swift */,
-				9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */,
 				9DF8AAA22B07485300F5D3D3 /* ITTabBarViewController.swift */,
+				9DF8AAA02B07483300F5D3D3 /* ITBaseNavigationController.swift */,
+				9DE69C592B05F77800AE7AEE /* ITBaseViewController.swift */,
 				9DF8AAD02B07E11000F5D3D3 /* ITBaseTableViewController.swift */,
 				9DC6AFB12B1DDE37002D812C /* ITBaseCollectionViewController.swift */,
-				9DF8AAD62B0AFD0100F5D3D3 /* ButtonsScrollView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -470,12 +545,9 @@
 			isa = PBXGroup;
 			children = (
 				9DF8AAA92B074EB800F5D3D3 /* DraftViewController.swift */,
-				9DF8AAC12B07603200F5D3D3 /* TextBlockDraftCell.swift */,
-				9DF8AAC32B07604B00F5D3D3 /* ImageBlockDraftCell.swift */,
-				9DC1B7512B302EE20063E667 /* AudioBlockDraftCell.swift */,
-				9DF8AAD22B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift */,
 				9DF8AAD82B0B1F2100F5D3D3 /* DraftTableHeaderView.swift */,
-				9DC1B7532B3030750063E667 /* AudioRecordViewController.swift */,
+				9DEFA7882B402948002A90C1 /* Draft Table View Cells */,
+				9DEFA7892B402978002A90C1 /* Audio Recorder */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -890,6 +962,7 @@
 				9DEEE86B2B0DE8CB006B4496 /* HomeTableViewCell.swift in Sources */,
 				9DF8AAC22B07603200F5D3D3 /* TextBlockDraftCell.swift in Sources */,
 				9DC1B7492B2C4F630063E667 /* AuthState.swift in Sources */,
+				9DEFA7802B4026BF002A90C1 /* NewsletterViewController.swift in Sources */,
 				9DC6AFC22B2069B1002D812C /* JoinGroupViewController.swift in Sources */,
 				9DC1B7522B302EE20063E667 /* AudioBlockDraftCell.swift in Sources */,
 				9DE69C562B05F77800AE7AEE /* AppDelegate.swift in Sources */,
@@ -910,7 +983,6 @@
 				9DC6AFB62B1F2C0F002D812C /* Array + Extension.swift in Sources */,
 				9DF8AADF2B0B422200F5D3D3 /* FirestoreManager.swift in Sources */,
 				9DC1B7652B34307A0063E667 /* DSWaveFormImageWrapper.swift in Sources */,
-				9DF8AAAE2B074ED700F5D3D3 /* ActivityViewController.swift in Sources */,
 				9DDEE1992B285D0200343DDC /* MapDetailViewController.swift in Sources */,
 				9DEEE8742B0F2F32006B4496 /* NewsLetterObject.swift in Sources */,
 				9DEEE8722B0F2E7A006B4496 /* GroupObject.swift in Sources */,
