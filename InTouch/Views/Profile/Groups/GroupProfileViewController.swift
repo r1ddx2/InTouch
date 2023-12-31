@@ -309,10 +309,10 @@ class GroupProfileViewController: ITBaseViewController {
                 case let .success(newsletter):
                     var news = newsletter
                     news.sort(by: { $0.date > $1.date })
+                    news = news.filter {
+                        $0.date < Date().getLastWeekDay()
+                    }
                     self.newsletters = news
-                    print("xxxxxxxxxxxxxxxxxxx")
-                    print(self.newsletters)
-                    print("xxxxxxxxxxxxxxxxxxx")
                 case let .failure(error):
                     print("Error: \(error)")
                 }

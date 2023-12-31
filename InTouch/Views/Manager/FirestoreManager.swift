@@ -34,7 +34,7 @@ class FirestoreManager {
 
     // MARK: - Collection Reference
 
-    func getRef(_ reference: FFCollection, groupId: String?) -> CollectionReference {
+    func getRef(_ reference: FFCollection, groupId: String? = nil) -> CollectionReference {
         switch reference {
         case .groups, .users: return getRef(collection: reference)
         case .newsletters, .archived: return getSubRef(subCollection: reference, from: groupId!)

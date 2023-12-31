@@ -266,9 +266,12 @@ class ProfileViewController: ITBaseViewController {
             }
         }
         dispatchGroup.notify(queue: .main) {
+            // Filter and organize all the newsletters
             self.newsletters = news.flatMap { $0 }
-            self.newsletters.sort(by: { $0.date > $1.date })
-            //  self.newsletters = self.newsletters.filter { $0.date < Date() }
+            self.newsletters.sort(by: { $0.date < $1.date })
+            self.newsletters = self.newsletters.filter {
+                $0.date < Date().getLastWeekDay()
+            }
         }
     }
 }

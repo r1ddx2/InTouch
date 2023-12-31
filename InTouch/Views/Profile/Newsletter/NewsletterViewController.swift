@@ -10,6 +10,7 @@ class NewsletterViewController: ITBaseViewController {
     var newsletter: NewsLetter?
 
     // MARK: - Subview
+
     let tableView = UITableView()
 
     // MARK: - View Load
@@ -97,7 +98,7 @@ extension NewsletterViewController: UITableViewDataSource, UITableViewDelegate {
             headerCell.layoutCell(
                 image: newsletter.newsCover,
                 title: newsletter.title,
-                date: newsletter.date.getLastWeekDateRange()
+                date: newsletter.date.getThisWeekDateRange()
             )
             return headerCell
         }
