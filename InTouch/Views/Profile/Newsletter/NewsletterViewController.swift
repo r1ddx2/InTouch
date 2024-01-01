@@ -16,6 +16,7 @@ class NewsletterViewController: ITBaseViewController {
     // MARK: - View Load
 
     override func viewWillAppear(_: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
         // Back button
         let backButton = UIBarButtonItem(
             image: UIImage(resource: .iconBack).withRenderingMode(.alwaysOriginal),
