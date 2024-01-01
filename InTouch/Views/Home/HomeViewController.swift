@@ -109,6 +109,7 @@ class HomeViewController: ITBaseCollectionViewController {
 
     override func headerLoader() {
         fetchUserData()
+        endHeaderRefreshing()
     }
 
     private func fetchUserData() {
