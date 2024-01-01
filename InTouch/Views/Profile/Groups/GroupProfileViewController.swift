@@ -371,4 +371,10 @@ extension GroupProfileViewController: UITableViewDataSource, UITableViewDelegate
         cell.newsletter = newsletters[indexPath.row]
         return cell
     }
+
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsletterVC = NewsletterViewController()
+        newsletterVC.newsletter = newsletters[indexPath.row]
+        navigationController?.pushViewController(newsletterVC, animated: true)
+    }
 }
