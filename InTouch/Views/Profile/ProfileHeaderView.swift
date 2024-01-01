@@ -69,16 +69,6 @@ class ProfileHeaderView: UIView {
         return label
     }()
 
-    let settingsButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log Out", for: .normal)
-        button.backgroundColor = .ITVeryLightGrey
-        button.setTitleColor(.ITBlack, for: .normal)
-        button.cornerRadius = 8
-        button.titleLabel?.font = .medium(size: 13)
-        return button
-    }()
-
     let editProfileButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .ITVeryLightGrey
@@ -99,7 +89,6 @@ class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayouts()
-        setUpActions()
     }
 
     private func setUpLayouts() {
@@ -110,7 +99,6 @@ class ProfileHeaderView: UIView {
         addSubview(groupsCountLabel)
         addSubview(postsLabel)
         addSubview(postsCountLabel)
-        addSubview(settingsButton)
         addSubview(editProfileButton)
 
         userIconView.snp.makeConstraints { make in
@@ -126,17 +114,11 @@ class ProfileHeaderView: UIView {
             make.left.equalTo(userIconView.snp.right).offset(16)
             make.top.equalTo(userIconView.snp.centerY).offset(2)
         }
-        settingsButton.snp.makeConstraints { make in
-            make.left.equalTo(self).offset(16)
+        editProfileButton.snp.makeConstraints { make in
+            make.left.equalTo(self).offset(24)
             make.top.equalTo(userIconView.snp.bottom).offset(24)
             make.height.equalTo(30)
-            make.width.equalTo((UIScreen.main.bounds.width - 44) / 2)
-        }
-        editProfileButton.snp.makeConstraints { make in
-            make.left.equalTo(settingsButton.snp.right).offset(12)
-            make.right.equalTo(self).offset(-16)
-            make.centerY.equalTo(settingsButton.snp.centerY)
-            make.height.equalTo(30)
+            make.right.equalTo(self).offset(-24)
         }
         groupsLabel.snp.makeConstraints { make in
             make.centerY.equalTo(userIdLabel.snp.centerY)
@@ -148,15 +130,13 @@ class ProfileHeaderView: UIView {
         }
         postsLabel.snp.makeConstraints { make in
             make.centerY.equalTo(userIdLabel.snp.centerY)
-            make.left.equalTo(editProfileButton.snp.left).offset(32)
+            make.right.equalTo(groupsLabel.snp.left).offset(-32)
         }
         postsCountLabel.snp.makeConstraints { make in
             make.centerY.equalTo(userNameLabel.snp.centerY)
             make.centerX.equalTo(postsLabel.snp.centerX)
         }
     }
-
-    private func setUpActions() {}
 
     // MARK: - Methods
 

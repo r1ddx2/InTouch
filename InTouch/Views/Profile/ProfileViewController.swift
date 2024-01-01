@@ -158,10 +158,20 @@ class ProfileViewController: ITBaseViewController {
         guard let user = user else { return }
         userCoverView.loadImage(user.userCover)
         profileHeaderView.layoutView(with: user)
+        profileHeaderView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
     }
 
     @objc private func addGroupButtonTapped() {
         showAddGroupPage()
+    }
+
+    @objc private func editProfileButtonTapped() {
+        guard let user = user else { return }
+        let profileSettingVC = ProfileSettingsViewController()
+        profileSettingVC.user = user
+        profileSettingVC.isModalInPresentation = true
+        profileSettingVC.modalPresentationStyle = .fullScreen
+        present(profileSettingVC, animated: true)
     }
 
     // MARK: - API Methods

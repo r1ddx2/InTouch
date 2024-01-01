@@ -9,7 +9,13 @@ import UIKit
 class EditGroupNameViewController: ITBaseViewController {
     var group: Group? {
         didSet {
-            configurePage()
+            configurePageWithGroup()
+        }
+    }
+
+    var user: User? {
+        didSet {
+            configurePageWithUser()
         }
     }
 
@@ -37,8 +43,6 @@ class EditGroupNameViewController: ITBaseViewController {
         let textField = UITextField()
         textField.font = .regular(size: 22)
         textField.textColor = .ITBlack
-        textField.placeholder = "Enter group name"
-
         return textField
     }()
 
@@ -46,7 +50,6 @@ class EditGroupNameViewController: ITBaseViewController {
         let label = UILabel()
         label.font = .medium(size: 22)
         label.textColor = .ITBlack
-        label.text = "Group name"
         return label
     }()
 
@@ -96,13 +99,26 @@ class EditGroupNameViewController: ITBaseViewController {
     // MARK: - Methods
 
     @objc func saveButtonTapped() {
-        postGroupName()
+        if let group = group {
+            postGroupName()
+        } else {
+            postUserName()
+        }
         dismiss(animated: true)
     }
 
-    func configurePage() {
+    func configurePageWithGroup() {
         guard let group = group else { return }
         editTextField.text = group.groupName
+        editTextField.placeholder = "Enter group name"
+        descriptionLabel.text = "Group Name"
+    }
+
+    func configurePageWithUser() {
+        guard let user = user else { return }
+        editTextField.text = user.userName
+        editTextField.placeholder = "Enter user name"
+        descriptionLabel.text = "User Name"
     }
 
     private func postGroupName() {
@@ -124,6 +140,29 @@ class EditGroupNameViewController: ITBaseViewController {
                 print("Update group: \(documentId)")
             case let .failure(error):
                 print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func postUserName() {
+        guard var user = user,
+              let text = editTextField.text,
+              text != "" else { return }
+        user.userName = text
+
+        let reference = firestoreManager.getRef(.users, groupId: nil)
+        if let documentId = user.userEmail {
+            firestoreManager.updateDocument(
+                documentId: documentId,
+                reference: reference,
+                updateData: user
+            ) { result in
+                switch result {
+                case let .success(documentId):
+                    print("Update user: \(documentId)")
+                case let .failure(error):
+                    print("Error: \(error.localizedDescription)")
+                }
             }
         }
     }

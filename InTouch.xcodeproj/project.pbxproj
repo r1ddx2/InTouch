@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D1BEFC52B394A8D002C8D61 /* MemberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1BEFC42B394A8D002C8D61 /* MemberProfileViewController.swift */; };
+		9D3EC3812B42C5AB00F3AEC9 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EC3802B42C5AB00F3AEC9 /* ProfileSettingsViewController.swift */; };
 		9D40A9372B38A18B00C63132 /* FirestoreManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A9362B38A18B00C63132 /* FirestoreManagerTest.swift */; };
 		9D5F7BD22B0C6F8100FAB24D /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */; };
 		9D5F7BD82B0CAB0300FAB24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */; };
@@ -129,6 +130,7 @@
 		82D8F9EBFF6935A6B98CBAD2 /* Pods-InTouchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouchTests.release.xcconfig"; path = "Target Support Files/Pods-InTouchTests/Pods-InTouchTests.release.xcconfig"; sourceTree = "<group>"; };
 		8BAF04407494FA72B72D204C /* Pods_InTouch_InTouchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouch_InTouchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1BEFC42B394A8D002C8D61 /* MemberProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileViewController.swift; sourceTree = "<group>"; };
+		9D3EC3802B42C5AB00F3AEC9 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		9D40A9362B38A18B00C63132 /* FirestoreManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManagerTest.swift; sourceTree = "<group>"; };
 		9D5F7BD12B0C6F8100FAB24D /* CloudStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
 		9D5F7BD72B0CAB0300FAB24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 			path = Groups;
 			sourceTree = "<group>";
 		};
+		9D3EC3822B42C5FD00F3AEC9 /* Profile Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9D3EC3802B42C5AB00F3AEC9 /* ProfileSettingsViewController.swift */,
+			);
+			path = "Profile Settings";
+			sourceTree = "<group>";
+		};
 		9DC1B7502B2F11A10063E667 /* Sign In */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +335,7 @@
 				9DC6AFCE2B22F875002D812C /* ProfileHeaderView.swift */,
 				9DC6AFCC2B22F6A1002D812C /* IconsCollectionViewCell.swift */,
 				9DC6AFD02B230312002D812C /* IconAddCollectionViewCell.swift */,
+				9D3EC3822B42C5FD00F3AEC9 /* Profile Settings */,
 				9DEFA77E2B402666002A90C1 /* Newsletter */,
 				9DC6AFBC2B204117002D812C /* Add Groups */,
 				9D1BEFC62B394BAB002C8D61 /* Groups */,
@@ -1008,6 +1019,7 @@
 				9DF8AAD32B086AE600F5D3D3 /* DraftTableSectionHeaderView.swift in Sources */,
 				9DDEE1972B28414200343DDC /* MarkerObject.swift in Sources */,
 				9DC6AFC42B21E12F002D812C /* ConfirmJoinGroupViewController.swift in Sources */,
+				9D3EC3812B42C5AB00F3AEC9 /* ProfileSettingsViewController.swift in Sources */,
 				9DF8AAA82B074E8400F5D3D3 /* HomeViewController.swift in Sources */,
 				9DC6AFB22B1DDE37002D812C /* ITBaseCollectionViewController.swift in Sources */,
 				9DC1B74D2B2C51D40063E667 /* Info.swift in Sources */,
