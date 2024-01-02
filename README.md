@@ -24,7 +24,7 @@ Install by cloning the repo.
 git clone https://github.com/r1ddx2/InTouch.git
 ```
 ### 2. Set up third-party libraries
-To use InTocuh properly, navigate to the project folder and input 
+To use InTocuh properly, navigate to the project folder and input the below in your command line.
 ```
 pod install
 ```
@@ -41,30 +41,89 @@ Account : r1ddx09@gmail.com
 Password : Red123
 ```
 
-<p align="center">
-  <div style="text-align:center;">
-    <img src="https://github.com/JimmyChao90196/save-the-date/assets/69179262/edf2c4f6-9c92-4c09-a105-4385334618c7" alt="First GIF" style="width:40%; height:auto; display:inline-block;"/>
-    <img src="https://github.com/JimmyChao90196/save-the-date/assets/69179262/f8d9af16-1f7e-4379-bf34-e161a16cc3ae" alt="Second GIF" style="width:40%; height:auto; display:inline-block;"/>
-  </div>
-</p>
+<table>
+  <tr align="center">
+    <td>Sign up</td>
+     <td>Log in</td>
+  </tr>
+  <tr>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+  </tr>
+ </table>
 
 ## ❓How Does InTouch Work?
 ### ➕ Create or Join Groups 
-- Create groups and invite your friends to join!
+- Create groups and start a community!
 - Join groups with the group code and start sharing contents with other members!
+- Invite your friends to join your group!
+<table>
+  <tr align="center">
+    <td>Create a group</td>
+    <td>Join a group</td>
+    <td>Invite friends</td>
+  </tr>
+  <tr>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+  </tr>
+ </table>
 ### ❤️‍🔥 Post and Share Contents
 - Upload photos along with location tagging and captions.
 - Write short paragraphs to share your thoughts with the community.
 - Generate audio messages to share long stories.
 - Edit your submits anytime before the end of the week!
+<table>
+  <tr align="center">
+    <td>Upload images</td>
+     <td>Post short paragraphs</td>
+     <td>Share audio messages</td>
+     <td>Edit your newsletter submits</td>
+  </tr>
+  <tr>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+  </tr>
+ </table>
 ### ❗️Weekly Updated Feeds
 - Feeds are only updated every Monday, enabling users to stay connected with friends in a time-conscious manner amid their busy lives.
 - Be excited and check out the countdown for the next update!
+<table>
+  <tr align="center">
+    <td>Scroll through Home Page feeds</td>
+     <td>Countdown till next update</td>
+  </tr>
+  <tr>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+  </tr>
+ </table>
 ### 🧭 Explore Locations on the Map
-- Discover where your friends has been to visit these places.
+- Track the footsteps of your friends and stay in sync with their journey.
 - Find your current location.
+<table>
+  <tr align="center">
+    <td>Discover places your friends been to</td>
+     <td>Current Location</td>
+  </tr>
+  <tr>
+    <td><img src="" width="200"/></td>
+    <td><img src="" width="200"/></td>
+  </tr>
+ </table>
 ### 🗂️ Review Archived Newsletters
 - Treasure the enduring memories cultivated within each community!
+<table>
+  <tr align="center">
+    <td>Profile Page & Groups Profile Page</td>
+  </tr>
+  <tr>
+    <td><img src="" width="300"/></td>
+  </tr>
+ </table>
 
 ## 📲 Tech Implementation
 - Implemented the **MVC** architecture to ensure clarity and maintainability throughout the development process. 
@@ -95,3 +154,4 @@ Password : Red123
 
 Copyright © 2023 [Red Wang](https://github.com/r1ddx2).<br />
 This project is [MIT](https://github.com/r1ddx2/InTouch/blob/main/LICENSE) licensed.
+
