@@ -14,14 +14,14 @@ The only social media app you need to keep in touch with friends and family.
 
 <div align="center">
 
-**[Introduction](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-introduction) • 
-[Requirements](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-requirements) • 
-[Getting Started](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-getting-started) • 
-[How Does InTouch Work?](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#how-does-intouch-work) •   
-[Tech Implementation](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-implementation) • 
-[Tech Stack](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-stack) • 
-[Author](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-author) • 
-[License](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-license)**
+**[INTRODUCTION](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-introduction) • 
+[REQUIREMENTS](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-requirements) • 
+[GETTING STARTED](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-getting-started) • 
+[HOW DOES INTOUCH WORK?](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#how-does-intouch-work) •   
+[TECH IMPLEMENTATION](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-implementation) • 
+[TECH STACK](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-stack) • 
+[AUTHOR](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-author) • 
+[LICENSE](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-license)**
 
 </div>
 
@@ -30,12 +30,8 @@ The only social media app you need to keep in touch with friends and family.
 ## 📖 Introduction
 InTouch is a social media app that prioritizes meaningful connections by curating a weekly feed update, offering users a deliberate way to share multimedia content with close friends or communities they join.
 
-<br />
-
 ## ⚙️ Requirements
 - iOS 16.0+
-
-<br />
 
 ## ⚡️ Getting Started
 
@@ -83,8 +79,6 @@ Password : Red123
 - [Weekly Updated Feeds](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8Fweekly-updated-feeds)
 - [Explore Locations on the Map](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-explore-locations-on-the-map)
 - [Review Archived Newsletters](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-review-archived-newsletters)
-
-<br />
 
 ### ➕ Create or Join Groups 
 - Create groups and start a community!
@@ -160,7 +154,7 @@ Password : Red123
 
 <table>
   <tr align="center">
-    <td>Discover places your friends been to</td>
+    <td>Track down your friends!</td>
      <td>Current Location</td>
   </tr>
   <tr>
