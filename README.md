@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="Resource/InTouch_AppIcon.png" width="200"/>
+  <img src="Resource/InTouch_AppIcon.png" width="160"/>
 </p>
 
 # InTouch
