@@ -17,7 +17,7 @@ The only social media app you need to keep in touch with friends and family.
 **[Introduction](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-introduction) • 
 [Requirements](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-requirements) • 
 [Getting Started](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-getting-started) • 
-[How Does InTouch Work?](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#how-does-intouch-work) • 
+[How Does InTouch Work?](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#how-does-intouch-work) •   
 [Tech Implementation](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-implementation) • 
 [Tech Stack](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-stack) • 
 [Author](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-author) • 
@@ -30,8 +30,12 @@ The only social media app you need to keep in touch with friends and family.
 ## 📖 Introduction
 InTouch is a social media app that prioritizes meaningful connections by curating a weekly feed update, offering users a deliberate way to share multimedia content with close friends or communities they join.
 
+<br />
+
 ## ⚙️ Requirements
 - iOS 16.0+
+
+<br />
 
 ## ⚡️ Getting Started
 
@@ -58,6 +62,8 @@ Account : r1ddx09@gmail.com
 Password : Red123
 ```
 
+<br />
+
 <table>
   <tr align="center">
     <td>Sign up</td>
@@ -69,18 +75,24 @@ Password : Red123
   </tr>
  </table>
 
-## ❓How Does InTouch Work?
-- [Create or Join Groups](#➕-create-or-join-groups)
-- [Post and Share Contents](#❤️‍🔥-post-and-share-contents)
-- [Weekly Updated Feeds](#❗️-weekly-updated-feeds)
-- [Explore Locations on the Map](#🧭-explore-locations-on-the-map)
-- [Review Archived Newsletters](#🗂️-review-archived-newsletters)
+<br />
 
+## ❓How Does InTouch Work?
+- [Create or Join Groups](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-create-or-join-groups)
+- [Post and Share Contents](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-post-and-share-contents)
+- [Weekly Updated Feeds](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8Fweekly-updated-feeds)
+- [Explore Locations on the Map](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-explore-locations-on-the-map)
+- [Review Archived Newsletters](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-review-archived-newsletters)
+
+<br />
 
 ### ➕ Create or Join Groups 
 - Create groups and start a community!
 - Join groups with the group code and start sharing contents with other members!
 - Invite your friends to join your group!
+
+<br />
+
 <table>
   <tr align="center">
     <td>Create a group</td>
@@ -94,11 +106,15 @@ Password : Red123
   </tr>
  </table>
  
+ <br />
+ 
 ### ❤️‍🔥 Post and Share Contents
 - Upload photos along with location tagging and captions.
 - Write short paragraphs to share your thoughts with the community.
 - Generate audio messages to share long stories.
 - Edit your submits anytime before the end of the week!
+
+<br />
 
 <table>
   <tr align="center">
@@ -115,9 +131,13 @@ Password : Red123
   </tr>
  </table>
  
+ <br />
+ 
 ### ❗️Weekly Updated Feeds
 - Feeds are only updated every Monday, enabling users to stay connected with friends in a time-conscious manner amid their busy lives.
 - Be excited and check out the countdown for the next update!
+
+<br />
 
 <table>
   <tr align="center">
@@ -130,9 +150,13 @@ Password : Red123
   </tr>
  </table>
  
+ <br />
+ 
 ### 🧭 Explore Locations on the Map
 - Track the footsteps of your friends and stay in sync with their journey.
 - Find your current location.
+
+<br />
 
 <table>
   <tr align="center">
@@ -145,8 +169,12 @@ Password : Red123
   </tr>
  </table>
  
+ <br />
+ 
 ### 🗂️ Review Archived Newsletters
 - Treasure the enduring memories cultivated within each community!
+
+<br />
 
 <table>
   <tr align="center">
@@ -156,6 +184,8 @@ Password : Red123
     <td><img src="Resource/InTouch_archived.gif" width="300"/></td>
   </tr>
  </table>
+
+<br />
 
 ## 📲 Tech Implementation
 - Implemented the **MVC** architecture to ensure clarity and maintainability throughout the development process. 
