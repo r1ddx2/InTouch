@@ -100,8 +100,6 @@ Password : Red123
   </tr>
  </table>
  
- <br />
- 
 ### ❤️‍🔥 Post and Share Contents
 - Upload photos along with location tagging and captions.
 - Write short paragraphs to share your thoughts with the community.
@@ -124,9 +122,7 @@ Password : Red123
     <td><img src="Resource/InTouch_post4.gif" width="200"/></td>
   </tr>
  </table>
- 
- <br />
- 
+
 ### ❗️Weekly Updated Feeds
 - Feeds are only updated every Monday, enabling users to stay connected with friends in a time-conscious manner amid their busy lives.
 - Be excited and check out the countdown for the next update!
@@ -143,9 +139,7 @@ Password : Red123
     <td><img src="Resource/InTouch_weekly2.gif" width="200"/></td>
   </tr>
  </table>
- 
- <br />
- 
+
 ### 🧭 Explore Locations on the Map
 - Track the footsteps of your friends and stay in sync with their journey.
 - Find your current location.
@@ -162,9 +156,7 @@ Password : Red123
     <td><img src="Resource/InTouch_map2.gif" width="200"/></td>
   </tr>
  </table>
- 
- <br />
- 
+
 ### 🗂️ Review Archived Newsletters
 - Treasure the enduring memories cultivated within each community!
 
@@ -178,8 +170,6 @@ Password : Red123
     <td><img src="Resource/InTouch_archived.gif" width="300"/></td>
   </tr>
  </table>
-
-<br />
 
 ## 📲 Tech Implementation
 - Implemented the **MVC** architecture to ensure clarity and maintainability throughout the development process. 
