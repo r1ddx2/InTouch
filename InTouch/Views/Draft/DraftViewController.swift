@@ -198,7 +198,7 @@ class DraftViewController: ITBaseViewController {
         guard let group = group else { return }
 
         let reference = firestoreManager.getRef(.newsletters, groupId: group.groupId)
-        let documentId = Date().getLastWeekDateRange()
+        let documentId = Date().getThisWeekDateRange()
 
         firestoreManager.updateDocument(
             documentId: documentId,
@@ -271,7 +271,7 @@ class DraftViewController: ITBaseViewController {
     private func fetchDraft(groupId: String) {
         firestoreManager.listenDocument(
             asType: NewsLetter.self,
-            documentId: Date().getLastWeekDateRange(),
+            documentId: Date().getThisWeekDateRange(),
             reference: firestoreManager.getRef(.newsletters, groupId: groupId)
         ) { [weak self] result in
             guard let self = self else { return }
