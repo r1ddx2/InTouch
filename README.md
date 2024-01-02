@@ -47,8 +47,8 @@ Password : Red123
      <td>Log in</td>
   </tr>
   <tr>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
+    <td><img src="Resource/InTouch_SignUp.png" width="200"/></td>
+    <td><img src="Resource/InTouch_LogIn.png" width="200"/></td>
   </tr>
  </table>
 
@@ -64,9 +64,9 @@ Password : Red123
     <td>Invite friends</td>
   </tr>
   <tr>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
+    <td><img src="Resource/InTouch_group1.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_group2.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_group3.gif" width="200"/></td>
   </tr>
  </table>
 ### ❤️‍🔥 Post and Share Contents
@@ -82,10 +82,10 @@ Password : Red123
      <td>Edit your newsletter submits</td>
   </tr>
   <tr>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
+    <td><img src="Resource/InTouch_post1.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_post2.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_post3.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_post4.gif" width="200"/></td>
   </tr>
  </table>
 ### ❗️Weekly Updated Feeds
@@ -97,8 +97,8 @@ Password : Red123
      <td>Countdown till next update</td>
   </tr>
   <tr>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
+    <td><img src="Resource/InTouch_weekly1.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_weekly2.gif" width="200"/></td>
   </tr>
  </table>
 ### 🧭 Explore Locations on the Map
@@ -110,8 +110,8 @@ Password : Red123
      <td>Current Location</td>
   </tr>
   <tr>
-    <td><img src="" width="200"/></td>
-    <td><img src="" width="200"/></td>
+    <td><img src="Resource/InTouch_map1.gif" width="200"/></td>
+    <td><img src="Resource/InTouch_map2.gif" width="200"/></td>
   </tr>
  </table>
 ### 🗂️ Review Archived Newsletters
@@ -121,7 +121,7 @@ Password : Red123
     <td>Profile Page & Groups Profile Page</td>
   </tr>
   <tr>
-    <td><img src="" width="300"/></td>
+    <td><img src="Resource/InTouch_archived.gif" width="300"/></td>
   </tr>
  </table>
 
