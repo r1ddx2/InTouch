@@ -81,6 +81,15 @@ class ITBaseViewController: UIViewController {
     func popBack(_: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+
+    func backToRoot() {
+        if let windowRootVC = ITBaseNavigationController.shared {
+            if let initialVC = ITBaseNavigationController.shared!.viewControllers.first {
+                windowRootVC.popToViewController(initialVC, animated: true)
+                windowRootVC.dismiss(animated: false)
+            }
+        }
+    }
 }
 
 // MARK: - UIImagePickerView

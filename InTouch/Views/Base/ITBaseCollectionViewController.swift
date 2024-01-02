@@ -22,7 +22,6 @@ class ITBaseCollectionViewController: ITBaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewSetUp()
-        collectionView.beginHeaderRefreshing()
     }
 
     // MARK: - Private Method

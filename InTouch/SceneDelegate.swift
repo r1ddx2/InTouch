@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //    window.rootViewController = nav
         if KeyChainManager.shared.loggedInUser == nil {
             window.rootViewController = nav
+            ITBaseNavigationController.shared = nav
         } else {
             window.rootViewController = tabBarVC
         }

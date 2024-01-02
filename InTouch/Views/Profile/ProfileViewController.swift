@@ -72,6 +72,14 @@ class ProfileViewController: ITBaseViewController {
         return label
     }()
 
+    let logOutButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(resource: .iconLogOut).withRenderingMode(.alwaysOriginal), for: .normal)
+        button.backgroundColor = .ITTransparentGrey
+        button.cornerRadius = 15
+        return button
+    }()
+
     // MARK: - View Load
 
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +108,7 @@ class ProfileViewController: ITBaseViewController {
         view.addSubview(collectionView)
         view.addSubview(archivedLabel)
         view.addSubview(tableView)
+        view.addSubview(logOutButton)
 
         userCoverView.snp.makeConstraints { make in
             make.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -128,9 +137,17 @@ class ProfileViewController: ITBaseViewController {
             make.left.right.equalTo(view)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        logOutButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.right.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.height.width.equalTo(30)
+        }
     }
 
-    private func setUpActions() {}
+    private func setUpActions() {
+        logOutButton.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
+        profileHeaderView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
+    }
 
     private func configureCollectionLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
@@ -158,11 +175,15 @@ class ProfileViewController: ITBaseViewController {
         guard let user = user else { return }
         userCoverView.loadImage(user.userCover)
         profileHeaderView.layoutView(with: user)
-        profileHeaderView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
     }
 
     @objc private func addGroupButtonTapped() {
         showAddGroupPage()
+    }
+
+    @objc private func logOutButtonTapped() {
+        KeyChainManager.shared.loggedInUser = nil
+        backToRoot()
     }
 
     @objc private func editProfileButtonTapped() {

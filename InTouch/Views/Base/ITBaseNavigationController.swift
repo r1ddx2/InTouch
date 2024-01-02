@@ -7,6 +7,8 @@
 import UIKit
 
 class ITBaseNavigationController: UINavigationController {
+    static var shared: UINavigationController?
+
     var backgroundColor: UIColor = .ITYellow
 
     override func viewDidLoad() {
