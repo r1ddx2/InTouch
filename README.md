@@ -10,6 +10,23 @@
 The only social media app you need to keep in touch with friends and family.
 </div>
 
+<br />
+
+<div align="center">
+
+**[Introduction](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-introduction) • 
+[Requirements](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-requirements) • 
+[Getting Started](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#%EF%B8%8F-getting-started) • 
+[How Does InTouch Work?](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#how-does-intouch-work) • 
+[Tech Implementation](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-implementation) • 
+[Tech Stack](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-tech-stack) • 
+[Author](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-author) • 
+[License](https://github.com/r1ddx2/InTouch/tree/develop?tab=readme-ov-file#-license)**
+
+</div>
+
+<br />
+
 ## 📖 Introduction
 InTouch is a social media app that prioritizes meaningful connections by curating a weekly feed update, offering users a deliberate way to share multimedia content with close friends or communities they join.
 
@@ -53,6 +70,13 @@ Password : Red123
  </table>
 
 ## ❓How Does InTouch Work?
+- [Create or Join Groups](#➕-create-or-join-groups)
+- [Post and Share Contents](#❤️‍🔥-post-and-share-contents)
+- [Weekly Updated Feeds](#❗️-weekly-updated-feeds)
+- [Explore Locations on the Map](#🧭-explore-locations-on-the-map)
+- [Review Archived Newsletters](#🗂️-review-archived-newsletters)
+
+
 ### ➕ Create or Join Groups 
 - Create groups and start a community!
 - Join groups with the group code and start sharing contents with other members!
@@ -69,17 +93,19 @@ Password : Red123
     <td><img src="Resource/InTouch_group3.gif" width="200"/></td>
   </tr>
  </table>
+ 
 ### ❤️‍🔥 Post and Share Contents
 - Upload photos along with location tagging and captions.
 - Write short paragraphs to share your thoughts with the community.
 - Generate audio messages to share long stories.
 - Edit your submits anytime before the end of the week!
+
 <table>
   <tr align="center">
     <td>Upload images</td>
      <td>Post short paragraphs</td>
      <td>Share audio messages</td>
-     <td>Edit your newsletter submits</td>
+     <td>Edit your submits</td>
   </tr>
   <tr>
     <td><img src="Resource/InTouch_post1.gif" width="200"/></td>
@@ -88,12 +114,14 @@ Password : Red123
     <td><img src="Resource/InTouch_post4.gif" width="200"/></td>
   </tr>
  </table>
+ 
 ### ❗️Weekly Updated Feeds
 - Feeds are only updated every Monday, enabling users to stay connected with friends in a time-conscious manner amid their busy lives.
 - Be excited and check out the countdown for the next update!
+
 <table>
   <tr align="center">
-    <td>Scroll through Home Page feeds</td>
+    <td>Scroll through feeds</td>
      <td>Countdown till next update</td>
   </tr>
   <tr>
@@ -101,9 +129,11 @@ Password : Red123
     <td><img src="Resource/InTouch_weekly2.gif" width="200"/></td>
   </tr>
  </table>
+ 
 ### 🧭 Explore Locations on the Map
 - Track the footsteps of your friends and stay in sync with their journey.
 - Find your current location.
+
 <table>
   <tr align="center">
     <td>Discover places your friends been to</td>
@@ -114,8 +144,10 @@ Password : Red123
     <td><img src="Resource/InTouch_map2.gif" width="200"/></td>
   </tr>
  </table>
+ 
 ### 🗂️ Review Archived Newsletters
 - Treasure the enduring memories cultivated within each community!
+
 <table>
   <tr align="center">
     <td>Profile Page & Groups Profile Page</td>
